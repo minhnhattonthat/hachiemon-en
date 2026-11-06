@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "tools" / "debug"))
 from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
-from gfxtext import GFX_BASE, LABELS, owned_slots, unpack  # noqa: E402
+from gfxtext import GFX_BASE, LABELS, MAPPED, RAW, MapPicture, owned_slots, unpack  # noqa: E402
 from jp_cells import leftover  # noqa: E402
 from romdiff import check  # noqa: E402
 from strscan import BANKS  # noqa: E402
@@ -78,7 +78,7 @@ def test_english_build_writes_only_where_it_should():
     slots = {w for words in text_slots(orig).values() for w in words}
     allowed = slots | {ERROR_SLOT} | {off for off, *_ in GLYPH_LOADS}
     allowed |= {int(r["word"], 16) - 12 for e in entries if e["id"] in KEEP_ON_SCREEN for r in e["refs"]}
-    allowed |= {w for words in owned_slots(orig).values() for w in words}
+    allowed |= {w for words in owned_slots(orig).values() for w in words} | set(RAW)
     assert [off for off, *_ in img.writes if off < TEXT_BASE and off not in allowed] == []
     # every string written, and every pointer aimed at its own string
     assert len(img.where) == len(entries)
@@ -172,6 +172,25 @@ def test_labels_stay_in_their_blocks_and_every_slot_moves():
         before, _ = unpack(orig, off)
         after, _ = unpack(img.out, new)
         assert len(after) == len(before)
+
+
+@needs_rom
+def test_map_pictures_roundtrip_and_move():
+    orig = ROM.read_bytes()
+    img = build(orig, load_script())
+    owned = owned_slots(orig)
+    for tiles in MAPPED:
+        where = MAPPED[tiles][0]
+        data, mapdata = unpack(orig, tiles)[0], unpack(orig, where)[0]
+        again_tiles, again_map = MapPicture(data, mapdata).pack()
+        assert len(again_map) == len(mapdata)
+        before, after = MapPicture(data, mapdata), MapPicture(again_tiles, again_map)
+        assert before.data == after.data, hex(tiles)  # flattening and packing keeps every pixel
+        assert owned[tiles] and owned[where], hex(tiles)
+        for block in (tiles, where):
+            new = int.from_bytes(img.out[owned[block][0]:owned[block][0] + 4], "little") - 0x08000000
+            assert new >= GFX_BASE, hex(block)
+            assert all(int.from_bytes(img.out[w:w + 4], "little") == new + 0x08000000 for w in owned[block])
 
 
 def test_le_compress_ops():

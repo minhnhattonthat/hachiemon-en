@@ -62,7 +62,7 @@ Rows 4, 15, 17 and 18 are most of the work. Hand-lettered kana suggests one Engl
 Across the whole ROM 186 packed blocks have more than one slot. None of the row blocks has a slot in 0x80000-0x1A2FFF; the only block that does is 0x280828 (not a row, words at 0x888B8, 0x8907C, 0x890A0, not examined).
 
 ## English lettering (phase 8)
-`tools/gfxtext.py` holds every redraw: `LABELS` maps a block to (tile grid, words, options). The build unpacks the block, clears a rectangle, draws in the text font (`tbl/vwf_font.txt`) and packs it again from `GFX_BASE` (0x600000), repointing through `owned_slots` (the tables above plus the Le rows' code literals; a test holds them equal to the value scan). Unpacked size never changes, so VRAM layouts hold.
+`tools/gfxtext.py` holds every redraw. `MAPPED` is for a tile block plus its map: `MapPicture` flattens them, letters the picture and finds tiles again, flips included, within a tile limit (the old count, or BG0's room). `RAW` is tiles in place. `tools/debug/fitlabels.py` lists every label that doesn't fit; `tools/gfxview_blocks.py` and `gfxview_maps.py` show blocks in real colours, `tools/debug/rawview.py` raw tiles, `tools/debug/ppu.py` dumps scenes. `LABELS` maps a block to (tile grid, words, options). The build unpacks the block, clears a rectangle, draws in the text font (`tbl/vwf_font.txt`) and packs it again from `GFX_BASE` (0x600000), repointing through `owned_slots` (the tables above plus the Le rows' code literals; a test holds them equal to the value scan). Unpacked size never changes, so VRAM layouts hold.
 
 To read a screen, dump it:
 
@@ -75,13 +75,21 @@ Then `tools/debug/oamlist.py DUMP.oam.bin DUMP.io.bin` lists sprites and `oamlis
 | Row 2 | **English** | Prompt: 16 x 2 tiles from 0. Then five 32x32 cells of the Kantele shout, 22 px apart; the first settles off screen, so it stays blank. |
 | Row 3 | **English** | Pills are three 32x16 sprites, 0x18 tiles. Discs 32x32. The save slot's digit sprites cover the right of Stage, Lips and Lives, so those labels sit left. Tiles 1FC-238 are digits, pill 2A9 is an empty dash. **Not seen on screen yet:** 2C1, 2D9, 2F1, 309, 333, 255, 265, 323. |
 | Rows 4, 5 | **English** | Help strip 15 x 3, header 16 x 2. Seen: help0, help8, the Options and Difficulty screens. Others not looked at. |
-| Row 6 | **Not done** | 6 x 4 tiles, 8 sway frames of the カンテーレ stamp, top left of every menu. Plan: "Kantele", centred on each frame's old ink, because the frames move. |
-| Rows 7, 11 | **Not done** | BG2, tiles at VRAM 0x8000, tile = block tile. Row 7's first line (rows 5-6, cols 3-25) repeats tiles 4 and 1A at cols 6 and 11, so keep text off them or edit the map block. Row 11 repeats tiles 3 and E. `delete` rows 12-13 are はい (4A-4D, 53-56) and いいえ (4E-52, 57-5B), dimmed by palette. |
-| Row 8 | **Not done** | Map panel すて〜じ, くちびるげっと, くりあたいむ, around tiles 0x280-0x300; the block goes to 0x6010000. |
-| Row 12 | **Not done** | げ〜むお〜ば〜, sprites, block goes to 0x6010000. |
-| Rows 14, 16, 18 | **Not done** | Row 16 is 12 x 2 per label. `slot` and `stage_clear` show はちすろっと reels with silly words (とても, びみょ〜に, にがい, おいしい, かれ〜らいす, なっとう): find which row feeds them. Rows 14 and 18 unpack in `credits`. |
-| Rows 15, 17, 20, 21, 22, 25, 26 | **Not done** | Banners (21, 22, 25) go to VRAM 0x6001400: tile A0 up in BG0, the same place as the pause menu. |
-| Row 23 | **Part** | 0x2A7408 goes to tile 1 and its カンテーレ is English. Hearts and digits need nothing: 2A6234 to tile 3D, 2A5F78 to 5D, 2A64A8 to 71. 2A70DC (tile E0) not read. |
-| Row 24 | **Part** | 0x2A7668 (title) and 0x2A7FB4 (items) are English. The map repeats tiles 4 and F, so "Continue" keeps off column 9. 0x2A7364 not read. |
+| Row 6 | **English** | 6 x 4 tiles, 8 sway frames of the カンテーレ stamp. The kana ran to the ellipse's edge, so each frame gets a clean ellipse (`blank_stamp`) and "Kantele" moved a pixel per frame. Seen on `menu`, not zoomed. |
+| Rows 7, 11 | **English** | Through `MAPPED`, so repeated tiles no longer matter. `delete` Yes/No keep the cells that dim by palette: x 72-104 and x 128-168, rows 12-13. Row 11's slot digit is a tile the code writes at cols 18-19 of row 5, so "Save data" ends left of x 144 and "is" starts at x 162. Its screen has sparks above the character, one crosses "corrupted": sprites of row 13, the original's too. |
+| Row 8 | **English** | Map panel: tiles 0x29E, 0x2BE, 0x2DE, each four 32x16 sprites. Digit sprites start at x 102, so labels end by x 100. Plain weight: bold "Clear Time" touched the digits. |
+| Row 9 | **Not read** | Digits, then short white lettering around tiles 0xB2-0xC5, 8x16 or 16x16. No dump shows those tiles on screen. Unpacks in every stage. |
+| Row 10 | **Part** | 0x2C23A8's tiles 0x50-0x5B say Ranch: row 16's first banner, overwritten the same frame. 0x2C1C00 only unpacks in `boss_*`, debug harnesses players can't reach (`flow.md`), so it stays Japanese. |
+| Row 12 | **English** | 32x32 sprites from x 8: 64, 74, 84, 94, 74, A4, 74. The kana's 〜 is tile 74, shared by three cells and kept, so it reads GA~ME OV~ER~, like げ〜むお〜ば〜 (D17). |
+| Rows 14, 18 | **English, unseen** | Each line 128x16, four 32x16 sprites. Row 14 is the first 12 lines in one block. Names Western order, Hepburn (D1, D2). 0x3A6738, 0x3A68B8 are the namco logo; 0x3A6DFC on are blank. The `credits` scene at frame 1800 still shows the namco screen: **no English credit line seen yet**. |
+| Row 15 | **English** | 28 cards through `MAPPED` (`CARDS`). Digit is a sprite at x 160, y 115. Card 2 seen; the other 27 not. Readings of the kana in `CARDS` are from a small sheet, and wordplay titles were translated freely. |
+| Row 16 | **English, 1 seen** | The wooden area banner: twelve 8x16 sprites (`spr(0, 8, 16, 12)`), not a 12 x 2 sheet. The block goes to 0x6016A00. |
+| Row 17 | **Not done** | Scrolling marquee, 75 blocks. Not read closer than the survey's list. |
+| Row 20 | **Not done** | 0x2D1EC4, 8bpp, unpacks in `fight2` at f3536. Not looked at on screen. |
+| Rows 21, 22, 25 | **English** | `MAPPED`. BG0 from tile A0, Le maps with a 16-byte header. VS names ran past the ellipse, so `blank_vs` redraws it from x 72: an approximation, compared with the old edge only on one printed block. `vs0`, `vs2`, `vs4`, `vs5` seen; `vs1`, `vs3`, `vs6` not. |
+| Row 26 | **English, unseen** | たいむお〜ば〜, TIME OVER (it isn't "stage 26 art"). Map 0x2AB220. **No scene reaches it**: add one (timer to 0). |
+| Row 23 | **English** | 0x2A7408's カンテーレ. Stage start: `N` digit blocks 0x2A6670-0x2A6E2C to 0x6001400, 0x6001600; 発 0x2A6EF0 and 目 0x2A7038, now "SH" and "OT", read "5 SHOT" (D17). すた〜と 0x2A70DC is four cells, "S TA RT !". The digit comes first in code, so the word can't lead. |
+| Row 24 | **Part** | 0x2A7668 and 0x2A7FB4 English. 0x2A7364 (0xC tiles, "icons" by index counts) not read. |
+| Slot reels | **English, 3 of 28 seen each pull** | Raw tiles, not in the survey: 28 cells of 8 x 4 tiles at 0x303C70, three reels by code literals 0x51884, 0x518A8, 0x518D4. In place, same size (`RAW`). Header in 0x2B98B0. Words read off a small sheet; ちょ?ふどう read as きょほう. |
 
-Stage signs (the バリアーん board and shop boards seen in stages) have no row yet: find their blocks.
+**Stage signs: not done.** `tools/debug/whichblock.py` shows the バリアール board in stage 5 is BG1 tiles 0x1C6-0x1C9 of stage tileset 0x1FEDC8, in 16 tilesets (0x1F5AF4-0x227CB4). A sheet of them at 1x (`gfxview_blocks.py`) is too scrambled to read: render each stage's BG instead, or dump tile rows around each board. Tilesets are shared, so a sign's tiles may be reused as art: check with `whichblock.py`.
