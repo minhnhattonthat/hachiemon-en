@@ -92,4 +92,24 @@ Then `tools/debug/oamlist.py DUMP.oam.bin DUMP.io.bin` lists sprites and `oamlis
 | Row 24 | **Part** | 0x2A7668 and 0x2A7FB4 English. 0x2A7364 (0xC tiles, "icons" by index counts) not read. |
 | Slot reels | **English, 3 of 28 seen each pull** | Raw tiles, not in the survey: 28 cells of 8 x 4 tiles at 0x303C70, three reels by code literals 0x51884, 0x518A8, 0x518D4. In place, same size (`RAW`). Header in 0x2B98B0. Words read off a small sheet; ちょ?ふどう read as きょほう. |
 
-**Stage signs: not done.** `tools/debug/whichblock.py` shows the バリアール board in stage 5 is BG1 tiles 0x1C6-0x1C9 of stage tileset 0x1FEDC8, in 16 tilesets (0x1F5AF4-0x227CB4). A sheet of them at 1x (`gfxview_blocks.py`) is too scrambled to read: render each stage's BG instead, or dump tile rows around each board. Tilesets are shared, so a sign's tiles may be reused as art: check with `whichblock.py`.
+## Stage signs
+**English** (`STAGE_SIGNS` in `gfxtext.py`). 16 tilesets, table 0x1A61C4, rows of {tileset, second block}. Rooms: table 0x1A6244, 20-byte rows of three 120x120 word maps (16-byte header) and a 120x120 byte block (collision, **guess**), index `set*8 + area*4 + room`; a row of 0x231A04 is unused. Layer 0 holds the boards. Tiles aren't laid out as pictures, so read a board with `tools/debug/stagesheet.py crop` (or `tiles`, `room`, `uses`), `stagefind.py`, `stagecrop.py`; `STAGE_ROM=build/hachiemon_en.gba` shows a build. `stageobjs.py` is a noisy gallery of rare objects.
+
+The earlier "バリアール" is ハチアイル, Hachi Isle: the board at a stage's start. Tile numbers: the map cell's, tile 0 is the block's first.
+
+| Set | Stall sign (6 x 2 tiles) | Other lettering |
+|---|---|---|
+| Sets 0, 13 | ハチの屋: HACHI'S STALL | |
+| Sets 1, 6 | ハチ道楽: HACHI PARADISE | |
+| Set 2 | ハチだがね: IT'S HACHI! | Osaka: 八百ハチ (three boards) HACHI GROCER, ハチ肉店 HACHI MEATS, ハチ処 HACHI PLACE. Its side panels' small kanji are mirrored tiles, so they are now blank. CAFE Hachi is Latin. |
+| Set 3 | 558 + a Latin line: **kept, not read closely** | The other stall is the takoyaki one, no text |
+| Set 4 | ビックリハチー: WOW! HACHI | |
+| Set 5 | クラブ8: CLUB 8 | |
+| Sets 7, 15 | すしはち: SUSHI HACHI | |
+| Set 8 | やまのハチ: MOUNTAIN HACHI | |
+| Set 9 | とりはち: CHICKEN HACHI | |
+| Sets 10, 14 | ハチボーイ: HACHI BOY | Set 14: ザ・バーゲン BARGAIN; 50%OFF and HACHINEL are Latin |
+| Set 11 | ハチバーガー: HACHI BURGER | HOTEL, HOSPITAL, POLICE, BAR, WELCOME are Latin |
+| Set 12 | no stall | くちびるらんど LIP LAND, りっぷまうんてん LIP MOUNTAIN, りっぷごーらんど LIP-GO ROUND (a pole splits it), のりものあんない RIDES (five tiles), りっぷすぴん LIP SPIN |
+
+The Hachi Isle board is in sets 0-5, 7-12, 14. **Set 12's says ISLE:** its end tiles repeat mirrored, leaving 16 px. These were checked by rendering rooms from the build's tiles, not in the running game, except where the tour shows them. Only rooms 0 of each area were read by eye; set 10 area 1, set 12 rooms 2-3 and set 11 area 1 share these tiles but weren't viewed. Lettering uses `TINY`, 3x5 capitals drawn here, doubled to 4x5 with `wide`.

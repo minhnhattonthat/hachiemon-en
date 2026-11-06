@@ -17,7 +17,8 @@ ROWS_16 = {  # tables of {block, VRAM dest, 0, 0}: docs/re/graphics.md, Block po
 CODE_LITERALS = [0x3D74, 0x71E8, 0x71E0, 0x28D0, 0x71F0, 0x863C, 0x71D8, 0x71F8, 0x24F0, 0x24F8, 0x3454, 0x10CF8, 0x2E850,  # the Le rows' loaders
                  0x2F20, 0x2F3C, 0x2F54, 0x862C, 0x2F64, 0x2FE4, 0x8634,  # 発, 目 at the stage start
                  0x3500, 0x10D00, 0x3D7C]  # the banners' maps
-WORD_SLOTS = [*range(0x1D5F5C, 0x1D6454, 4), *range(0x1A3D10, 0x1A3D60, 4), *CODE_LITERALS]  # OBJ and BG set tables (flow.md), VS tiles and maps
+STAGE_SETS = 0x1A61C4  # 16 rows of {stage tileset, second block}: docs/re/graphics.md, Stage signs
+WORD_SLOTS = [*range(0x1D5F5C, 0x1D6454, 4), *range(0x1A3D10, 0x1A3D60, 4), *range(STAGE_SETS, STAGE_SETS + 16 * 8, 8), *CODE_LITERALS]  # OBJ and BG set tables (flow.md), VS tiles and maps, stage tilesets
 
 
 def owned_slots(rom):
@@ -81,9 +82,34 @@ def text_rows(text, bold=False, scale=1):
     return [[px for px in r for _ in range(scale)] for r in rows16 for _ in range(scale)]
 
 
-def letter(pic, text, clear=None, ink=None, outline=None, bold=False, scale=1, gap=1, center=None, prep=None, keep=False, paper=None):
+# 3x5 capitals for boards too small for the text font; own drawing, no licence issue. `wide` makes them 4x5 by doubling the middle column.
+TINY = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'!-.", """
+010101111101101 110101110101110 011100100100011 110101101101110 111100110100111 111100110100100 011100101101011 101101111101101 111010010010111
+001001001101010 101101110101101 100100100100111 101111111101101 101111111111101 010101101101010 110101110100100 010101101111011 110101110101101
+011100010001110 111010010010010 101101101101011 101101101010010 101101111111101 101101010101101 101101010010010 111001010100111
+010101101101010 010110010010111 110001010100111 110001010001110 101101111001001 111100110001110 011100110101010 111001010010010 010101010101010
+010101011001110 010010000000000 010010010000010 000000111000000 000000000000010
+""".split()))
+
+
+def tiny_rows(text, wide=False):
+    """One line in TINY as rows of booleans; a space is 2 px."""
+    out = [[] for _ in range(5)]
+    for i, ch in enumerate(text):
+        for y in range(5):
+            cells = [False, False] if ch == " " else [c == "1" for c in TINY[ch][y * 3:y * 3 + 3]]
+            if wide and ch == "N":  # doubling the column turns this one into an H
+                cells = [c == "1" for c in ("1001", "1101", "1011", "1001", "1001")[y]]
+            elif wide and ch != " ":
+                cells.insert(1, cells[1])
+            out[y] += ([False] if i else []) + cells
+    return out
+
+
+def letter(pic, text, clear=None, ink=None, outline=None, bold=False, scale=1, gap=1, center=None, prep=None, keep=False, paper=None, tiny=None):
     """Clear `clear` (x0, y0, x1, y1; default the whole picture) to `paper`, by default its commonest colour, then draw `text` centred in it.
-    `ink` defaults to the rectangle's second commonest colour. Lines split on a newline. `prep(pic)` runs first; `keep` skips the clearing."""
+    `ink` defaults to the rectangle's second commonest colour. Lines split on a newline. `prep(pic)` runs first; `keep` skips the clearing.
+    `tiny` draws in TINY capitals instead of the text font: "narrow" or "wide"."""
     if prep:
         prep(pic)
     x0, y0, x1, y1 = clear or (0, 0, pic.w, pic.h)
@@ -100,7 +126,7 @@ def letter(pic, text, clear=None, ink=None, outline=None, bold=False, scale=1, g
                 pic.set(x, y, paper)
     if not text:
         return
-    lines = [text_rows(ln, bold, scale) for ln in text.split("\n")]
+    lines = [tiny_rows(ln, tiny == "wide") if tiny else text_rows(ln, bold, scale) for ln in text.split("\n")]
     height = sum(len(ln) for ln in lines) + gap * (len(lines) - 1)
     cx, y = center if center is not None else (x0 + x1) // 2, (y0 + y1 - height) // 2
     if height > y1 - y0 or y < 0:
@@ -331,6 +357,79 @@ LABELS = {
 }
 
 
+def recolor(old, new, y0=0, y1=99):
+    """A `prep` that turns colours in `old` to `new` between two rows, to lift lettering off art that no rectangle separates from it."""
+    def run(pic):
+        for y in range(y0, min(y1, pic.h)):
+            for x in range(pic.w):
+                if pic.get(x, y) in old:
+                    pic.set(x, y, new)
+    return run
+
+
+def go_round_prep(pic):
+    """The ride's pole runs through the sign at x 49-55: clear the word around it and redraw the pole's stripes."""
+    for y in range(16):
+        for x in range(80):
+            if 49 <= x < 56:
+                pic.set(x, y, [8, 7, 6, 7, 7, 8, 0][x - 49])
+            elif y > 2:
+                pic.set(x, y, 0)
+
+
+def stall(top, bottom, text):
+    """A food stall's sign: 48x16, two rows of six tiles. The frame's rings stay above row 3 and its border from row 14."""
+    return ([[*range(top, top + 6)], [*range(bottom, bottom + 6)]], text, {"clear": (3, 3, 45, 14), "paper": 0xA, "ink": 0xD, "tiny": "wide"})
+
+
+def isle(top, bottom, **kw):
+    """The Hachi Isle board at a stage's start: 32x16, two rows of four tiles, 21 px inside its frame."""
+    return ([[*range(top, top + 4)], [*range(bottom, bottom + 4)]], "HACHI\nISLE", {"clear": (6, 3, 27, 14), "tiny": "narrow", **kw})
+
+
+# Stage tileset by table row -> its labels. Tiles come from the room maps (`tools/debug/stagesheet.py crop`).
+STAGE_SIGNS = {
+    0: [stall(0x92, 0x99, "HACHI'S\nSTALL"), isle(0x31, 0x35)],
+    1: [stall(0xB1, 0xB9, "HACHI\nPARADISE"), isle(0x74, 0x7A)],
+    2: [
+        stall(0x293, 0x29A, "IT'S\nHACHI!"), isle(0x31, 0x37),  # ハチだがね, in Pops's own voice
+        ([[*range(0x8C, 0x96)], [*range(0xAA, 0xB4)]], "HACHI\nGROCER", {"clear": (10, 1, 70, 15), "paper": 2, "ink": 5, "tiny": "wide"}),  # 八百ハチ, all three boards
+        ([[*range(0x10E, 0x116)]], "HACHI MEATS", {"prep": recolor({1, 2, 3}, 7, 2, 7), "keep": True, "clear": (0, 2, 64, 7), "ink": 1, "tiny": "narrow"}),  # on the awning's strip
+        ([[*range(0xC8, 0xCC)], [*range(0xE6, 0xEA)]], "HACHI\nPLACE", {"clear": (0, 2, 32, 13), "paper": 0xC, "ink": 7, "tiny": "wide"}),  # ハチ処
+        # Its side panels and the roof's small words sit on tiles mirrored on the right, so they stay wordless.
+        ([[0xC4, 0xC5, 0xC6, 0xC7], [0xE2, 0xE3, 0xE4, 0xE5]], "", {"clear": (3, 3, 22, 13), "paper": 0xC}),
+        ([[0xC5, 0xC6, 0xC7], [0xE3, 0xE4, 0xE5]], "", {"clear": (17, 2, 24, 13), "paper": 0xC}),
+        ([[*range(0x9E, 0xA8)]], "", {"clear": (38, 3, 58, 8), "paper": 0xC}),
+    ],
+    3: [isle(0xD1, 0xE8, ink=9)],  # its stall reads 558 HACHIMART, already in Latin
+    4: [stall(0x12C, 0x133, "WOW!\nHACHI"), isle(0x5E, 0x68)],
+    5: [stall(0x1A5, 0x1AC, "CLUB 8"), isle(0x57, 0x6B)],
+    6: [stall(0x266, 0x26D, "HACHI\nPARADISE")],
+    7: [stall(0x99, 0xA0, "SUSHI\nHACHI"), isle(0x40, 0x44)],
+    8: [stall(0xD0, 0xD8, "MOUNTAIN\nHACHI"), isle(0xED, 0xFA)],
+    9: [stall(0x34, 0x3B, "CHICKEN\nHACHI"), isle(0x84, 0x88)],
+    10: [stall(0x15E, 0x16A, "HACHI\nBOY"), isle(0x28, 0x2C)],
+    11: [stall(0x1A2, 0x1A9, "HACHI\nBURGER"), isle(0x123, 0x132)],
+    12: [
+        # This board's end tiles repeat mirrored, which leaves 16 px of free tiles: too narrow for HACHI, so it says ISLE.
+        ([[0x4A], [0x4F]], "", {"clear": (6, 3, 8, 14), "paper": 0xE}),
+        ([[0x4B, 0x4C], [0x50, 0x51]], "ISLE", {"clear": (0, 3, 16, 14), "paper": 0xE, "ink": 3, "tiny": "narrow"}),
+        ([[*range(0xCD, 0xD6)], [*range(0xE8, 0xF1)]], "LIP LAND", {"prep": recolor({5, 0xD, 0xE}, 3, 10), "clear": (0, 0, 72, 10), "paper": 0, "ink": 0xD, "outline": 5, "bold": True}),  # くちびるらんど
+        ([[*range(0x117, 0x11D)], [*range(0x126, 0x12C)]], "LIP\nMOUNTAIN", {"clear": (1, 2, 45, 13), "paper": 6, "ink": 0xD, "tiny": "narrow", "center": 27}),  # a pole covers the sign's left end
+        ([[*range(0xDE, 0xE8)], [*range(0xF7, 0x101)]], "LIP-GO", {"prep": go_round_prep, "keep": True, "clear": (0, 8, 49, 16), "ink": 9, "outline": 3, "tiny": "wide"}),  # blocks cover the top rows
+        ([[*range(0xDE, 0xE8)], [*range(0xF7, 0x101)]], "ROUND", {"keep": True, "clear": (56, 8, 80, 16), "ink": 9, "outline": 3, "tiny": "wide"}),
+        ([[*range(0x187, 0x18C)]], "RIDES", {"clear": (0, 0, 40, 6), "paper": 4, "ink": 6, "tiny": "wide"}),
+        ([[*range(0x1A6, 0x1AC)], [*range(0x1C7, 0x1CD)]], "LIP SPIN", {"prep": recolor({0xB, 3, 6, 0xC, 4, 0xD, 2}, 0, 3, 13), "keep": True, "clear": (0, 5, 48, 12), "ink": 3, "outline": 0xB, "tiny": "wide"}),
+    ],
+    13: [stall(0x98, 0x9F, "HACHI'S\nSTALL")],
+    14: [
+        stall(0x20, 0x29, "HACHI\nBOY"), isle(0x187, 0x191),
+        ([[*range(0x96, 0x9C)], [*range(0xA7, 0xAD)]], "BARGAIN", {"clear": (3, 2, 45, 14), "paper": 0xA, "ink": 0xC, "tiny": "wide"}),  # ザ・バーゲン
+    ],
+    15: [stall(0xB9, 0xC0, "SUSHI\nHACHI")],
+}
+
+
 class MapPicture(Picture):
     """A tile block plus its map, flattened to one picture. `pack()` gives both back with tiles found again, flips included.
     Maps are 30x20 tile numbers, or Le maps with a 16-byte header (w, h, 0x10, size) and full BG words. Tile 0 stays tile 0."""
@@ -421,6 +520,9 @@ def write_labels(img, rom, base=GFX_BASE):
 
     for off in sorted(LABELS):
         place(off, relabel(rom, off), f"{off:#x}")
+    for row, labels in STAGE_SIGNS.items():
+        off = int.from_bytes(rom[STAGE_SETS + row * 8:STAGE_SETS + row * 8 + 4], "little") - 0x08000000
+        place(off, relabel(rom, off, labels), f"{off:#x}")
     for off in sorted(MAPPED):
         tiles, mapped, where = remap(rom, off)
         place(off, tiles, f"{off:#x}")
