@@ -10,6 +10,7 @@ sys.path.insert(0, str(ROOT / "tools" / "debug"))
 from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
+from gfxtext import GFX_BASE, LABELS, owned_slots, unpack  # noqa: E402
 from jp_cells import leftover  # noqa: E402
 from romdiff import check  # noqa: E402
 from strscan import BANKS  # noqa: E402
@@ -77,6 +78,7 @@ def test_english_build_writes_only_where_it_should():
     slots = {w for words in text_slots(orig).values() for w in words}
     allowed = slots | {ERROR_SLOT} | {off for off, *_ in GLYPH_LOADS}
     allowed |= {int(r["word"], 16) - 12 for e in entries if e["id"] in KEEP_ON_SCREEN for r in e["refs"]}
+    allowed |= {w for words in owned_slots(orig).values() for w in words}
     assert [off for off, *_ in img.writes if off < TEXT_BASE and off not in allowed] == []
     # every string written, and every pointer aimed at its own string
     assert len(img.where) == len(entries)
@@ -146,6 +148,30 @@ def test_moved_block_repoints_and_decodes():
     repoint(img, slots, old, FREE, "gfxptr")
     assert int.from_bytes(img.out[0x3D74:0x3D78], "little") == 0x08000000 + FREE
     assert le_decompress(img.out, FREE)[0] == data
+
+
+@needs_rom
+def test_owned_graphics_slots_match_the_value_scan():
+    orig = ROM.read_bytes()
+    by_value, owned = real_slots(orig), owned_slots(orig)
+    starts = [a for a, _ in packed_spans(orig)]
+    for num, _, spans in rows():
+        for block in (o for lo, hi in spans for o in starts if lo <= o <= hi):
+            assert sorted(owned.get(block, [])) == sorted(by_value[block]), (num, hex(block))
+
+
+@needs_rom
+def test_labels_stay_in_their_blocks_and_every_slot_moves():
+    orig = ROM.read_bytes()
+    img = build(orig, load_script())
+    owned = owned_slots(orig)
+    for off in LABELS:
+        new = int.from_bytes(img.out[owned[off][0]:owned[off][0] + 4], "little") - 0x08000000
+        assert new >= GFX_BASE
+        assert all(int.from_bytes(img.out[w:w + 4], "little") == new + 0x08000000 for w in owned[off])
+        before, _ = unpack(orig, off)
+        after, _ = unpack(img.out, new)
+        assert len(after) == len(before)
 
 
 def test_le_compress_ops():

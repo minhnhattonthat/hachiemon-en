@@ -16,6 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_rom import check
 from gbacomp import le_scan, scan
+from gfxtext import write_labels
 from romdiff import check as romdiff_check
 from strscan import BANKS, pointers, table, walk
 from tbl import Table
@@ -171,6 +172,7 @@ def build(orig, entries=None):
                 if u32(orig, arg - 12) != 0xAF or u32(orig, arg) != 0:
                     raise ValueError(f"{e['id']}: no AF with a clear argument at {arg:#x}")
                 img.write(arg, (1).to_bytes(4, "little"), f"keep on screen {e['id']}")
+    write_labels(img, orig)
     return img
 
 
