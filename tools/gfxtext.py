@@ -167,7 +167,7 @@ def disc(start, text):
 
 def strip(text):
     """A menu help strip: 15 x 3 tiles."""
-    return (rows(0, 15, 3), text, {"clear": (0, 0, 120, 24), "gap": 0})
+    return (rows(0, 15, 3), text, {"clear": (0, 0, 120, 24), "gap": 0, "center": 59})  # 59: the strip sits a pixel right of its bubble's middle
 
 
 def header(text):
