@@ -35,8 +35,12 @@ The game also holds 1336 blocks in its own Le codec (`le_decompress` in `tools/g
 | 25 | Stage clear art (Le) | 0x2A7784 | Le, to VRAM 0x6001400 | Large lettering | `stage_clear`. |
 | 26 | Stage 26 art (Le) | 0x2A7B88 | Le, to 0x2030000 | Large lettering | `stage26`. |
 | 27 | Latin letter sheet (Le) | 0x2A5DC0 | Le | A-Z, 0-9 | Already Latin; no tour unpacked it. Probably no work. |
+| 28 | Opening's sprites | 0x2B7CA0 | 0x23A | まかせんかい!! on "Enter everyone's hero", ん〜 twice on the lip-loss page | Missed by the sweep: tiles lie in sprite order, so the kana never showed as a word. Confirmed: `opening`. |
+| 29 | Ending's closing lettering | 0x2C7924 (8bpp) | 0x6C | めでたし, drawn twice | Missed by the sweep, which read it as 4bpp noise. Confirmed: `dme_ending`. |
 
 **Seen in the marker tour, blocks not pinned yet:** the post-stage slot machine (scene `slot`; its blocks are among the `lz` lines of `work/qa/*/slot/log.txt`) and the wooden area-name banner. Give each a row once pinned: `tests/test_build.py` requires every row to have a real block.
+
+**Second sweep, OBJ blocks (phase 8):** `tools/debug/objsweep.py` shows every block a tour sent to OBJ VRAM and `gfxtext.py` doesn't letter (396), 4bpp beside 8bpp; `tools/debug/picsheet.py` shows box-scene BG pictures through their maps (no lettering in any of the 18). Seven of objsweep's 11 pages were read (00-03, 05, 08, 10): character and boss frames, no lettering beyond rows 28, 29. Sprite sheets are a poor view of words, as row 28 shows, so the sheets of the tour remain the real check.
 
 **Not text:** Namco and Kansai TV logos (0x2CEAB8 and the Kansai TV block) stay (D5). The other 8bpp pictures from 0x2DD320 on show scenery and characters only at this sweep's scale; a sign could still hide in one, so the tour must look.
 
@@ -88,6 +92,7 @@ Then `tools/debug/oamlist.py DUMP.oam.bin DUMP.io.bin` lists sprites and `oamlis
 | Row 20 | **English** | `wait_screen`: しばらくおまちください before a fight, 8bpp BG2, tile 7 the bare background. "Please wait a moment" seen at `fight2` f3600. |
 | Rows 21, 22, 25 | **English** | `MAPPED`. BG0 from tile A0, Le maps with a 16-byte header. VS names ran past the ellipse, so `blank_vs` redraws it from x 72: an approximation, compared with the old edge only on one printed block. `vs0`, `vs2`, `vs4`, `vs5` seen; `vs1`, `vs3`, `vs6` not. |
 | Row 26 | **English** | たいむお〜ば〜, TIME OVER (it isn't "stage 26 art"). Map 0x2AB220. Scene `time_over` sets bit 4 of 0x3000D29; seen on a small sheet, not zoomed. |
+| Rows 28, 29 | **English** | `ART`, drawn by `gradient`. Shout: pal 7, tiles 184-1C7, 64x32 + 64x32 + 8x32 at x 94, y 57, sliding in: "I got this!!". ん〜: pal 4, tiles DE-114, 88x40, the same tiles twice: "Mm~" (the cows have no lips). めでたし: 8bpp, OBJ tiles 300-3D7, 144x48, the same tiles at x 40 y 16 and x 64 y 64: "The End", since m659 already says "Happily ever after." and the two copies can't differ without code. Seen in game at 2x. |
 | Row 23 | **English** | 0x2A7408's カンテーレ. Stage start: `N` digit blocks 0x2A6670-0x2A6E2C to 0x6001400, 0x6001600; 発 0x2A6EF0 and 目 0x2A7038, now "SH" and "OT", read "5 SHOT" (D17). すた〜と 0x2A70DC is four cells, "S TA RT !". The digit comes first in code, so the word can't lead. |
 | Row 24 | **English** | 0x2A7668 and 0x2A7FB4 English. 0x2A7364 is six small grey shapes, no text. |
 | Slot reels | **English, 3 of 30 seen each pull** | Raw tiles, not in the survey: 30 cells of 8 x 4 tiles at 0x303C70 (the last two, にく and なべもの, were missed at first and showed on the reels), three reels by code literals 0x51884, 0x518A8, 0x518D4. In place, same size (`RAW`). Header in 0x2B98B0. Words read off a small sheet; ちょ?ふどう read as きょほう. |

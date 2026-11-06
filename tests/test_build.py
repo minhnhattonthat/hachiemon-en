@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "tools" / "debug"))
 from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
-from gfxtext import GFX_BASE, LABELS, MAPPED, RAW, STAGE_SETS, STAGE_SIGNS, MapPicture, Picture, letter, marquee_frames, owned_slots, unpack  # noqa: E402
+from gfxtext import ART, GFX_BASE, LABELS, MAPPED, RAW, STAGE_SETS, STAGE_SIGNS, MapPicture, Picture, Picture8, letter, marquee_frames, owned_slots, unpack  # noqa: E402
 from jp_cells import leftover  # noqa: E402
 from romdiff import check  # noqa: E402
 from strscan import BANKS  # noqa: E402
@@ -172,6 +172,22 @@ def test_labels_stay_in_their_blocks_and_every_slot_moves():
         before, _ = unpack(orig, off)
         after, _ = unpack(img.out, new)
         assert len(after) == len(before)
+
+
+@needs_rom
+def test_art_touches_only_its_tiles():
+    orig = ROM.read_bytes()
+    img = build(orig, load_script())
+    owned = owned_slots(orig)
+    for off, pictures in ART.items():
+        new = int.from_bytes(img.out[owned[off][0]:owned[off][0] + 4], "little") - 0x08000000
+        before, _ = unpack(orig, off)
+        after, _ = unpack(img.out, new)
+        assert new >= GFX_BASE and len(after) == len(before)
+        size = 64 if pictures[0][0] is Picture8 else 32
+        ours = {t for _, grid, _, _ in pictures for row in grid for t in row}
+        changed = {i // size for i, (a, b) in enumerate(zip(before, after)) if a != b}
+        assert changed and changed <= ours, hex(off)
 
 
 @needs_rom

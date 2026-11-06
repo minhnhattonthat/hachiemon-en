@@ -424,6 +424,50 @@ def wait_screen(rom):
     return pack(bytes(data))
 
 
+def gradient(pic, text, ramp, outlines, scale, bold=False):
+    """Shouting art: `text` centred on a clear picture, `ramp` running top to bottom, then one ring of pixels per colour in `outlines`, inner first."""
+    for y in range(pic.h):
+        for x in range(pic.w):
+            pic.set(x, y, 0)
+    glyphs = text_rows(text, bold, scale)
+    h, w = len(glyphs), len(glyphs[0])
+    x0, y0 = (pic.w - w - 1) // 2, (pic.h - h - 1) // 2
+    margin = len(outlines)
+    if x0 < margin or y0 < margin:
+        raise ValueError(f"{text!r} is {w}x{h} in {pic.w}x{pic.h} with {margin} px of outline")
+    inked = {(x0 + x + dx, y0 + y + dy) for y, row in enumerate(glyphs) for x, on in enumerate(row) if on for dx in (0, 1) for dy in (0, 1)}  # a pixel fatter: scaled text is thin next to the old brush lettering
+    for x, y in inked:
+        pic.set(x, y, ramp[(y - y0) * len(ramp) // (h + 1)])
+    for colour in outlines:
+        ring = {(x + dx, y + dy) for x, y in inked for dx in (-1, 0, 1) for dy in (-1, 0, 1)} - inked
+        for x, y in ring:
+            pic.set(x, y, colour)
+        inked |= ring
+
+
+FLAME = [5, 5, 6, 7, 8, 9]  # the colours of ん〜 and めでたし, top to bottom
+ART = {  # sprite art, which the 4bpp survey garbled or never placed: block -> (picture class, grid, text, gradient arguments). docs/re/graphics.md, rows 28 and 29.
+    0x2B7CA0: [
+        (Picture, [[0x184 + y * 8 + x for x in range(8)] + [0x1A4 + y * 8 + x for x in range(8)] + [0x1C4 + y] for y in range(4)], "I got this!!",  # まかせんかい!!
+         {"ramp": [3, 5, 6, 7, 8, 9, 0xA, 0xB, 0xC], "outlines": [1, 0xF], "scale": 2}),
+        (Picture, [[0xDE + y * 8 + x for x in range(8)] + [0xFE + y * 2 + x for x in range(2)] + [0x106 + y] for y in range(4)]
+         + [[0x10A + x for x in range(8)] + [0x112 + x for x in range(3)]], "Mm~", {"ramp": FLAME, "outlines": [1], "scale": 3, "bold": True}),  # ん〜: mouths with no lips
+    ],
+    0x2C7924: [
+        (Picture8, [row for r in range(3) for row in ([r * 0x24 + s * 8 + y * 4 + x for s in range(4) for x in range(4)] + [r * 0x24 + 0x20 + y * 2 + x for x in range(2)] for y in range(2))],
+         "The End", {"ramp": FLAME, "outlines": [1], "scale": 3}),  # めでたし, drawn twice by the same tiles, closing the tale
+    ],
+}
+
+
+def art(rom, off):
+    """An ART block redrawn and packed again."""
+    data, pack = unpack(rom, off)
+    for cls, grid, text, kw in ART[off]:
+        gradient(cls(data, grid), text, **kw)
+    return pack(bytes(data))
+
+
 def recolor(old, new, y0=0, y1=99):
     """A `prep` that turns colours in `old` to `new` between two rows, to lift lettering off art that no rectangle separates from it."""
     def run(pic):
@@ -590,6 +634,8 @@ def write_labels(img, rom, base=GFX_BASE):
     for off, block in marquee_frames(rom).items():
         place(off, block, f"{off:#x}")
     place(WAIT_SCREEN, wait_screen(rom), f"{WAIT_SCREEN:#x}")
+    for off in sorted(ART):
+        place(off, art(rom, off), f"{off:#x}")
     for row, labels in STAGE_SIGNS.items():
         off = int.from_bytes(rom[STAGE_SETS + row * 8:STAGE_SETS + row * 8 + 4], "little") - 0x08000000
         place(off, relabel(rom, off, labels), f"{off:#x}")
