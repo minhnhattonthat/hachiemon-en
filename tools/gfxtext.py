@@ -93,6 +93,8 @@ def letter(pic, text, clear=None, ink=None, outline=None, bold=False, scale=1, g
     for y in range(y0, y1):
         for x in range(x0, x1):
             pic.set(x, y, paper)
+    if not text:
+        return
     lines = [text_rows(ln, bold, scale) for ln in text.split("\n")]
     height = sum(len(ln) for ln in lines) + gap * (len(lines) - 1)
     cx, y = center if center is not None else (x0 + x1) // 2, (y0 + y1 - height) // 2
@@ -135,7 +137,23 @@ def header(text):
     return (rows(0, 16, 2), text, {"clear": (12, 1, 116, 15), "bold": True})
 
 
+def shout(start, text, **kw):
+    """One 32x32 cell of the title's Kantele shout. They settle 22 px apart, the first (x -31) off screen, so it stays blank."""
+    return (spr(start, 32, 32), text, {"clear": (0, 0, 32, 32), "ink": 0xF, "outline": 1, "scale": 2, "bold": True, **kw})
+
+
 LABELS = {
+    0x2B7618: [
+        (rows(0, 16, 2), "Press Start", {"ink": 8, "outline": 1, "bold": True}),
+        shout(0x20, ""), shout(0x30, "K", center=22), shout(0x40, "AN"), shout(0x50, "TE"), shout(0x60, "LE"),
+    ],
+    0x2A7408: [([[*range(8, 15)], [*range(0x17, 0x1E)]], "Kantele", {"ink": 0xD})],  # the HUD's shout gauge, bottom right: tiles 9-F, 18-1E of BG0, palette D
+    # The pause menu's BG0 map repeats tiles 4 and F at columns 0 and 9 of its first item, so text keeps off column 9.
+    0x2A7FB4: [
+        ([[*range(4, 0xF)], [*range(0xF, 0x1A)]], "Continue", {"ink": 0xD, "outline": 1, "bold": True, "center": 40}),
+        ([[*range(0x1A, 0x28)], [*range(0x28, 0x36)]], "To Hachi Isle", {"ink": 0xD, "outline": 1, "bold": True}),
+    ],
+    0x2A7668: [([[*range(1, 7)], [*range(7, 0xD)]], "Pause", {"ink": 7, "outline": 1, "bold": True})],
     0x2BCD3C: [
         pill(0x060, "Main Game"), pill(0x078, "Options"), pill(0x090, "Music"), pill(0x0A8, "Sound FX"),
         pill(0x0C0, "Normal"), pill(0x0D8, "Hard"), pill(0x0F0, "Very Hard"),

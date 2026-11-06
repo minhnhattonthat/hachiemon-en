@@ -60,3 +60,28 @@ Rows 4, 15, 17 and 18 are most of the work. Hand-lettered kana suggests one Engl
 | Row 22 | 1 | Code literal 0x3D74 |
 
 Across the whole ROM 186 packed blocks have more than one slot. None of the row blocks has a slot in 0x80000-0x1A2FFF; the only block that does is 0x280828 (not a row, words at 0x888B8, 0x8907C, 0x890A0, not examined).
+
+## English lettering (phase 8)
+`tools/gfxtext.py` holds every redraw: `LABELS` maps a block to (tile grid, words, options). The build unpacks the block, clears a rectangle, draws in the text font (`tbl/vwf_font.txt`) and packs it again from `GFX_BASE` (0x600000), repointing through `owned_slots` (the tables above plus the Le rows' code literals; a test holds them equal to the value scan). Unpacked size never changes, so VRAM layouts hold.
+
+To read a screen, dump it:
+
+    python -X utf8 "$(python tools/skill.py)/scripts/emu.py" "rom/Hachiemon (Japan).gba" --out work/qa/ppu/SCENE --script tools/debug/warp.lua --var "SCENE='SCENE'" --frames 1800 --script "$(python tools/skill.py)/scripts/lua/probes/ppudump.lua"
+
+Then `tools/debug/oamlist.py DUMP.oam.bin DUMP.io.bin` lists sprites and `oamlist.py --bg N 1 3ff DUMP.vram.bin DUMP.io.bin` a BG's tile rows. Tile = (VRAM dest - char base) / 0x20; the `lz` log lines give each block's dest. `tools/gfxview.py` shows a block by palette index, `tools/gfxview_sprites.py` assembles sprites in real colours. Take the palette bank from the map word's top nibble (HUD and pause items D, pause title F): reading indices through the wrong bank gave dark text twice. Stage scenes are still black at frame 900.
+
+| Row | State | Layout |
+|---|---|---|
+| Row 2 | **English** | Prompt: 16 x 2 tiles from 0. Then five 32x32 cells of the Kantele shout, 22 px apart; the first settles off screen, so it stays blank. |
+| Row 3 | **English** | Pills are three 32x16 sprites, 0x18 tiles. Discs 32x32. The save slot's digit sprites cover the right of Stage, Lips and Lives, so those labels sit left. Tiles 1FC-238 are digits, pill 2A9 is an empty dash. **Not seen on screen yet:** 2C1, 2D9, 2F1, 309, 333, 255, 265, 323. |
+| Rows 4, 5 | **English** | Help strip 15 x 3, header 16 x 2. Seen: help0, help8, the Options and Difficulty screens. Others not looked at. |
+| Row 6 | **Not done** | 6 x 4 tiles, 8 sway frames of the カンテーレ stamp, top left of every menu. Plan: "Kantele", centred on each frame's old ink, because the frames move. |
+| Rows 7, 11 | **Not done** | BG2, tiles at VRAM 0x8000, tile = block tile. Row 7's first line (rows 5-6, cols 3-25) repeats tiles 4 and 1A at cols 6 and 11, so keep text off them or edit the map block. Row 11 repeats tiles 3 and E. `delete` rows 12-13 are はい (4A-4D, 53-56) and いいえ (4E-52, 57-5B), dimmed by palette. |
+| Row 8 | **Not done** | Map panel すて〜じ, くちびるげっと, くりあたいむ, around tiles 0x280-0x300; the block goes to 0x6010000. |
+| Row 12 | **Not done** | げ〜むお〜ば〜, sprites, block goes to 0x6010000. |
+| Rows 14, 16, 18 | **Not done** | Row 16 is 12 x 2 per label. `slot` and `stage_clear` show はちすろっと reels with silly words (とても, びみょ〜に, にがい, おいしい, かれ〜らいす, なっとう): find which row feeds them. Rows 14 and 18 unpack in `credits`. |
+| Rows 15, 17, 20, 21, 22, 25, 26 | **Not done** | Banners (21, 22, 25) go to VRAM 0x6001400: tile A0 up in BG0, the same place as the pause menu. |
+| Row 23 | **Part** | 0x2A7408 goes to tile 1 and its カンテーレ is English. Hearts and digits need nothing: 2A6234 to tile 3D, 2A5F78 to 5D, 2A64A8 to 71. 2A70DC (tile E0) not read. |
+| Row 24 | **Part** | 0x2A7668 (title) and 0x2A7FB4 (items) are English. The map repeats tiles 4 and F, so "Continue" keeps off column 9. 0x2A7364 not read. |
+
+Stage signs (the バリアーん board and shop boards seen in stages) have no row yet: find their blocks.

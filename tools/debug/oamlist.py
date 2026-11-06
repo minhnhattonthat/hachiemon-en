@@ -21,7 +21,28 @@ def sprites(oam):
     return out
 
 
+def bgmap(vram, io, bg, lo=1, hi=0x3FF):
+    """Rows of BG `bg`'s text-mode map that show a tile in lo..hi: (row, first col, tile numbers; -- marks others)."""
+    cnt = struct.unpack_from("<H", io, 8 + bg * 2)[0]
+    base = (cnt >> 8 & 31) * 0x800
+    out = []
+    for y in range(32):
+        tiles = [struct.unpack_from("<H", vram, base + (y * 32 + x) * 2)[0] for x in range(32)]
+        shown = [t & 0x3FF if lo <= t & 0x3FF <= hi else None for t in tiles]
+        if any(t is not None for t in shown):
+            first = next(i for i, t in enumerate(shown) if t is not None)
+            out.append((y, first, " ".join("--" if t is None else f"{t:x}" for t in shown[first:])))
+    return (cnt >> 2 & 3) * 0x4000, out
+
+
 def main():
+    if sys.argv[1] == "--bg":  # --bg N LO HI DUMP.vram.bin DUMP.io.bin: tile rows, to read a BG picture's layout
+        n, lo, hi, vram, io = int(sys.argv[2]), int(sys.argv[3], 16), int(sys.argv[4], 16), open(sys.argv[5], "rb").read(), open(sys.argv[6], "rb").read()
+        char, rows = bgmap(vram, io, n, lo, hi)
+        print(f"BG{n} tiles at VRAM {char:#x}")
+        for row in rows:
+            print("row %2d col %2d: %s" % row)
+        return
     for s in sprites(open(sys.argv[1], "rb").read()):
         print("x%4d y%4d %2dx%-2d tile %03x pal %x prio %d" % s)
     if len(sys.argv) > 2:
