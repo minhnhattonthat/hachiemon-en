@@ -30,7 +30,7 @@ Both banks hold strings back to back with no pointer table of their own. Run `to
 | 0x1C0984-0x1C127C | 40 | 2,217 | Tutorial signboards | Table at 0x1C1280 |
 | 0x1D9554-0x1DCFC8 | 873 | 13,217 | Story, bubbles, narration, ramen stand | Rows at 0x1C7000-0x1D7FFF and 0x1DD000-0x1EAFFF (810 words); literal pools in code at 0x3Dxxx, 0x4Bxxx, 0x4Exxx, 0x4Fxxx, 0x5Dxxx (34 words) |
 
-Longest line today: 25 cells. **Text can move:** every string found so far is reached through a 32-bit pointer word, so English goes in new space and the words get repointed. In-place fitting is not needed.
+Longest line today: 25 cells. **Text can move:** every string found so far is reached through a 32-bit pointer word, so English goes in new space and the words get repointed. In-place fitting is not needed. **verified** on the strings the tour reads: `tools/debug/moved.py` moved both banks and wiped them, and the talk scenes still drew their text. `real_slots` in `tools/build.py` drops words inside packed blocks and the banks as chance matches; it found none in either, and 885 words count as text slots (884 from `strscan.py` plus the 0x1DBDF4 literal). The row layout is still a guess until phase 4 decodes it.
 
 ### Pointer forms
 - **verified** Literal pools in code, `ldr rN,=string` then `bl 0x80383B8`. Example: 0x4B354 -> 0x81D9554.

@@ -2,6 +2,7 @@
 
     python -X utf8 tools/gbacomp.py scan ROM [--min 32]   # lists plausible LZ77 blocks: offset, packed, unpacked
     python -X utf8 tools/gbacomp.py x ROM HEXOFF OUT      # one block to a file
+    python -X utf8 tools/gbacomp.py verify ROM            # recompress every LZ77 and Le block and decode it back
 """
 import struct
 import sys
@@ -45,6 +46,27 @@ def lz_decompress(d, off=0, limit=None):
     return bytes(out), i
 
 
+def _longest(d, i, min_dist, max_dist, max_len):
+    """Longest match of 3+ bytes at i, nearest first; it may overlap the cursor. Returns (length, distance) or (0, 0)."""
+    key = d[i:i + 3]
+    best = (0, 0)
+    end = i - min_dist + 3
+    if len(key) < 3 or end < 3:  # rfind would read a negative end from the far side of the data
+        return best
+    lo = max(0, i - max_dist)
+    n = len(d)
+    while (p := d.rfind(key, lo, end)) >= 0:
+        ln = 3
+        while ln < max_len and i + ln < n and d[p + ln] == d[i + ln]:
+            ln += 1
+        if ln > best[0]:
+            best = ln, i - p
+            if ln == max_len:
+                break
+        end = p + 2
+    return best
+
+
 def lz_compress(data):
     """Greedy VRAM-safe LZ77 (no distance-1 matches, the BIOS VRAM variant writes 16 bits at a time)."""
     out = bytearray(b"\x10" + len(data).to_bytes(3, "little"))
@@ -57,16 +79,7 @@ def lz_compress(data):
         for bit in range(8):
             if i >= n:
                 break
-            best_len = 0
-            best_dist = 0
-            for dist in range(2, min(i, 0x1000) + 1):
-                ln = 0
-                while ln < 18 and i + ln < n and data[i + ln] == data[i + ln - dist]:
-                    ln += 1
-                if ln > best_len:
-                    best_len, best_dist = ln, dist
-                    if ln == 18:
-                        break
+            best_len, best_dist = _longest(data, i, 2, 0x1000, 18)
             if best_len >= 3:
                 flags |= 0x80 >> bit
                 out.append((best_len - 3) << 4 | (best_dist - 1) >> 8)
@@ -146,6 +159,49 @@ def le_decompress(d, off=0):
     return bytes(out), i
 
 
+def le_compress(data):
+    """Greedy encoder for le_decompress. Short copies (dist 1-4, len 2-65) cost a byte, long (dist 5-4100, len 3-18) two."""
+    ops = []
+    literals = bytearray()
+
+    def flush():
+        for k in range(0, len(literals) - len(literals) % 3, 3):
+            ops.append((3, bytes(literals[k:k + 3])))
+        ops.extend((2, bytes([b])) for b in literals[len(literals) - len(literals) % 3:])
+        literals.clear()
+
+    i = 0
+    n = len(data)
+    while i < n:
+        s_len, s_dist = 0, 0
+        for dist in range(1, min(i, 4) + 1):
+            ln = 0
+            while ln < 65 and i + ln < n and data[i + ln] == data[i + ln - dist]:
+                ln += 1
+            if ln > s_len:
+                s_len, s_dist = ln, dist
+        l_len, l_dist = _longest(data, i, 5, 4100, 18)
+        if s_len >= 2 and s_len >= l_len:
+            flush()
+            ops.append((1, bytes([(s_len - 2) << 2 | (s_dist - 1)])))
+            i += s_len
+        elif l_len:
+            flush()
+            ops.append((0, (l_dist - 5 | (l_len - 3) << 12).to_bytes(2, "little")))
+            i += l_len
+        else:
+            literals.append(data[i])
+            i += 1
+    flush()
+    out = bytearray(b"Le" + len(data).to_bytes(3, "little") + b"\x00")
+    for k in range(0, len(ops), 4):
+        group = ops[k:k + 4]
+        out.append(sum(op << 2 * j for j, (op, _) in enumerate(group)))
+        for _, body in group:
+            out += body
+    return bytes(out)
+
+
 def le_scan(d, max_size=0x100000):
     """Every 4-aligned offset that decodes as a whole Le block."""
     hits = []
@@ -170,7 +226,18 @@ def le_scan(d, max_size=0x100000):
 
 if __name__ == "__main__":
     rom = open(sys.argv[2], "rb").read()
-    if sys.argv[1] == "le":
+    if sys.argv[1] == "verify":
+        for name, hits, unpack, pack in (("lz", scan(rom), lz_decompress, lz_compress), ("le", le_scan(rom), le_decompress, le_compress)):
+            old = new = 0
+            for off, packed, _ in hits:
+                data, _ = unpack(rom, off)
+                redone = pack(data)
+                if unpack(redone)[0] != data:
+                    sys.exit(f"{name} block {off:#x} does not roundtrip")
+                old += packed
+                new += len(redone)
+            print(f"{name}: {len(hits)} blocks roundtrip, {old} bytes packed originally, {new} by our encoder")
+    elif sys.argv[1] == "le":
         for off, packed, size in le_scan(rom):
             print(f"{off:07x} {packed:6x} {size:6x}")
     elif sys.argv[1] == "scan":

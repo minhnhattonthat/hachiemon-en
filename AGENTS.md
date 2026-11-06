@@ -4,7 +4,7 @@ Skill: translate-retro-game; `python tools/skill.py` prints its folder. Read its
 
 ## Commands (run from repo root)
 - Setup once per clone: `git config core.hooksPath tools/hooks`
-- Build:    `python -X utf8 tools/build.py` -> build/hachiemon_en.gba (phase 3 adds it; checks the dump against `rom.sha1` first)
+- Build:    `python -X utf8 tools/build.py` -> build/hachiemon_en.gba + build/writes.txt (checks the dump against `rom.sha1` first; with no script yet the output is byte-identical)
 - Check:    `python -X utf8 tools/check.py`  (tests + lint; the pre-commit hook runs this)
 - Smoke:    `python -X utf8 "$(python tools/skill.py)/scripts/emu.py" build/hachiemon_en.gba --out work/qa/smoke --route tools/routes/boot.txt --smoke`
 - Warp:     `python -X utf8 "$(python tools/skill.py)/scripts/emu.py" build/hachiemon_en.gba --out work/qa/warp --script tools/debug/warp.lua --var "SCENE='<name>'" --frames 900 --sheet` (phase 2 adds it; scenes: `tools/debug/scenes.*`; never ask the user to play to a scene)
