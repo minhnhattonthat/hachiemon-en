@@ -1,2 +1,2 @@
 # SHA-1 of the supported dump, in sha1sum format (`sha1sum -c rom.sha1` works too). One line per file for discs.
-<sha1>  rom/<file>
+10c16950388599846c2a61cacc315ba81a752deb  rom/Hachiemon (Japan).gba

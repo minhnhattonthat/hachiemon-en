@@ -5,5 +5,5 @@ per file; a font with no known licence doesn't go into a release.
 
 | File | Source (URL, version) | Licence | Redistributable in a patch | Used for | Changes made |
 |---|---|---|---|---|---|
-| <fonts/vwf_8px.png> | <drawn for this project> | <MIT, same as repo> | yes | <dialogue VWF> | <-> |
-| <fonts/Title.ttf> | <url, v1.2> | <OFL 1.1> | <yes, as rendered glyphs> | <typeset.py title cards> | <-> |
+
+None yet. The game's own font (ROM 0x2FFC50) already has Latin glyphs; phase 5 decides whether English uses them.

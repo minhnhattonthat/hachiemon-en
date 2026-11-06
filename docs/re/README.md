@@ -12,4 +12,6 @@ Addresses are for the dump in `rom.sha1` unless a note says otherwise.
 
 | File | Covers | State |
 |---|---|---|
-| <text.md> | <encoding, control codes, pointer tables> | <verified / partly guessed> |
+| `rom-map.md` | Header, region map, LZ77, free space, prior work | Compression verified; free space is a candidate; some regions guessed |
+| `text.md` | Encoding, control codes, draw paths, text banks, pointer forms | Encoding verified; FD and speech rows still guesses |
+| `graphics.md` | Survey of Japanese drawn as tiles | Sources from the static sweep; screens to confirm at phases 2 and 5 |

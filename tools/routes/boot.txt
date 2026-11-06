@@ -1,0 +1,4 @@
+# Cold boot past logos to the title, press Start, look at what follows.
+900 -
+6 start
+300 -
