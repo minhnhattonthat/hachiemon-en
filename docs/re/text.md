@@ -5,7 +5,7 @@ Addresses are for the dump in `rom.sha1`. ROM offset + 0x08000000 = bus address.
 ## Encoding
 - **verified** One byte per character; the byte is the font cell. No Shift-JIS anywhere. `tbl/jp.tbl` is the table. How: VRAM glyphs of the opening narration matched to font cells, the resulting bytes found at 0x1D9554 and decoded to what the screen shows (`tests/test_recon.py::test_known_string_decodes`).
 - **verified** Font: ROM 0x2FFC50, raw 4bpp, 8x16, 64 bytes per glyph (top tile then bottom tile), 256 cells. Pointer literal loaded in the draw routines at 0x8038628 and 0x803A04C (`ldr r1,=082FFC50`). Sheet: `tools/fontsheet.py`.
-- **verified** Layout: 00-4F hiragana, 50-9F katakana, A0-B9 A-Z, C0-D9 a-z, E0-E9 0-9, EA space (written `\s` in `tbl/jp.tbl`; EB-EF blank), F0 ー, F1 － (longer dash, used in runs for pauses), F2 「, F3 」, F4 ！, F5 ▼, F6 （, F7 ）, F8 ？, F9 ♥, FA 〜, FB 、, FC 。 The Latin glyphs already exist but are fixed 8 px with no comma, period or apostrophe in Latin style: phase 5 decides the English font.
+- **verified** Layout: 00-4F hiragana, 50-9F katakana, A0-B9 A-Z, C0-D9 a-z, E0-E9 0-9, EA space (written `\s` in `tbl/jp.tbl`; EB-EF blank), F0 ー, F1 － (longer dash, used in runs for pauses), F2 「, F3 」, F4 ！, F5 ▼, F6 （, F7 ）, F8 ？, F9 a bold あ (`tbl/jp.tbl` writes it ♥, wrongly; only m768 uses it, a scream), FA 〜, FB 、, FC 。 The Latin glyphs already exist but are fixed 8 px with no comma, period or apostrophe in Latin style: phase 5 decides the English font.
 
 ## Control codes
 | Code | Meaning | State |

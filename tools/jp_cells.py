@@ -17,7 +17,7 @@ from lint import KEEP  # noqa: E402
 from vmscript import u32  # noqa: E402
 from vwf import CELL, END, GAME_FONT, NL, PAGE  # noqa: E402
 
-KANA = range(0x00, 0xA0)  # docs/re/text.md: 00-4F hiragana, 50-9F katakana
+KANA = [*range(0x00, 0xA0), 0xF9]  # docs/re/text.md: 00-4F hiragana, 50-9F katakana, F9 a bold あ
 
 
 def kana_cells(orig):
