@@ -69,7 +69,8 @@ Limits of these scenes:
 - The warp teleports the player onto the door and fills the lips quota, so it skips the walk through the stage. Rooms 1-3 are entered by the room-change step, not through the previous room.
 - `fight6` is forced: boss state 2 waits on helper slots 32 and 38 (byte +0x2A), which never finish after a warp, so `warp.lua` clears them. Why they hold is not known, and this path may not match real play.
 - `fight6`-`fight8` showed no banner in 7000 frames. **guess:** the final boss only has one, in its last room. Their proof is the object type plus the shots.
-- The player takes damage and often dies soon after the banner: `GOD` pins lives only. No scene has won a fight. The `defeat*` scenes swap each boss's defeat script into its intro slot, which shows the lines but not a real win (`windows.md`); boss 5's m206-m261 still need a real win.
+- The player takes damage and often dies soon after the banner: `GOD` pins lives only. No scene has won a fight by hand. The `defeat*` scenes swap each boss's defeat script into its intro slot, which shows the lines but not a real win (`windows.md`).
+- `win5`, `win5l`, `win5r` force boss 5's own defeat path: states 33 -> 34 -> 35 -> 39 (runs the script, 0x8056990) -> 46, 47 (room changes from op 9B) -> 37, in object slot 33. State table 0x805C32C; the object's +0x26 is the state, +0x28 the state's step. `tools/debug/bosslog.lua` logs them. Other bosses' state objects are not mapped.
 
 **Subs 11-14 can't be reached in play (verified statically, with `disasm.py xref`; a computed jump would not show).**
 - Events 0x15-0x18 set them, and all 27 callers of 0x8037B8C pass other constants.

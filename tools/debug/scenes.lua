@@ -36,6 +36,10 @@ local S = {
   defeat3   = { sub = 16, node = 20, boss = 3, room = 2, swap = { 0x081E8B98, 0x081E8FB4 } },
   defeat4   = { sub = 16, node = 26, boss = 4, swap = { 0x081E9258, 0x081E9664 } },
   defeat5   = { sub = 16, node = 31, boss = 5, swap = { 0x081CF868, 0x081CFF94 } },
+  -- The fight, then the boss's own defeat states from state `win` on (warp.lua): actors and rooms as in a real win.
+  win5      = { sub = 16, node = 31, boss = 5, win = 33, win_slot = 33 },
+  win5l     = { sub = 16, node = 31, boss = 5, win = 33, win_slot = 33, win_dx = -60 },
+  win5r     = { sub = 16, node = 31, boss = 5, win = 33, win_slot = 33, win_dx = 40 },
   defeat9   = { sub = 16, node = 33, boss = 9, room = 3, swap = { 0x081E98AC, 0x081E9C68 } },
   -- Menu pages, reached with the game's own cursor.
   -- cursor: 0x3005256, the menu row; the default row depends on whether a save exists.

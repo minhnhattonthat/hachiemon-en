@@ -83,7 +83,7 @@ The "speech rows" were never rows. They are u32 bytecode: an opcode word, then i
 | 1D4700 | 13 | The Pegasus who carries him (three scenes) | m506, m508 "Pegasus-san, thanks for the ride", m812 |
 | 1D4770 | 5 | Egg | m607, m612 |
 | 1D4658 | 5 | Animal who lost its lips, translated by narration | m399-m407 |
-| Animal noises: 1D455C, 1D4578 (もお, cow), 1D45B0 (ふお), 1D4604, 1D4620 (キュイ), 1D4674, 1D4690 (フシュー), 1D46C8 (シャ〜, gator: m448 ワニさん), 1D46E4 (ウオーン, bear: m465 クマさん), 1D471C (ひひ〜ん, horse), 1D4738 (がお〜, lion), 1D4754 (がるる) | 70 | Each scene's animal; the `8E` captions below them carry the meaning | Talk scenes 1-11 |
+| Animal noises: 1D455C, 1D4578 (もお, cow), 1D45B0 (ふお), 1D4604, 1D4620 (キュイ), 1D4674, 1D4690 (フシュー), 1D46C8 (シャ〜, gator: m448 ワニさん), 1D46E4 (ウオーン, bear: m465 クマさん), 1D471C (ひひ〜ん, horse), 1D4738 (がお〜, Tyranno: m542), 1D4754 (がるる, Lion: m568-m570) | 70 | Each scene's animal; the `8E` captions below them carry the meaning | Talk scenes 1-11 |
 
 ### Strings with no pointer
 39 strings in the main bank have no pointer word. They sit together: the tutorial's older copy at 0x1DCB9B-0x1DCDF9 and the ramen-stand talk at 0x1DCDFA-0x1DCFC6, plus a few singles (0x1DAA42, 0x1DAF84, 0x1DC4C7, 0x1DC4DF, 0x1DC782, 0x1DC7A1, 0x1DC7AB). **guess: dead.** Evidence: every script is now walked and none points at them; the box callers of 0x80383B8 all load r1 from a literal; `tools/debug/textwatch.lua` saw no read of them in any tour. Not proof: a computed pointer wouldn't show, and the tours read only 681 of 873 main-bank strings. They are in `script/` with empty `refs`, so they get translated and written; only the leftover-Japanese scan or a read in `textcover.py` would change the guess.

@@ -20,6 +20,7 @@ from skill import SKILL  # noqa: E402
 
 
 FIGHT_FRAMES = 7000  # stage 8 reaches its VS banner at f4024
+WIN_FRAMES = 14000  # boss 5's defeat script ends at about f11900 on the marker build, later in English
 
 
 def scene_names():
@@ -40,11 +41,12 @@ def run(rom, out, name, a):
     d = Path(out) / name
     if d.exists():
         shutil.rmtree(d)
+    frames = max(a.frames, FIGHT_FRAMES) if name.startswith("fight") else max(a.frames, WIN_FRAMES) if name.startswith("win") else a.frames
     cmd = [sys.executable, "-X", "utf8", str(Path(SKILL) / "scripts" / "emu.py"), rom, "--out", str(d),
            "--script", "tools/debug/warp.lua", "--script", "tools/debug/lzlog.lua", "--script", "tools/debug/textwatch.lua", "--script", "tools/debug/bublog.lua",
-           "--var", f"SCENE='{name}'", "--frames", str(max(a.frames, FIGHT_FRAMES) if name.startswith("fight") else a.frames),
-           "--timeout", str(max(280, a.frames // 20))]
-    if name.startswith("fight"):
+           "--var", f"SCENE='{name}'", "--frames", str(frames),
+           "--timeout", str(max(280, frames // 20))]
+    if name.startswith(("fight", "win")):
         cmd += ["--shot-every", "300"]  # the door, bubbles and VS banner come at different frames per boss
     elif a.shots:
         cmd += ["--shots", a.shots]

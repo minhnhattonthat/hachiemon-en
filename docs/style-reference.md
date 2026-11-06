@@ -13,6 +13,12 @@ Voices with the JP markers and the English devices that carry them. Rulings are 
 | Pegasus gentleman | ですます, うふふ, あなた | Over-polite, unsettling, a little poetic: "shall", "Won't you". | ああっ、わたしのこころにあめがふる！ -> Ah, it rains in my heart! |
 | Hunter couple | おまえ！あんた！ | "Wifey!", "Hubby!", all exclamations. | |
 | Auntie | あんた, や, うち, さかい | Brassy and teasing, "you there", "hon". Bad jokes stay bad: 3 million yen change. | はい。おつり300まんえん。 -> Here. Change: 3 million yen. |
+| Auntie's friend | うち, さかい, きぃや | Same brass as Auntie, bossier: orders, "Get me food!". | なんかこおてきて！ -> Get me food! |
+| Boss lady | わよ/わねっ, やっておしまい | Haughty villainess, then a scolded child saying "Yes----". | うるさいわねっ！！ -> Oh, do shut UP, you pest!! |
+| Kid brother | に〜ちゃん | Bratty kid: "bro", "gonna", giggles. | こいつきづいてないよ -> He doesn't even notice. |
+| Space alien | ですます, がな | Earnest and polite, even while arguing; many speak at once in plain repeats. | タコちゃいます！ -> Not octopus! |
+| Pegasus carrier | ですます, ま、いっか | Polite and worn out, casually careless once Hachiemon is gone. | ま、だいじょうぶだよね -> Eh, he'll be fine. |
+| Egg | ぼく, やし | Deadpan, patient. | いや、ぼくタマゴやし。 -> Uh, I'm an egg. |
 | Osaka merchants | まいどおおきに, もうかりまっか | The stock greeting is the joke: "Making any money?" / "--Getting by." Keep these two wordings wherever they recur. | |
 | Animals | Noises | Cow Moo, Whale Fwoo, Penguin Kwee, Panda Mfu, Mole Fshoo, Gator Hiss, Bear Wuoon, Pegasus Neigh, Tyranno Rawr, Lion Grrr. Caption under them is plain, no brackets. | |
 | Pops | へえ, ですわ | Cheerful shopkeeper, "Welcome!" for らっしゃい and まいど. | |

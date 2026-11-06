@@ -246,62 +246,62 @@ m202	bubble	16	3	41	40		117-117	65-65	measured
 m203	bubble	14	2	41	40		64-64	25-25	measured
 m204	bubble	14	2	41	40		64-64	25-25	measured
 m205	bubble	12	2	41	40		56-56	25-25	measured
-m206	bubble	12	2	41	41				guess
-m207	bubble	14	2	41	41				guess
-m208	bubble	10	2	41	41				guess
-m209	bubble	14	2	41	41				guess
-m210	bubble	10	2	41	41				guess
-m211	bubble	10	2	41	41				guess
-m212	bubble	10	2	41	41				guess
-m213	bubble	12	2	41	41				guess
-m214	bubble	12	2	41	41				guess
-m215	bubble	10	3	41	41				guess
-m216	bubble	10	3	41	41				guess
-m217	bubble	10	2	41	41				guess
-m218	bubble	10	2	41	41				guess
-m219	bubble	12	2	41	41				guess
-m220	bubble	10	2	41	41				guess
-m221	bubble	10	2	41	41				guess
-m222	bubble	12	2	41	41				guess
-m223	bubble	10	2	41	41				guess
-m224	bubble	10	2	41	41				guess
-m225	bubble	10	2	41	41				guess
-m226	bubble	10	2	41	41				guess
-m227	bubble	10	2	41	41				guess
-m228	bubble	14	2	41	41				guess
-m229	bubble	12	2	41	41				guess
-m230	bubble	10	2	41	41				guess
-m231	bubble	10	2	41	41				guess
-m232	bubble	10	2	41	41				guess
-m233	bubble	10	2	41	41				guess
-m234	bubble	14	2	41	41				guess
-m235	bubble	12	2	41	41				guess
-m236	bubble	14	2	41	41				guess
-m237	bubble	10	2	41	41				guess
-m238	bubble	10	2	41	41				guess
-m239	bubble	14	2	41	41				guess
-m240	bubble	10	2	41	41				guess
-m241	bubble	12	3	41	41				guess
-m242	bubble	14	2	41	41				guess
-m243	bubble	14	2	41	41				guess
-m244	bubble	14	2	41	41				guess
-m245	bubble	14	2	41	41				guess
-m246	bubble	10	2	41	41				guess
-m247	bubble	10	2	41	41				guess
-m248	bubble	12	2	41	41				guess
-m249	bubble	14	2	41	41				guess
-m250	bubble	12	2	41	41				guess
-m251	bubble	10	2	41	41				guess
-m252	bubble	10	2	41	41				guess
-m253	bubble	12	3	41	41				guess
-m254	bubble	10	3	41	41				guess
-m255	bubble	14	2	41	41				guess
-m256	bubble	10	2	41	41				guess
-m257	bubble	16	2	41	41				guess
-m258	bubble	14	2	41	41				guess
-m259	bubble	10	2	41	41				guess
-m260	bubble	16	2	41	41				guess
-m261	bubble	10	2	41	41				guess
+m206	bubble	12	3	41	40		130-184	65-65	measured
+m207	bubble	16	3	41	40		87-155	65-65	measured
+m208	bubble	12	3	41	40		62-162	65-65	measured
+m209	bubble	14	3	41	40		70-170	65-65	measured
+m210	bubble	12	3	41	40		61-161	65-65	measured
+m211	bubble	12	3	41	40		63-163	65-65	measured
+m212	bubble	14	3	41	40		64-164	65-65	measured
+m213	bubble	12	3	41	40		57-157	65-65	measured
+m214	bubble	12	3	41	40		57-157	65-65	measured
+m215	bubble	12	3	41	40		61-161	49-49	measured
+m216	bubble	12	3	41	40		61-161	49-49	measured
+m217	bubble	12	3	41	40		59-159	57-57	measured
+m218	bubble	12	3	41	40		61-161	65-65	measured
+m219	bubble	12	3	41	40		57-157	65-65	measured
+m220	bubble	12	3	41	40		62-162	65-65	measured
+m221	bubble	12	3	41	40		62-162	65-65	measured
+m222	bubble	12	3	41	40		117-184	57-57	measured
+m223	bubble	10	3	41	40		54-154	65-65	measured
+m224	bubble	12	3	41	40		56-156	57-57	measured
+m225	bubble	12	3	41	40		63-163	65-65	measured
+m226	bubble	12	3	41	40		59-159	65-65	measured
+m227	bubble	12	3	41	40		62-162	65-65	measured
+m228	bubble	14	3	41	40		70-170	57-57	measured
+m229	bubble	14	3	41	40		68-168	57-57	measured
+m230	bubble	12	3	41	40		61-161	65-65	measured
+m231	bubble	14	3	41	40		74-174	65-65	measured
+m232	bubble	12	3	41	40		61-161	65-65	measured
+m233	bubble	14	3	41	40		74-174	57-57	measured
+m234	bubble	16	3	41	40		78-146	57-57	measured
+m235	bubble	14	3	41	40		76-176	57-57	measured
+m236	bubble	16	3	41	40		78-146	65-65	measured
+m237	bubble	12	3	41	40		61-161	65-65	measured
+m238	bubble	12	3	41	40		61-161	57-57	measured
+m239	bubble	16	3	41	40		87-155	57-57	measured
+m240	bubble	14	3	41	40		70-170	65-65	measured
+m241	bubble	12	3	41	40		57-157	49-49	measured
+m242	bubble	16	3	41	40		87-155	65-65	measured
+m243	bubble	16	3	41	40		78-146	65-65	measured
+m244	bubble	16	3	41	40		78-146	57-57	measured
+m245	bubble	16	3	41	40		78-146	57-57	measured
+m246	bubble	12	3	41	40		59-159	57-57	measured
+m247	bubble	14	3	41	40		72-172	65-65	measured
+m248	bubble	14	3	41	40		76-176	57-57	measured
+m249	bubble	16	3	41	40		78-146	65-65	measured
+m250	bubble	12	3	41	40		57-157	57-57	measured
+m251	bubble	14	3	41	40		72-172	65-65	measured
+m252	bubble	12	3	41	40		61-161	57-57	measured
+m253	bubble	12	3	41	40		57-157	49-49	measured
+m254	bubble	14	3	41	40		72-172	49-49	measured
+m255	bubble	14	3	41	40		119-176	57-57	measured
+m256	bubble	12	3	41	40		59-159	65-65	measured
+m257	bubble	16	3	41	40		87-155	57-57	measured
+m258	bubble	14	3	41	40		64-162	65-65	measured
+m259	bubble	12	3	41	40		63-163	65-65	measured
+m260	bubble	16	3	41	40		87-155	57-57	measured
+m261	bubble	12	3	41	40		59-159	65-65	measured
 m262	bubble	12	3	41	32		56-56	40-40	measured
 m263	bubble	14	3	41	32		176-176	73-73	measured
 m264	bubble	14	3	41	32		176-176	81-81	measured

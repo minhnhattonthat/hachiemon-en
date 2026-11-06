@@ -147,6 +147,19 @@ L.on_frame(function(f)
     end
   end
   if reached then for a, v in pairs(scene.pin or {}) do w8(a, v) end end
+  -- The object running the boss's states (boss 5: slot 33, call at 0x805B23A): +0x26 state, +0x28 the state's step.
+  -- WIN_WAIT frames after the VS banner, go to the state a lost fight enters.
+  if scene.win and reached then
+    fight_held = fight_held + 1
+    if fight_held == (WIN_WAIT or 300) then
+      local boss = 0x03001A20 + scene.win_slot * 0x40
+      -- Most defeat bubbles follow the player, so win_dx measures them with the player standing elsewhere (windows.md).
+      if scene.win_dx then w32(PL + 0x10, r32(PL + 0x10) + scene.win_dx) end
+      w8(boss + 0x26, scene.win)
+      w8(boss + 0x28, 0)
+      L.log(string.format("win state %d forced at f%d", scene.win, f))
+    end
+  end
   -- shortcut: forces fight6 past boss state 2, whose helpers (slots 32, 38) never finish after a warp; find out why if its later states matter.
   if scene.boss == 6 and r8(0x03001A20 + 30 * 0x40 + 0x1E) == 38 and r8(0x03001A20 + 30 * 0x40 + 0x1F) == 2 then
     fight_held = fight_held + 1

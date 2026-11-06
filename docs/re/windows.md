@@ -10,7 +10,7 @@ Limits are in 8 px cells, because the engine lays out cells. English averages ab
 | Kind | Strings | Cols x rows | Px per line | Other rules | Proof |
 |---|---|---|---|---|---|
 | Box (opening, some narration) | 27 | 23 x 2, any number of pages | 184 | Row 2 col 24 holds the page cursor. A full 24th cell followed by `{nl}` skips a whole row and draws below the box, so 23 is the limit on both rows | Opening shots, marker build |
-| Bubble | 751 measured, 56 guessed | Per string, 6-16 x 1-3 | 48-128 | Centred on x, y with an 8 px frame, so its room depends on how close it sits to an edge. Odd cols round up. Text is left aligned | Tour positions, at-limit tour |
+| Bubble | 807 measured | Per string, 6-16 x 1-3 | 48-128 | Centred on x, y with an 8 px frame, so its room depends on how close it sits to an edge. Odd cols round up. Text is left aligned | Tour positions, at-limit tour |
 | Caption strip | Bubbles at x 120, y 144 | 16 x 2 | 128 | Frameless text in the black band under cutscenes. Listed as bubbles. The off-screen warning in `markercover.py` is a false alarm for these: they draw inside the band | `talk10` shots |
 | Signboard | 40 measured, 1 empty | 14 x 2, any number of pages | 112 | Only 28 sprite slots: the caller passes base 100 | `sign00`-`sign39`, `stage01` |
 | Pointerless | 39 | Same as signs, **guess** | | No pointer, never read in any tour | none |
@@ -31,10 +31,10 @@ All **verified** by disassembly of 0x8038660 and 0x80389C8, and each seen in a s
 ## Overrides
 `tbl/limits_override.tsv` sits on top of the generated `limits.tsv` (`tools/lint.py`), with a reason per row:
 - m034, m159, m173, m183 go from 8 to 10 cols. They sit at x 194-200, and "Hachiemon" needs 10. Every letter stays on screen; only the right frame runs off the edge. Phase 8 must look.
-- m206-m261 (boss 5's defeat, guessed) go from 10 to 14 cols, 12 where a line has 3 rows, since the Japanese in that script already reaches 12-16 from both speakers. Still a guess until a real win shows them.
 
 ## Limits of the measurement
-- **Guessed rows** (`source` = guess in `tbl/limits.tsv`): s040 (empty), the 39 pointerless strings, and 56 bubbles, all of them boss 5's defeat script (m206-m261). That script's op 9B (pc 22, handler 0x8057438) writes a room change to 0x30061C0 and its VM caller then stops, so under the warp only the first line shows. Running the script in another boss's slot stops the same way, and stepping over the op from Lua didn't work either. They get 10 x 2 and 41 cells, enough for x from 48 to 192; phase 8 must look at them, which takes a real win over boss 5.
+- **Guessed rows** (`source` = guess in `tbl/limits.tsv`): s040 (empty) and the 39 pointerless strings.
+- **Boss 5's defeat (m206-m261) follows the player.** The `win5`, `win5l` and `win5r` scenes run the fight, then force the boss's own defeat states from state 33 (object slot 33, call at 0x805B23A), with the player where the fight left him, 60 px left, or 40 px right. All 56 lines show, in the real rooms and through op 9B. Nearly every x moves 1:1 with the player, and the script never walks him to a set spot, so their room depends on where the player stood when the boss died. **limits.py** takes the tightest x of the three runs, so a line fits with the player at about x 60-160; closer to an edge the bubble clips, as the Japanese does. A real win by hand was not played: the forced state skips only the fight itself.
 - **An actor can cover a bubble.** In `fight4` an orange sprite sits over the top-right bubble's right end at about x 220, y 30. The original ROM shows it too, so it is not a build bug; a line may lose a letter under it, as the Japanese does.
 - **Defeat lines are measured with a swapped script** (`defeat*` scenes, `swap` in `tools/debug/warp.lua`), which skips ops that wait on a boss state. Actors may stand somewhere else in a real win, and bubbles that follow an actor move with it. m152-m182 sit near the top or bottom edge there; the Japanese does too at those positions.
 - Bubbles following an actor were only logged where the mashed tour took that actor.

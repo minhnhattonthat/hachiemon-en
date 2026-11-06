@@ -75,7 +75,7 @@
   "id": "m006",
   "offset": "1D9613",
   "jp": "だいすきな おしゃべりも ロクにできません。{end:02}",
-  "en": "and they could hardly enjoy{nl}the chatter they loved.{end:02}",
+  "en": "and they can hardly enjoy{nl}the chatter they love.{end:02}",
   "refs": [
    {
     "word": "04BA08",
@@ -1707,7 +1707,7 @@
   "id": "m109",
   "offset": "1D9CB0",
   "jp": "あ〜もう！うるさいわねっ！！{end:01}",
-  "en": "Oh, shut UP!!{end:01}",
+  "en": "Oh, do shut UP,{nl}you pest!!{end:01}",
   "refs": [
    {
     "word": "1D25DC",
@@ -2027,7 +2027,7 @@
   "id": "m129",
   "offset": "1D9DE1",
   "jp": "あ〜、さすがにかたこったわ。{end:00}",
-  "en": "Man, even my{nl}shoulders{nl}are stiff.{end:00}",
+  "en": "Man, that sure{nl}stiffened my{nl}shoulders.{end:00}",
   "refs": [
    {
     "word": "1D2B48",
@@ -2555,7 +2555,7 @@
   "id": "m162",
   "offset": "1D9F92",
   "jp": "そう。あなたです。わたしと{nl}ひとつになりませんか？{end:00}",
-  "en": "Yes. You. Become{nl}one with me?{end:00}",
+  "en": "You. Won't you be{nl}one with me?{end:00}",
   "refs": [
    {
     "word": "1E9420",
@@ -2859,7 +2859,7 @@
   "id": "m181",
   "offset": "1DA156",
   "jp": "またあいましょう！{end:00}",
-  "en": "Till next!{end:00}",
+  "en": "Let's meet!{end:00}",
   "refs": [
    {
     "word": "1E984C",
@@ -3227,7 +3227,7 @@
   "id": "m204",
   "offset": "1DA2A3",
   "jp": "いくぞ。ハチエモン－－－－。{end:00}",
-  "en": "Here I come.{nl}Hachiemon----{end:00}",
+  "en": "Here I come,{nl}Hachiemon----{end:00}",
   "refs": [
    {
     "word": "1CFF58",
@@ -3899,7 +3899,7 @@
   "id": "m246",
   "offset": "1DA551",
   "jp": "あかちゃんのためや、{nl}いくしかない。{end:00}",
-  "en": "It's for the{nl}babies. I gotta.{end:00}",
+  "en": "For the babies,{nl}I gotta go.{end:00}",
   "refs": [
    {
     "word": "1D1538",
@@ -6154,7 +6154,7 @@
   "id": "m387",
   "offset": "1DADDF",
   "jp": "キュイ〜。{end:01}",
-  "en": "Kwee~.{end:01}",
+  "en": "Kwee~{end:01}",
   "refs": [
    {
     "word": "1DEBAC",
@@ -7089,7 +7089,7 @@
   "id": "m446",
   "offset": "1DB11B",
   "jp": "シャ〜シャ〜。{end:01}",
-  "en": "Hisss, hiss.{end:01}",
+  "en": "Hisss hiss.{end:01}",
   "refs": [
    {
     "word": "1DFE60",
@@ -8737,7 +8737,7 @@
   "id": "m549",
   "offset": "1DB6E1",
   "jp": "それやったらこまりますやろ。{nl}さがすの、てつだいましょか？{end:00}",
-  "en": "That's rough.{nl}Want help finding?{end:00}",
+  "en": "That's rough. Want{nl}help finding 'em?{end:00}",
   "refs": [
    {
     "word": "1E1FF8",
@@ -10957,7 +10957,7 @@
   "id": "m689",
   "offset": "1DC13B",
   "jp": "さあ、きをとりなおして{nl}いくでぇ〜！{end:00}",
-  "en": "Now, pull yourself{nl}together and go~!{end:00}",
+  "en": "Now, let's pull it{nl}together and go~!{end:00}",
   "refs": [
    {
     "word": "1E4C00",
@@ -11181,7 +11181,7 @@
   "id": "m703",
   "offset": "1DC226",
   "jp": "さあ、さめへんうちにたべ。{end:00}",
-  "en": "Go on, eat it while{nl}it's hot.{end:00}",
+  "en": "Eat up, hon, while{nl}it's hot.{end:00}",
   "refs": [
    {
     "word": "1E5164",
@@ -11549,7 +11549,7 @@
   "id": "m726",
   "offset": "1DC3EC",
   "jp": "オーサカやね。{nl}うちのこきょう。{end:00}",
-  "en": "Osaka.{nl}My hometown.{end:00}",
+  "en": "Osaka, hon.{nl}My hometown.{end:00}",
   "refs": [
    {
     "word": "1E56B4",
@@ -11581,7 +11581,7 @@
   "id": "m728",
   "offset": "1DC405",
   "jp": "そや。{nl}ここからずっとみなみの。{end:00}",
-  "en": "Yep.{nl}Way down south.{end:00}",
+  "en": "Yep, hon. Way{nl}down south.{end:00}",
   "refs": [
    {
     "word": "1E5704",
@@ -11677,7 +11677,7 @@
   "id": "m734",
   "offset": "1DC46A",
   "jp": "オーサカまでとおいで。{nl}それでもいくんか？{end:00}",
-  "en": "Osaka's far.{nl}Still going?{end:00}",
+  "en": "Osaka's far, hon.{nl}Still going?{end:00}",
   "refs": [
    {
     "word": "1E583C",
@@ -12139,7 +12139,7 @@
   "id": "m764",
   "offset": "1DC670",
   "jp": "まずはあのもりをパトロールや。{nl}いくでぇ〜！{end:00}",
-  "en": "First I'll patrol{nl}that forest. Go~!{end:00}",
+  "en": "First I'll patrol{nl}that forest.{page}Here I go~!{end:00}",
   "refs": [
    {
     "word": "1E6A58",
@@ -13040,7 +13040,7 @@
   "id": "m822",
   "offset": "1DCA53",
   "jp": "おちるか！？{nl}ほんまにええのんか？{end:00}",
-  "en": "I fall?!{nl}That's really okay?{end:00}",
+  "en": "Just jump off?!{nl}That's really okay?{end:00}",
   "refs": [
    {
     "word": "1E8430",
