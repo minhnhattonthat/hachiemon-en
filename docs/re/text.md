@@ -27,18 +27,33 @@ No other control bytes occur: every string in both banks walks with only these (
 Both banks hold strings back to back with no pointer table of their own. Run `tools/strscan.py` for current numbers.
 | Range | Strings | Chars | Content | Pointers |
 |---|---|---|---|---|
-| 0x1C0984-0x1C127C | 40 | 2,217 | Tutorial signboards | Table at 0x1C1280 |
-| 0x1D9554-0x1DCFC8 | 873 | 13,217 | Story, bubbles, narration, ramen stand | Rows at 0x1C7000-0x1D7FFF and 0x1DD000-0x1EAFFF (810 words); literal pools in code at 0x3Dxxx, 0x4Bxxx, 0x4Exxx, 0x4Fxxx, 0x5Dxxx (34 words) |
+| 0x1C0984-0x1C127F | 41 | 2,217 | Tutorial signboards (the last is empty) | Table at 0x1C1280 |
+| 0x1D9554-0x1DCFC7 | 873 | 13,217 | Story, bubbles, narration, ramen stand | Script VMs (810 words); literal pools in code at 0x3Dxxx, 0x4Bxxx, 0x4Exxx, 0x4Fxxx, 0x5Dxxx (35 words) |
 
-Longest line today: 25 cells. **Text can move:** every string found so far is reached through a 32-bit pointer word, so English goes in new space and the words get repointed. In-place fitting is not needed. **verified** on the strings the tour reads: `tools/debug/moved.py` moved both banks and wiped them, and the talk scenes still drew their text. `real_slots` in `tools/build.py` drops words inside packed blocks and the banks as chance matches; it found none in either, and 885 words count as text slots (884 from `strscan.py` plus the 0x1DBDF4 literal). The row layout is still a guess until phase 4 decodes it.
+Longest line today: 25 cells. **Text can move:** every string found so far is reached through a 32-bit pointer word, so English goes in new space and the words get repointed. In-place fitting is not needed. **verified** on the strings the tour reads: `tools/debug/moved.py` moved both banks and wiped them, and the talk scenes still drew their text. `text_slots` in `tools/build.py` takes its 886 words from the structures in `tools/vmscript.py` (810 script, 35 code, 41 sign), not from value matches. `test_owned_slots_equal_every_pointer_a_value_scan_finds` holds them equal to the old value scan.
 
 ### Pointer forms
 - **verified** Literal pools in code, `ldr rN,=string` then `bl 0x80383B8`. Example: 0x4B354 -> 0x81D9554.
-- **guess** Speech rows, 0x28 bytes each, e.g. at 0x1E903C: `{+0 animation ptr 0x081D48F8, +4 text ptr 0x081D9EBB, +8 2, +C 0x8F, +10 0, +14 0xAF, +18 0x110, ...}`. Layout read from the bytes, not yet from the reading code. Phase 4 must decode the owning structure rather than trust a value match (`AGENTS.md`).
-- **verified** Tutorial table at 0x1C1280: one word per string.
+- **verified** Script VM arguments, below.
+- **verified** Tutorial table at 0x1C1280: 41 words, read at 0x8002D54 and 0x8003FF4. Entry 40 points at the empty string at 0x1C127D. The next word is not a pointer.
 
-### Open items for phase 4
-- 40 strings in the main bank have no pointer word (one of them is 0x1DBDF3, below). They sit together: the tutorial's older copy at 0x1DCB9B-0x1DCDF9 and the ramen-stand talk at 0x1DCDFA-0x1DCFC7, plus a few singles (0x1DAA42, 0x1DAF84, 0x1DC4C7, 0x1DC4DF, 0x1DC782, 0x1DC7A1, 0x1DC7AB). **guess: dead.** Evidence: `tools/debug/textwatch.lua` watches every read of the bank whatever the path, and none of the 122 scenes (3000 frames, A mashed) nor the 44 talk scenes (9000 frames) read any of them; no pointer word in the ROM lands in those ranges; every other string is reached by an absolute pointer. Not proof: the same tours read only 549 of 873 main-bank strings and 2 of 40 tutorial strings, because stage bubbles need play. **Plan for phase 4:** keep them out of the script and leave their bytes in place; the leftover-Japanese scan is the net if one ever shows. `textcover.py ROM OUT...` re-checks after more play.
+### Script VMs
+The "speech rows" were never rows. They are u32 bytecode: an opcode word, then its arguments. **verified** by walking every script from its entry to its op 4 with lengths read from the handlers (`tools/vmscript.py`, `tests/test_script.py`): none hits an opcode its VM wouldn't run, and the walks own all 810 script words.
+
+| VM | Entry | Scripts come from | Jump table |
+|---|---|---|---|
+| Talk | 0x803B4B0, id in 0x3003E0C, pc in 0x3003E10 | Table 0x81C2E18, 88 entries (6 of them stage-format, so the stage VM owns those) | 0x803B4F0 |
+| Stage | 0x8056990, script pointer in r0 | 36 `bl` callers load 14 scripts from literals | 0x80569C8 |
+
+- Both share a state block at 0x3003E00 and opcode numbers, but not all lengths: op 1 is 1 word in talk and 2 in stage, 0x9B runs only in stage. Op 4 ends a script. In the talk VM an unlisted opcode resets the pc to 0.
+- **Text args:** `AF slot a b c anim text` (7 words) sets a bubble in 0x30042A8 + slot*0x44 with text at +0x10; `8E slot a b c text x y` (8 words) is the same with a position and no anim. 715 AF and 95 8E. No other argument of any walked op points into a bank, and `script_words` raises if one ever does.
+- `anim` tells speakers apart (e.g. 0x1C6CC0, 0x1D4540): extraction records it in each ref. It has no name mapping yet.
+
+### Strings with no pointer
+39 strings in the main bank have no pointer word. They sit together: the tutorial's older copy at 0x1DCB9B-0x1DCDF9 and the ramen-stand talk at 0x1DCDFA-0x1DCFC6, plus a few singles (0x1DAA42, 0x1DAF84, 0x1DC4C7, 0x1DC4DF, 0x1DC782, 0x1DC7A1, 0x1DC7AB). **guess: dead.** Evidence: every script is now walked and none points at them; the box callers of 0x80383B8 all load r1 from a literal; `tools/debug/textwatch.lua` saw no read of them in any tour. Not proof: a computed pointer wouldn't show, and the tours read only 681 of 873 main-bank strings. They are in `script/` with empty `refs`, so they get translated and written; only the leftover-Japanese scan or a read in `textcover.py` would change the guess.
+
+### Other notes
 - 0x1DBDF3 is a stray byte: a code literal (0x4EC04) points at 0x1DBDF4, one past where the grammar walk starts a string. Use the pointer as the start.
+- A sweep for FF-terminated kana runs outside the banks (2,203 hits) found only code, sound and table bytes in what I sampled, no second text bank. I read the ones at 0x80000+ with a pointer or mostly kana, up to about 0xB1000, and the output past that was cut off, so this is a sample rather than a full reading.
 - 0x1C1003 <- 0xE331C lands mid-string, and 0xE331C is outside the code and table areas: very likely a chance match. Do not repoint it.
 - Graphics text and the marquee boss sprite are not in these banks: see `graphics.md`.

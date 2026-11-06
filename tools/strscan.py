@@ -11,7 +11,7 @@ from pathlib import Path
 from tbl import Table
 
 ROOT = Path(__file__).resolve().parents[1]
-BANKS = [(0x1C0984, 0x1C127C), (0x1D9554, 0x1DCFC8)]
+BANKS = [(0x1C0984, 0x1C127F), (0x1D9554, 0x1DCFC7)]  # ends exclusive; each is followed by padding
 
 
 def table():

@@ -1,12 +1,14 @@
-"""Build the ROM: unpack the text banks, re-encode them, write them and their pointers back.
+"""Build the ROM: write the text in script/ and its pointers back.
 
     python -X utf8 tools/build.py    # build/hachiemon_en.gba and build/writes.txt; exit 1 on a bad write
 
-With no script yet (phase 4) the output must be byte-identical to the dump: tests/test_build.py holds it there. Packed
-graphics stay as they are unless edited, because lz_compress does not reproduce the original bytes (docs/re/rom-map.md).
+With no English in script/ every string stays where it was and the output is byte-identical to the dump
+(tests/test_build.py). Once any entry has English, all text moves to TEXT_BASE. Packed graphics stay as they are unless
+edited, because lz_compress does not reproduce the original bytes (docs/re/rom-map.md).
 """
 import bisect
 import hashlib
+import json
 import sys
 from pathlib import Path
 
@@ -16,12 +18,15 @@ from gbacomp import le_scan, scan
 from romdiff import check as romdiff_check
 from strscan import BANKS, pointers, table, walk
 from tbl import Table
+from vmscript import code_words, script_words, sign_words, u32
 
 ROOT = Path(__file__).resolve().parents[1]
 ROM = ROOT / "rom/Hachiemon (Japan).gba"
 OUT = ROOT / "build/hachiemon_en.gba"
+SCRIPT = [ROOT / "script/signs.json", ROOT / "script/main.json"]
 STRAY = {0x1DBDF3: 0x1DBDF4}  # a lone byte before this string: its code pointer gives the true start (docs/re/text.md)
 BASE = 0x08000000
+TEXT_BASE = 0x3A8600  # candidate free space, not trap-tested yet (docs/re/rom-map.md)
 
 
 class Image:
@@ -50,8 +55,20 @@ def packed_spans(rom):
     return sorted((o, o + p) for o, p, _ in scan(rom) + le_scan(rom))
 
 
+def load_script():
+    return [e for path in SCRIPT for e in json.loads(path.read_text(encoding="utf8"))]
+
+
+def text_slots(rom):
+    """string start -> pointer words, from the structures that own them: scripts, the sign table, code literals."""
+    slots = {}
+    for w in [*script_words(rom), *sign_words(), *code_words(rom)]:
+        slots.setdefault(u32(rom, w) - BASE, []).append(w)
+    return slots
+
+
 def real_slots(rom):
-    """target -> pointer words, without words inside packed blocks or the text banks: those are chance matches."""
+    """target -> pointer words by value, for graphics blocks, without words inside packed blocks or the text banks: those are chance matches."""
     spans = packed_spans(rom) + [(lo, hi) for lo, hi in BANKS]
     spans.sort()
     starts = [a for a, _ in spans]
@@ -68,13 +85,12 @@ def repoint(img, slots, old, new, who):
         img.write(w, (BASE + new).to_bytes(4, "little"), who)
 
 
-def repack_text(img, slots, codec, base=None):
-    """Re-encode every string. base=None keeps each where it is; otherwise they run back to back from base."""
-    rom = img.orig
+def repack_text(img, slots, codec, entries, base=None):
+    """Encode every entry, English if it has any. base=None keeps each where it is; otherwise they run back to back from base."""
     at = base
-    for s in strings(rom):
-        text, used = codec.decode(rom, s)
-        data = codec.encode(text)
+    for e in entries:
+        s = int(e["offset"], 16)
+        data = codec.encode(e["en"] or e["jp"])
         new = s if base is None else at
         img.write(new, data, f"text {s:#x}")
         repoint(img, slots, s, new, f"textptr {s:#x}")
@@ -82,9 +98,11 @@ def repack_text(img, slots, codec, base=None):
             at += len(data)
 
 
-def build(orig):
+def build(orig, entries=None):
+    entries = load_script() if entries is None else entries
     img = Image(orig)
-    repack_text(img, real_slots(orig), Table.load(ROOT / "tbl/jp.tbl"))
+    base = TEXT_BASE if any(e["en"] for e in entries) else None
+    repack_text(img, text_slots(orig), Table.load(ROOT / "tbl/jp.tbl"), entries, base)
     return img
 
 
