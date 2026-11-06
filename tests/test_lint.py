@@ -20,7 +20,7 @@ def errs(en, limit=BUBBLE, jp="あ{end:00}", glossary=(), sizes=None):
 
 def test_a_line_inside_its_limits_passes():
     assert errs("Hello there!{end:00}") == []
-    assert errs("Hello{nl}there!{page}Bye.{end:00}") == []
+    assert errs("Hello{nl}there!{page}Bye now.{end:00}") == []
 
 
 def test_width_counts_cells_and_the_page_break():
@@ -52,7 +52,7 @@ def test_a_bubble_reserves_a_row_more_than_it_shows():
 
 
 def test_sign_budget():
-    assert errs("Hello{nl}there{end:00}", SIGN) == []
+    assert errs("Hello{nl}there!{end:00}", SIGN) == []
     assert any("cols" in e for e in errs("n" * 18 + "{end:00}", SIGN))
 
 
@@ -88,3 +88,20 @@ def test_untranslated_lines_fail_only_in_final():
     entries = [{"id": "m000", "jp": "あ{end:00}", "en": ""}]
     assert lint(entries, ROM) == ([], 1)
     assert lint(entries, ROM, final=True)[0] == [("m000", "untranslated")]
+
+
+def test_the_commit_gate_fails_on_a_blank_line():
+    assert '"--final"' in (ROOT / "tools/check.py").read_text(encoding="utf8")
+
+
+def test_stub_last_lines_and_their_waivers():
+    assert any("stub" in e for e in errs("Hello{nl}you!{end:00}"))
+    assert not any("stub" in e for e in errs("Hello{nl}you all!{end:00}"))
+    entry = {"id": "m139", "jp": "あ{end:00}", "en": "Stand{nl}back!{end:00}"}
+    assert not any("stub" in e for e in check_entry(entry, BUBBLE, FONT, ROM, []))
+
+
+def test_pages_are_free_except_on_no_wait_lines():
+    assert errs("Hello{page}there!{end:00}", jp="あ{end:00}") == []
+    assert any("no-wait" in e for e in errs("Hello{page}there!{end:01}", jp="あ{end:01}"))
+    assert not any("no-wait" in e for e in errs("Hello{page}there!{end:01}", jp="あ{page}い{end:01}"))

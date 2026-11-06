@@ -6,6 +6,7 @@
 
 Limits: tbl/limits.tsv (tools/debug/limits.py), explained in docs/re/windows.md. Limits are in 8 px cells.
 """
+import functools
 import re
 import sys
 from pathlib import Path
@@ -19,6 +20,7 @@ LIMITS = ROOT / "tbl/limits.tsv"
 OVERRIDE = ROOT / "tbl/limits_override.tsv"
 GLOSSARY = ROOT / "glossary.md"
 KEEP = ROOT / "script/keep_jp.txt"
+STUB_OK = ROOT / "tbl/stub_ok.tsv"
 JAPANESE = re.compile(r"[぀-ヿ一-鿿＀-￯]")
 MAX_BUBBLE_BYTES = 254  # the bubble's string index +0x21 is a byte
 ORDINAL = re.compile(r"\}(st|nd|rd|th)\b")
@@ -40,6 +42,11 @@ def load_limits(path=LIMITS):
                 id_, cols, _ = line.split("\t")
                 limits[id_]["cols"] = int(cols)
     return limits
+
+
+@functools.cache
+def load_stub_ok():
+    return {ln.split("\t")[0] for ln in STUB_OK.read_text(encoding="utf8").splitlines() if ln and not ln.startswith("#")}
 
 
 def load_glossary(path=GLOSSARY):
@@ -74,6 +81,8 @@ def check_entry(e, limit, font, rom, glossary, sizes=None):
         return errs + ["no {end:MM}"]
     if jp_end.group(0) != en_end.group(0):
         errs.append(f"end code {en_end.group(0)}, the Japanese has {jp_end.group(0)}")
+    if jp_end.group(0) == "{end:01}" and jp.count("{page}") != en.count("{page}"):  # D16: this line finishes with no wait, so a page would add one
+        errs.append("page count differs on a no-wait {end:01} line")
     bad = sorted({ch for ch in TOKEN.sub("", en) if ch not in font and ch != "♥"})
     if bad:
         return errs + [f"no glyph for {bad}"]
@@ -107,7 +116,7 @@ def check_entry(e, limit, font, rom, glossary, sizes=None):
         if limit["room"] and tiles > limit["room"]:
             errs.append(f"{tiles} tile cells with bubbles open beside it {limit['with']}, limit {limit['room']}: text would paint over an actor")
     last = re.split(r"\{nl\}|\{page\}|\{end:..\}", en)[-2]
-    if "{nl}" in en and 0 < len(last.strip()) < 3 and len(en) > 20:
+    if "{nl}" in en and 0 < len(last.strip()) < 6 and e["id"] not in load_stub_ok():
         errs.append(f"stub last line {last!r}")
     return errs
 

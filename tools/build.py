@@ -142,6 +142,8 @@ def pack_text(img, slots, codec, entries, base=TEXT_BASE):
         new = put(cells, data, f"text {s:#x}")
         repoint(img, slots, s, new, f"textptr {s:#x}")
         where[e["id"]] = (new - len(cells), new)
+    if u32(orig, ERROR_SLOT) != BASE + ERROR_STRING:
+        raise ValueError(f"ERROR slot at {ERROR_SLOT:#x} holds {u32(orig, ERROR_SLOT):#x}")
     cells, data = encode_en(ERROR_TEXT, font, orig)
     new = put(cells, data, "text error")
     img.write(ERROR_SLOT, (BASE + new).to_bytes(4, "little"), "textptr error")

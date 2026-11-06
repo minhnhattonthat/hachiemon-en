@@ -10,7 +10,9 @@ sys.path.insert(0, str(ROOT / "tools" / "debug"))
 from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
+from jp_cells import leftover  # noqa: E402
 from romdiff import check  # noqa: E402
+from strscan import BANKS  # noqa: E402
 from tbl import Table  # noqa: E402
 
 ROM = next(iter((ROOT / "rom").glob("*.gba")), None) if (ROOT / "rom").is_dir() else None
@@ -25,6 +27,32 @@ def test_identity_build():
     assert bytes(img.out) == orig
     assert check(orig, bytes(img.out), set(), img.writes)[0] == []
     assert sum(who.startswith("textptr") for *_, who in img.writes) == 886  # 810 script, 35 code, 41 sign
+
+
+@needs_rom
+def test_jp_cells_sees_blank_lines_and_passes_the_real_build():
+    orig = ROM.read_bytes()
+    entries = load_script()
+    assert leftover(orig, build(orig, entries).out, entries) == []
+    blanked = [dict(e, en="") if e["id"] in ("m100", "m159", "s000") else e for e in entries]
+    assert sorted(leftover(orig, build(orig, blanked).out, blanked)) == ["m100", "m159", "s000"]
+
+
+# Words outside the banks that aim into them once flag bits are masked, read as chance matches: 13 are code or sample
+# data, the last 2 sit in packed blocks. A new one means a pointer form the extractor missed.
+CHANCE_WORDS = {0x3A368, 0x6560C, 0xAE5B8, 0xE331C, 0x112974, 0x120D80, 0x158DF8, 0x15D360, 0x172E98, 0x17B5BC, 0x185640, 0x19348C, 0x194078, 0x20DEA4, 0x358064}
+
+
+@needs_rom
+def test_no_flagged_pointer_into_the_banks_is_left_unowned():
+    orig = ROM.read_bytes()
+    owned = {w for words in text_slots(orig).values() for w in words}
+    hits = set()
+    for at in range(0, len(orig) - 3, 4):
+        t = (int.from_bytes(orig[at:at + 4], "little") & 0x0FFFFFFF) - 0x08000000
+        if any(lo <= t < hi for lo, hi in BANKS) and not any(lo <= at < hi for lo, hi in BANKS):
+            hits.add(at)
+    assert hits - owned == CHANCE_WORDS
 
 
 def thumb_branch_target(rom, at):

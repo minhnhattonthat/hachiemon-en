@@ -2,6 +2,8 @@
 
 One line each: the reference it belongs in, then the fact.
 
+- `references/pipeline.md` (Checks, Leftover Japanese): `jp_left.py --tbl --slots` passes falsely with per-string pre-rendered cells: strings start with cell byte 00, so a NUL ends its reach at once, and later bytes aren't font codes. It said 0 runs on a build with 50 lines blank. A game like this needs a cell-side check (`tools/jp_cells.py`): walk each slot's string and compare the cells it would draw with the font's kana cells.
+
 - `references/emulator-qa.md`: a tour can lose every remaining scene at once to exit code 0xC0000142 (Mesen failing to start; seen 2026-11-07 after 29 of 160 scenes, cause unknown). The tour still exits 0, so read the `N/M ok` line in its log, not the exit code.
 - `references/emulator-qa.md`: `sheet.py` run from a subfolder with shell-relative paths writes `--out` relative to that folder, and the shell's working directory carries to the next call. Run it from the repo root.
 - `assets/batches.py`: its `_selftest` assumes `[n]`-style tokens and a `max` field, so it breaks once the ADAPTER is fitted to another format; its Avoid column splits on `/` while `glossary.md` and `lint.py` use commas; `merge` adds a `status` key per entry. Fitted and removed here.

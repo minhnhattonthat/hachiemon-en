@@ -1,0 +1,17 @@
+# id	why a last line under 6 characters is right here (read by tools/lint.py)
+m026	rewrap is over the 8-column bubble
+m042	three one-word rows in a narrow bubble; the beat is the point
+m082	"You / pass, pal." reads worse
+m089	three short rows; each is its own beat
+m091	"Someone's / here." is one word per row in a narrow bubble
+m092	"Let's / mess / with him!" reads worse
+m100	the pause is the joke
+m113	three one-word rows in a narrow bubble
+m126	"Then / we're good." reads worse
+m139	two words, one per row
+m140	two words, one per row: the second half of a split call
+m144	the long first word fills the row
+m192	two words, one per row, after a pause
+m197	rewrap is over the 10-column bubble
+m310	"yeah?" is its own page: a beat
+m591	"--I / mean, no." breaks the phrase

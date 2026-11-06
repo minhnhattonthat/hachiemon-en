@@ -123,7 +123,7 @@
   "id": "m010",
   "offset": "1D9694",
   "jp": "ん？ だれやあんた。{end:00}",
-  "en": "Hm? Who're{nl}you?{end:00}",
+  "en": "Hm?{nl}Who're you?{end:00}",
   "refs": [
    {
     "word": "1C7170",
@@ -779,7 +779,7 @@
   "id": "m051",
   "offset": "1D98EF",
   "jp": "ガイトウ データ{nl}アリマセン。{end:00}",
-  "en": "NO MATCHING{nl}DATA.{end:00}",
+  "en": "NO{nl}MATCHING DATA.{end:00}",
   "refs": [
    {
     "word": "1D391C",
@@ -1019,7 +1019,7 @@
   "id": "m066",
   "offset": "1D9A2C",
   "jp": "ここでたおれるわけには{nl}いかんのや。{end:00}",
-  "en": "I can't go down{nl}here.{end:00}",
+  "en": "I can't go{nl}down here.{end:00}",
   "refs": [
    {
     "word": "1D3E34",
@@ -2171,7 +2171,7 @@
   "id": "m138",
   "offset": "1D9E61",
   "jp": "あぶないから！{end:00}",
-  "en": "It's not{nl}safe!{end:00}",
+  "en": "It's{nl}not safe!{end:00}",
   "refs": [
    {
     "word": "1E8D94",
@@ -2299,7 +2299,7 @@
   "id": "m146",
   "offset": "1D9EAE",
   "jp": "やっぱり わしかいっ！{end:00}",
-  "en": "Figures it's{nl}me!{end:00}",
+  "en": "Figures{nl}it's me!{end:00}",
   "refs": [
    {
     "word": "1E8F50",
@@ -5258,7 +5258,7 @@
   "id": "m331",
   "offset": "1DAAFF",
   "jp": "よっしゃ、{nl}くちびるとってきたら{nl}ええんやな？{end:00}",
-  "en": "All right, so I just{nl}get you some lips,{nl}yeah?{end:00}",
+  "en": "All right, so I just{nl}get you some{nl}lips, yeah?{end:00}",
   "refs": [
    {
     "word": "1DD954",
@@ -6346,7 +6346,7 @@
   "id": "m399",
   "offset": "1DAE91",
   "jp": "ささ くうてましたらこう、{nl}すぽーん、と。{end:00}",
-  "en": "I was eating bamboo{nl}when, y'know,{nl}pop!{end:00}",
+  "en": "I was eating bamboo{nl}when,{nl}y'know, pop!{end:00}",
   "refs": [
    {
     "word": "1DEEB8",
@@ -6538,7 +6538,7 @@
   "id": "m411",
   "offset": "1DAF66",
   "jp": "あ〜、あしもとがくらあて{nl}ようわからんなあ。{end:00}",
-  "en": "Man, it's dark.{nl}Can't see my{nl}feet.{end:00}",
+  "en": "Man, it's dark.{nl}Can't see{nl}my feet.{end:00}",
   "refs": [
    {
     "word": "1DF2EC",
@@ -6673,7 +6673,7 @@
   "id": "m420",
   "offset": "1DAFE2",
   "jp": "もらったぜぇ！{end:00}",
-  "en": "They're mine,{nl}pal!{end:00}",
+  "en": "They're{nl}mine, pal!{end:00}",
   "refs": [
    {
     "word": "1DF5E8",
@@ -6993,7 +6993,7 @@
   "id": "m440",
   "offset": "1DB0D7",
   "jp": "よっしゃ、{nl}くちびるとってきたら{nl}ええんやな？{end:00}",
-  "en": "All right, so I just{nl}get you some lips,{nl}yeah?{end:00}",
+  "en": "All right, so I just{nl}get you some{nl}lips, yeah?{end:00}",
   "refs": [
    {
     "word": "1DFC58",
@@ -8801,7 +8801,7 @@
   "id": "m553",
   "offset": "1DB73D",
   "jp": "ほんま{nl}はんのうおっそいな〜。{end:00}",
-  "en": "You are seriously{nl}slow.{end:00}",
+  "en": "You are{nl}seriously slow.{end:00}",
   "refs": [
    {
     "word": "1E20AC",
@@ -9329,7 +9329,7 @@
   "id": "m585",
   "offset": "1DB996",
   "jp": "うん、な〜んもおらん。{end:00}",
-  "en": "Yep, nobody{nl}here.{end:00}",
+  "en": "Yep,{nl}nobody here.{end:00}",
   "refs": [
    {
     "word": "1E2BF8",
@@ -10621,7 +10621,7 @@
   "id": "m668",
   "offset": "1DC004",
   "jp": "わかったら、{nl}あっちにいってろ。{end:00}",
-  "en": "Now get{nl}lost.{end:00}",
+  "en": "Now{nl}get lost.{end:00}",
   "refs": [
    {
     "word": "1E43E4",
@@ -10973,7 +10973,7 @@
   "id": "m690",
   "offset": "1DC14F",
   "jp": "マッスルハチエモンか。{end:00}",
-  "en": "Muscle Hachiemon,{nl}huh.{end:00}",
+  "en": "Muscle{nl}Hachiemon, huh.{end:00}",
   "refs": [
    {
     "word": "1E4D84",

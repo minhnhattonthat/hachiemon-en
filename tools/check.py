@@ -5,5 +5,5 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 tests = subprocess.call([sys.executable, "-X", "utf8", "-m", "pytest", "-q", str(ROOT / "tests")], cwd=ROOT)
-text = subprocess.call([sys.executable, "-X", "utf8", str(ROOT / "tools/lint.py")], cwd=ROOT)
+text = subprocess.call([sys.executable, "-X", "utf8", str(ROOT / "tools/lint.py"), "--final"], cwd=ROOT)  # --final: a blank line would ship its Japanese
 sys.exit(tests or text)

@@ -237,7 +237,7 @@
   "id": "s018",
   "offset": "1C0DE1",
   "jp": "ゴールはビルのいりぐちだ！{page}どんどん したに{nl}おりていこう！{end:00}",
-  "en": "The goal is the{nl}building door!{page}Keep heading{nl}down!{end:00}",
+  "en": "The goal is the{nl}building door!{page}Keep{nl}heading down!{end:00}",
   "refs": [
    {
     "word": "1C12C8",
@@ -484,7 +484,7 @@
   "id": "s037",
   "offset": "1C11AC",
   "jp": "てきがてごわいときは－－{page}いろいろためして{nl}たたかおう！{page}くちびるこうげき、{nl}くちびるブーメラン－－{page}かいてんアタックも{nl}やってみよう！{end:00}",
-  "en": "Tough enemy?--{page}Try everything{nl}you've got!{page}Lip Attack,{nl}Lip Boomerang--{page}try Spin Attack{nl}too!{end:00}",
+  "en": "Tough enemy?--{page}Try everything{nl}you've got!{page}Lip Attack,{nl}Lip Boomerang--{page}try Spin{nl}Attack too!{end:00}",
   "refs": [
    {
     "word": "1C1314",
