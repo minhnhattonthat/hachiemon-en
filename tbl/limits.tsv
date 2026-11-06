@@ -1,0 +1,915 @@
+# id	kind	max_cols	max_rows	sprite_slots	tile_cells	with	x	y	source
+s000	sign	14	2	28	28				measured
+s001	sign	14	2	28	28				measured
+s002	sign	14	2	28	28				measured
+s003	sign	14	2	28	28				measured
+s004	sign	14	2	28	28				measured
+s005	sign	14	2	28	28				measured
+s006	sign	14	2	28	28				measured
+s007	sign	14	2	28	28				measured
+s008	sign	14	2	28	28				measured
+s009	sign	14	2	28	28				measured
+s010	sign	14	2	28	28				measured
+s011	sign	14	2	28	28				measured
+s012	sign	14	2	28	28				measured
+s013	sign	14	2	28	28				measured
+s014	sign	14	2	28	28				measured
+s015	sign	14	2	28	28				measured
+s016	sign	14	2	28	28				measured
+s017	sign	14	2	28	28				measured
+s018	sign	14	2	28	28				measured
+s019	sign	14	2	28	28				measured
+s020	sign	14	2	28	28				measured
+s021	sign	14	2	28	28				measured
+s022	sign	14	2	28	28				measured
+s023	sign	14	2	28	28				measured
+s024	sign	14	2	28	28				measured
+s025	sign	14	2	28	28				measured
+s026	sign	14	2	28	28				measured
+s027	sign	14	2	28	28				measured
+s028	sign	14	2	28	28				measured
+s029	sign	14	2	28	28				measured
+s030	sign	14	2	28	28				measured
+s031	sign	14	2	28	28				measured
+s032	sign	14	2	28	28				measured
+s033	sign	14	2	28	28				measured
+s034	sign	14	2	28	28				measured
+s035	sign	14	2	28	28				measured
+s036	sign	14	2	28	28				measured
+s037	sign	14	2	28	28				measured
+s038	sign	14	2	28	28				measured
+s039	sign	14	2	28	28				measured
+s040	sign	14	2	28	28				guess
+m000	box	23	2	0	0				measured
+m001	box	23	2	0	0				measured
+m002	box	23	2	0	0				measured
+m003	box	23	2	0	0				measured
+m004	box	23	2	0	0				measured
+m005	box	23	2	0	0				measured
+m006	box	23	2	0	0				measured
+m007	box	23	2	0	0				measured
+m008	box	23	2	0	0				measured
+m009	box	23	2	0	0				measured
+m010	bubble	10	3	41	40		192-192	65-65	measured
+m011	bubble	6	3	41	40		208-208	59-59	measured
+m012	bubble	12	3	41	40		184-184	67-67	measured
+m013	bubble	12	3	41	40		184-184	67-67	measured
+m014	bubble	10	3	41	40		192-192	65-65	measured
+m015	bubble	6	3	41	40		208-208	59-59	measured
+m016	bubble	12	3	41	40		184-184	67-67	measured
+m017	bubble	10	3	41	40		192-192	67-67	measured
+m018	bubble	14	3	41	40		176-176	67-67	measured
+m019	bubble	10	3	41	40		192-192	65-65	measured
+m020	bubble	6	3	41	40		208-208	62-62	measured
+m021	bubble	6	3	41	40		208-208	67-67	measured
+m022	bubble	6	3	41	40		208-208	62-62	measured
+m023	bubble	8	3	41	40		200-200	67-67	measured
+m024	bubble	12	3	41	40		184-184	65-65	measured
+m025	bubble	6	3	41	40		208-208	62-62	measured
+m026	bubble	8	3	41	40	m025	200-200	65-65	measured
+m027	bubble	12	3	41	40		184-184	62-62	measured
+m028	bubble	12	3	41	40		184-184	65-65	measured
+m029	bubble	6	3	41	40		208-208	62-62	measured
+m030	bubble	16	3	41	40		168-168	70-70	measured
+m031	bubble	14	3	41	40		176-176	56-56	measured
+m032	bubble	10	3	41	40		192-192	62-62	measured
+m033	bubble	14	3	41	40		176-176	67-67	measured
+m034	bubble	8	3	41	40		200-200	59-59	measured
+m035	bubble	10	3	41	40		192-192	59-59	measured
+m036	bubble	10	3	41	40		192-192	67-67	measured
+m037	bubble	12	3	41	40		184-184	57-57	measured
+m038	bubble	8	3	41	40		200-200	65-65	measured
+m039	bubble	10	3	41	40		192-192	59-59	measured
+m040	bubble	10	3	41	40		192-192	67-67	measured
+m041	bubble	14	3	41	40		176-176	62-62	measured
+m042	bubble	8	3	41	40		200-200	57-57	measured
+m043	bubble	16	3	41	40		146-146	99-99	measured
+m044	bubble	16	3	41	40		150-150	103-103	measured
+m045	bubble	16	3	41	40		150-150	96-96	measured
+m046	bubble	16	3	41	40		142-142	80-80	measured
+m047	bubble	16	3	41	40		140-140	72-72	measured
+m048	bubble	16	3	41	40		150-150	96-96	measured
+m049	bubble	16	3	41	40		146-146	72-72	measured
+m050	bubble	16	3	41	40		142-142	80-80	measured
+m051	bubble	16	3	41	40		144-144	80-80	measured
+m052	bubble	16	3	41	40		140-140	80-80	measured
+m053	bubble	16	3	41	40		150-150	96-96	measured
+m054	bubble	16	3	41	40		148-148	104-104	measured
+m055	bubble	16	3	41	40		140-140	80-80	measured
+m056	bubble	16	3	41	40		138-138	80-80	measured
+m057	bubble	16	3	41	40		142-142	80-80	measured
+m058	bubble	16	3	41	40		138-138	80-80	measured
+m059	bubble	16	3	41	40		146-146	103-103	measured
+m060	bubble	16	3	41	40		140-140	80-80	measured
+m061	bubble	16	3	41	40		150-150	95-95	measured
+m062	bubble	16	3	41	40		84-84	95-95	measured
+m063	bubble	16	3	41	40		140-140	80-80	measured
+m064	bubble	16	3	41	40		84-84	104-104	measured
+m065	bubble	16	3	41	40		88-88	96-96	measured
+m066	bubble	16	3	41	40		86-86	96-96	measured
+m067	bubble	16	3	41	40		144-144	72-72	measured
+m068	bubble	16	3	41	40		88-88	96-96	measured
+m069	bubble	16	3	41	40		88-88	96-96	measured
+m070	bubble	16	3	41	40		82-82	104-104	measured
+m071	bubble	16	3	41	40		144-144	72-72	measured
+m072	bubble	16	3	41	40		138-138	80-80	measured
+m073	bubble	16	3	41	40		138-138	80-80	measured
+m074	bubble	16	3	41	40		88-88	104-104	measured
+m075	bubble	16	3	41	40		146-146	72-72	measured
+m076	bubble	16	3	41	40		80-80	104-104	measured
+m077	bubble	16	3	41	40		136-136	80-80	measured
+m078	bubble	16	3	41	40		84-84	104-104	measured
+m079	bubble	10	3	41	40		188-188	77-77	measured
+m080	bubble	10	3	41	40		188-188	71-71	measured
+m081	bubble	16	3	41	40		84-84	104-104	measured
+m082	bubble	10	3	41	40		190-190	77-77	measured
+m083	bubble	10	3	41	40		186-186	63-63	measured
+m084	bubble	16	3	41	40		86-86	104-104	measured
+m085	bubble	10	3	41	40		190-190	85-85	measured
+m086	bubble	16	3	41	40		84-84	104-104	measured
+m087	bubble	16	3	41	40		162-162	77-77	measured
+m088	bubble	16	3	41	40		140-140	72-72	measured
+m089	bubble	6	3	41	63		208-208	105-105	measured
+m090	bubble	8	3	41	63		200-200	105-105	measured
+m091	bubble	8	3	41	63		200-200	80-80	measured
+m092	bubble	8	3	41	63		200-200	80-80	measured
+m093	bubble	6	1	41	63		208-208	137-137	measured
+m094	bubble	6	1	41	63		208-208	137-137	measured
+m095	bubble	12	3	41	63		184-184	80-80	measured
+m096	bubble	12	3	41	63		184-184	80-80	measured
+m097	bubble	6	1	41	63		208-208	137-137	measured
+m098	bubble	10	1	41	63		192-192	137-137	measured
+m099	bubble	6	3	41	63		208-208	88-88	measured
+m100	bubble	12	3	41	63		184-184	88-88	measured
+m101	bubble	10	1	41	63		192-192	137-137	measured
+m102	bubble	12	1	41	63		184-184	137-137	measured
+m103	bubble	6	3	41	63		208-208	92-92	measured
+m104	bubble	8	3	41	63		200-200	113-113	measured
+m105	bubble	12	3	41	63		184-184	113-113	measured
+m106	bubble	12	3	41	63		184-184	105-105	measured
+m107	bubble	6	3	41	63		208-208	92-92	measured
+m108	bubble	14	3	41	63		176-176	105-105	measured
+m109	bubble	14	3	41	63		176-176	92-92	measured
+m110	bubble	14	3	41	63		176-176	92-92	measured
+m111	bubble	12	3	41	63		184-184	113-113	measured
+m112	bubble	12	2	41	63		56-56	30-30	measured
+m113	bubble	8	3	41	63		200-200	113-113	measured
+m114	bubble	14	3	41	63		176-176	113-113	measured
+m115	bubble	12	3	41	63		184-184	105-105	measured
+m116	bubble	8	1	41	63		200-200	22-22	measured
+m117	bubble	14	3	41	63		176-176	105-105	measured
+m118	bubble	8	1	41	63		200-200	22-22	measured
+m119	bubble	12	3	41	63		184-184	105-105	measured
+m120	bubble	8	1	41	63		200-200	22-22	measured
+m121	bubble	12	3	41	63		184-184	113-113	measured
+m122	bubble	8	1	41	63		200-200	22-22	measured
+m123	bubble	16	3	41	63		120-120	32-32	measured
+m124	bubble	16	3	41	63		168-168	105-105	measured
+m125	bubble	8	1	41	63		200-200	22-22	measured
+m126	bubble	12	3	41	63		184-184	113-113	measured
+m127	bubble	16	3	41	63		168-168	113-113	measured
+m128	bubble	10	1	41	63		192-192	22-22	measured
+m129	bubble	14	3	41	63		176-176	113-113	measured
+m130	bubble	14	3	41	63		176-176	105-105	measured
+m131	bubble	8	3	41	42		200-200	87-87	measured
+m132	bubble	6	3	41	42		208-208	87-87	measured
+m133	bubble	10	3	41	42		192-192	62-62	measured
+m134	bubble	14	3	41	42		176-176	62-62	measured
+m135	bubble	6	3	41	42		32-32	120-120	measured
+m136	bubble	14	3	41	42		176-176	70-70	measured
+m137	bubble	6	3	41	42		208-208	87-87	measured
+m138	bubble	8	3	41	42		200-200	87-87	measured
+m139	bubble	8	3	41	42		200-200	87-87	measured
+m140	bubble	6	3	41	42		208-208	87-87	measured
+m141	bubble	6	3	41	42		208-208	87-87	measured
+m142	bubble	14	3	41	42		176-176	87-87	measured
+m143	bubble	6	3	41	42		208-208	70-70	measured
+m144	bubble	12	3	41	42		184-184	87-87	measured
+m145	bubble	8	3	41	42		200-200	87-87	measured
+m146	bubble	12	3	41	42		184-184	70-70	measured
+m147	bubble	6	3	41	42		208-208	87-87	measured
+m148	bubble	6	3	41	42		208-208	87-87	measured
+m149	bubble	14	3	41	42		176-176	87-87	measured
+m150	bubble	12	3	41	42		184-184	87-87	measured
+m151	bubble	14	3	41	42		176-176	87-87	measured
+m152	bubble	8	1	41	42		40-40	12-12	measured
+m153	bubble	10	3	41	42		192-192	70-70	measured
+m154	bubble	12	3	41	42		184-184	70-70	measured
+m155	bubble	14	2	41	40		176-176	24-24	measured
+m156	bubble	14	1	41	40		175-175	158-158	measured
+m157	bubble	12	2	41	40		184-184	24-24	measured
+m158	bubble	12	1	41	40		177-177	158-158	measured
+m159	bubble	8	2	41	40		200-200	24-24	measured
+m160	bubble	12	2	41	40		184-184	24-24	measured
+m161	bubble	14	1	41	40		171-171	158-158	measured
+m162	bubble	14	2	41	40		176-176	24-24	measured
+m163	bubble	12	2	41	40		184-184	24-24	measured
+m164	bubble	10	2	41	40		192-192	24-24	measured
+m165	bubble	14	2	41	40		176-176	24-24	measured
+m166	bubble	10	2	41	40		192-192	24-24	measured
+m167	bubble	12	2	41	40		177-177	150-150	measured
+m168	bubble	8	2	41	40		200-200	24-24	measured
+m169	bubble	14	2	41	40		176-176	24-24	measured
+m170	bubble	16	1	41	40		147-147	158-158	measured
+m171	bubble	16	2	41	40		176-176	24-24	measured
+m172	bubble	16	2	41	40		147-147	150-150	measured
+m173	bubble	8	1	41	40		200-200	16-16	measured
+m174	bubble	12	2	41	40		184-184	24-24	measured
+m175	bubble	12	2	41	40		184-184	24-24	measured
+m176	bubble	6	1	41	40		208-208	16-16	measured
+m177	bubble	16	1	41	40		147-147	158-158	measured
+m178	bubble	12	2	41	40		184-184	24-24	measured
+m179	bubble	16	1	41	40		147-147	158-158	measured
+m180	bubble	14	2	41	40		176-176	24-24	measured
+m181	bubble	10	1	41	40		192-192	16-16	measured
+m182	bubble	12	1	41	40		177-177	158-158	measured
+m183	bubble	8	3	41	40		194-194	57-57	measured
+m184	bubble	16	3	41	40		157-157	57-57	measured
+m185	bubble	14	3	41	24		175-175	57-57	measured
+m186	bubble	10	3	41	40		192-192	57-57	measured
+m187	bubble	14	3	41	40		173-173	65-65	measured
+m188	bubble	14	2	41	40		64-64	25-25	measured
+m189	bubble	14	2	41	40		64-64	25-25	measured
+m190	bubble	14	3	41	40		173-173	65-65	measured
+m191	bubble	14	2	41	40		64-64	25-25	measured
+m192	bubble	6	2	41	40		32-32	25-25	measured
+m193	bubble	14	3	41	40		173-173	65-65	measured
+m194	bubble	10	2	41	40		48-48	25-25	measured
+m195	bubble	16	3	41	40		147-147	57-57	measured
+m196	bubble	16	3	41	40		147-147	57-57	measured
+m197	bubble	10	3	41	40		48-48	33-33	measured
+m198	bubble	12	3	41	40		177-177	65-65	measured
+m199	bubble	14	3	41	40		171-171	65-65	measured
+m200	bubble	6	2	41	40		32-32	25-25	measured
+m201	bubble	12	2	41	40		56-56	25-25	measured
+m202	bubble	16	3	41	40		117-117	65-65	measured
+m203	bubble	14	2	41	40		64-64	25-25	measured
+m204	bubble	14	2	41	40		64-64	25-25	measured
+m205	bubble	12	2	41	40		56-56	25-25	measured
+m206	bubble	12	2	41	41				guess
+m207	bubble	14	2	41	41				guess
+m208	bubble	10	2	41	41				guess
+m209	bubble	14	2	41	41				guess
+m210	bubble	10	2	41	41				guess
+m211	bubble	10	2	41	41				guess
+m212	bubble	10	2	41	41				guess
+m213	bubble	12	2	41	41				guess
+m214	bubble	12	2	41	41				guess
+m215	bubble	10	3	41	41				guess
+m216	bubble	10	3	41	41				guess
+m217	bubble	10	2	41	41				guess
+m218	bubble	10	2	41	41				guess
+m219	bubble	12	2	41	41				guess
+m220	bubble	10	2	41	41				guess
+m221	bubble	10	2	41	41				guess
+m222	bubble	12	2	41	41				guess
+m223	bubble	10	2	41	41				guess
+m224	bubble	10	2	41	41				guess
+m225	bubble	10	2	41	41				guess
+m226	bubble	10	2	41	41				guess
+m227	bubble	10	2	41	41				guess
+m228	bubble	14	2	41	41				guess
+m229	bubble	12	2	41	41				guess
+m230	bubble	10	2	41	41				guess
+m231	bubble	10	2	41	41				guess
+m232	bubble	10	2	41	41				guess
+m233	bubble	10	2	41	41				guess
+m234	bubble	14	2	41	41				guess
+m235	bubble	12	2	41	41				guess
+m236	bubble	14	2	41	41				guess
+m237	bubble	10	2	41	41				guess
+m238	bubble	10	2	41	41				guess
+m239	bubble	14	2	41	41				guess
+m240	bubble	10	2	41	41				guess
+m241	bubble	12	3	41	41				guess
+m242	bubble	14	2	41	41				guess
+m243	bubble	14	2	41	41				guess
+m244	bubble	14	2	41	41				guess
+m245	bubble	14	2	41	41				guess
+m246	bubble	10	2	41	41				guess
+m247	bubble	10	2	41	41				guess
+m248	bubble	12	2	41	41				guess
+m249	bubble	14	2	41	41				guess
+m250	bubble	12	2	41	41				guess
+m251	bubble	10	2	41	41				guess
+m252	bubble	10	2	41	41				guess
+m253	bubble	12	3	41	41				guess
+m254	bubble	10	3	41	41				guess
+m255	bubble	14	2	41	41				guess
+m256	bubble	10	2	41	41				guess
+m257	bubble	16	2	41	41				guess
+m258	bubble	14	2	41	41				guess
+m259	bubble	10	2	41	41				guess
+m260	bubble	16	2	41	41				guess
+m261	bubble	10	2	41	41				guess
+m262	bubble	12	3	41	32		56-56	40-40	measured
+m263	bubble	14	3	41	32		176-176	73-73	measured
+m264	bubble	14	3	41	32		176-176	81-81	measured
+m265	bubble	14	3	41	32		64-64	40-40	measured
+m266	bubble	14	3	41	32		64-64	80-80	measured
+m267	bubble	10	3	41	32		192-192	81-81	measured
+m268	bubble	12	3	41	32		184-184	81-81	measured
+m269	bubble	6	3	41	32		208-208	81-81	measured
+m270	bubble	10	3	41	32		192-192	73-73	measured
+m271	bubble	10	3	41	32		48-48	80-80	measured
+m272	bubble	12	3	41	32		56-56	72-72	measured
+m273	bubble	16	3	41	32		168-168	80-80	measured
+m274	bubble	10	3	41	32		48-48	80-80	measured
+m275	bubble	16	3	41	40		83-83	81-81	measured
+m276	bubble	14	3	41	40		64-64	32-32	measured
+m277	bubble	14	3	41	40		64-64	40-40	measured
+m278	bubble	16	3	41	40		83-83	81-81	measured
+m279	bubble	16	3	41	40		89-89	73-73	measured
+m280	bubble	8	3	41	40		40-40	32-32	measured
+m281	bubble	16	3	41	40		83-83	81-81	measured
+m282	bubble	14	3	41	40		64-64	40-40	measured
+m283	bubble	10	3	41	40		48-48	48-48	measured
+m284	bubble	16	3	41	40		83-83	81-81	measured
+m285	bubble	14	3	41	40		64-64	32-32	measured
+m286	bubble	14	3	41	40		64-64	40-40	measured
+m287	bubble	16	3	41	40		91-91	81-81	measured
+m288	bubble	16	3	41	40		89-89	73-73	measured
+m289	bubble	16	3	41	40		89-89	73-73	measured
+m290	bubble	16	3	41	40		87-87	73-73	measured
+m291	bubble	16	3	41	40		91-91	73-73	measured
+m292	bubble	16	3	41	40		89-89	73-73	measured
+m293	bubble	12	3	41	40		56-56	32-32	measured
+m294	bubble	16	3	41	40		85-85	81-81	measured
+m295	bubble	16	3	41	40		83-83	81-81	measured
+m296	bubble	16	3	41	40		91-91	81-81	measured
+m297	bubble	16	3	65	52		144-144	64-64	measured
+m298	bubble	16	1	65	52	m297	120-120	144-144	measured
+m299	bubble	12	3	65	52		180-180	64-64	measured
+m300	bubble	16	1	65	52	m299	120-120	144-144	measured
+m301	bubble	16	3	65	52		132-132	64-64	measured
+m302	bubble	16	3	65	52		144-144	64-64	measured
+m303	bubble	16	1	65	52	m302	120-120	144-144	measured
+m304	bubble	16	3	65	52		142-142	64-64	measured
+m305	bubble	16	1	65	52	m304	120-120	144-144	measured
+m306	bubble	16	3	65	52		128-128	64-64	measured
+m307	bubble	16	3	65	52		148-148	64-64	measured
+m308	bubble	16	2	65	52	m307	120-120	144-144	measured
+m309	bubble	16	2	65	52		120-120	136-136	measured
+m310	bubble	16	3	65	52		132-132	56-56	measured
+m311	bubble	16	3	65	52		148-148	64-64	measured
+m312	bubble	16	1	65	52	m311	120-120	144-144	measured
+m313	bubble	16	3	65	52		128-128	64-64	measured
+m314	bubble	10	3	65	52		188-188	64-64	measured
+m315	bubble	16	1	65	52	m314	120-120	144-144	measured
+m316	bubble	14	3	65	52		174-174	56-56	measured
+m317	bubble	16	2	65	52	m316	120-120	144-144	measured
+m318	none	14	2	28	28				guess
+m319	bubble	16	3	65	56		160-160	80-80	measured
+m320	bubble	16	1	65	56	m319	120-120	144-144	measured
+m321	bubble	16	3	65	56		160-160	60-60	measured
+m322	bubble	16	1	65	56	m321	120-120	144-144	measured
+m323	bubble	12	3	65	56		60-60	64-64	measured
+m324	bubble	16	3	65	56		160-160	40-40	measured
+m325	bubble	16	1	65	56	m324	120-120	144-144	measured
+m326	bubble	16	3	65	56		150-150	64-64	measured
+m327	bubble	16	3	65	56		150-150	56-56	measured
+m328	bubble	16	3	65	56		159-159	64-64	measured
+m329	bubble	16	1	65	56	m328	120-120	144-144	measured
+m330	bubble	16	3	65	56		150-150	48-48	measured
+m331	bubble	16	3	65	56		148-148	48-48	measured
+m332	bubble	16	3	65	56		161-161	64-64	measured
+m333	bubble	16	1	65	56	m332	120-120	144-144	measured
+m334	bubble	16	3	65	56		144-144	64-64	measured
+m335	bubble	16	3	65	56		140-140	64-64	measured
+m336	bubble	16	1	65	56	m335	120-120	144-144	measured
+m337	bubble	16	3	65	56		116-116	56-56	measured
+m338	bubble	16	3	65	56		116-116	56-56	measured
+m339	bubble	16	3	65	56		100-100	32-32	measured
+m340	bubble	16	3	65	56		112-112	64-64	measured
+m341	bubble	16	2	65	56		100-100	24-24	measured
+m342	bubble	16	2	65	56		98-98	24-24	measured
+m343	bubble	16	3	65	56		116-116	64-64	measured
+m344	bubble	16	3	65	56		116-116	56-56	measured
+m345	bubble	16	3	65	56		125-125	64-64	measured
+m346	bubble	16	3	65	56		125-125	56-56	measured
+m347	bubble	16	3	65	56		76-76	48-48	measured
+m348	bubble	16	3	65	56		120-120	36-36	measured
+m349	bubble	16	3	65	56		76-76	48-48	measured
+m350	bubble	16	3	65	56		80-80	48-48	measured
+m351	bubble	16	3	65	56		82-82	48-48	measured
+m352	bubble	16	3	65	56		146-146	48-48	measured
+m353	bubble	16	1	65	56	m352	120-120	144-144	measured
+m354	bubble	16	3	65	56		80-80	48-48	measured
+m355	bubble	16	3	65	56		146-146	48-48	measured
+m356	bubble	16	1	65	56	m355	120-120	144-144	measured
+m357	bubble	16	3	65	56		76-76	48-48	measured
+m358	bubble	16	3	65	56		76-76	32-32	measured
+m359	bubble	16	3	65	56		146-146	48-48	measured
+m360	bubble	16	1	65	56	m359	120-120	144-144	measured
+m361	bubble	14	3	65	56		174-174	48-48	measured
+m362	bubble	16	1	65	56	m361	120-120	144-144	measured
+m363	bubble	6	3	65	56		204-204	48-48	measured
+m364	bubble	16	1	65	56	m363	120-120	144-144	measured
+m365	bubble	16	3	65	56		76-76	48-48	measured
+m366	bubble	12	3	65	56		178-178	48-48	measured
+m367	bubble	16	1	65	56	m366	120-120	144-144	measured
+m368	bubble	16	3	65	56		72-72	48-48	measured
+m369	bubble	16	3	65	56		148-148	48-48	measured
+m370	bubble	16	1	65	56	m369	120-120	144-144	measured
+m371	bubble	16	3	65	56		78-78	40-40	measured
+m372	bubble	16	3	65	56		142-142	48-48	measured
+m373	bubble	16	2	65	56	m372	120-120	144-144	measured
+m374	bubble	16	3	65	56		74-74	32-32	measured
+m375	bubble	16	3	65	56		148-148	48-48	measured
+m376	bubble	16	1	65	56	m375	120-120	144-144	measured
+m377	bubble	16	3	65	56		76-76	40-40	measured
+m378	bubble	16	3	65	56		146-146	48-48	measured
+m379	bubble	16	1	65	56	m378	120-120	144-144	measured
+m380	bubble	16	3	65	56		74-74	40-40	measured
+m381	bubble	16	3	65	56		148-148	48-48	measured
+m382	bubble	16	1	65	56	m381	120-120	144-144	measured
+m383	bubble	16	3	65	56		78-78	40-40	measured
+m384	bubble	16	3	65	56		146-146	48-48	measured
+m385	bubble	16	1	65	56	m384	120-120	144-144	measured
+m386	bubble	16	3	65	56		78-78	48-48	measured
+m387	bubble	14	3	65	56		172-172	48-48	measured
+m388	bubble	16	1	65	56	m387	120-120	144-144	measured
+m389	bubble	12	3	65	56		58-58	48-48	measured
+m390	bubble	16	3	65	56		72-72	56-56	measured
+m391	bubble	12	3	65	56		180-180	80-80	measured
+m392	bubble	16	1	65	56	m391	120-120	144-144	measured
+m393	bubble	16	3	65	56		72-72	56-56	measured
+m394	bubble	16	3	65	56		72-72	64-64	measured
+m395	bubble	16	3	65	56		146-146	56-56	measured
+m396	bubble	16	1	65	56	m395	120-120	144-144	measured
+m397	bubble	16	3	65	56		72-72	56-56	measured
+m398	bubble	16	3	65	56		120-120	128-128	measured
+m399	bubble	16	3	65	56		140-140	48-48	measured
+m400	bubble	16	3	65	56		72-72	64-64	measured
+m401	bubble	14	3	65	56		68-68	56-56	measured
+m402	bubble	16	3	65	56		140-140	56-56	measured
+m403	bubble	14	3	65	56		68-68	64-64	measured
+m404	bubble	16	3	65	56		142-142	56-56	measured
+m405	bubble	14	3	65	56		66-66	56-56	measured
+m406	bubble	14	3	65	56		68-68	48-48	measured
+m407	bubble	16	3	65	56		142-142	48-48	measured
+m408	bubble	16	3	65	56		72-72	64-64	measured
+m409	bubble	16	2	65	56		120-120	136-136	measured
+m410	bubble	14	3	65	56		68-68	56-56	measured
+m411	bubble	12	3	65	56		62-62	40-40	measured
+m412	bubble	16	3	65	56		126-126	48-48	measured
+m413	none	14	2	28	28				guess
+m414	bubble	16	3	65	56		105-105	40-40	measured
+m415	bubble	16	1	65	56	m414	120-120	144-144	measured
+m416	bubble	16	3	65	56		114-114	48-48	measured
+m417	bubble	16	3	65	56		131-131	40-40	measured
+m418	bubble	16	2	65	56	m417	120-120	144-144	measured
+m419	bubble	14	3	65	56		175-175	40-40	measured
+m420	bubble	12	3	65	56		181-181	48-48	measured
+m421	bubble	16	3	65	56		110-110	48-48	measured
+m422	bubble	16	3	65	56	m421	129-129	40-40	measured
+m423	bubble	16	3	65	56		110-110	48-48	measured
+m424	bubble	16	3	65	56		107-107	40-40	measured
+m425	bubble	16	3	65	56		118-118	32-32	measured
+m426	bubble	16	3	65	56		103-103	40-40	measured
+m427	bubble	16	1	65	56	m422,m426	120-120	144-144	measured
+m428	bubble	12	3	65	56		180-180	80-80	measured
+m429	bubble	16	1	65	56	m428	120-120	144-144	measured
+m430	bubble	12	3	65	56		180-180	80-80	measured
+m431	bubble	16	1	65	56	m430	120-120	144-144	measured
+m432	bubble	12	3	65	56		60-60	64-64	measured
+m433	bubble	16	3	65	56		159-159	64-64	measured
+m434	bubble	16	1	65	56	m433	120-120	144-144	measured
+m435	bubble	16	3	65	56		148-148	64-64	measured
+m436	bubble	16	3	65	56		152-152	56-56	measured
+m437	bubble	16	3	65	56		159-159	64-64	measured
+m438	bubble	16	1	65	56	m437	120-120	144-144	measured
+m439	bubble	16	3	65	56		152-152	56-56	measured
+m440	bubble	16	3	65	56		148-148	48-48	measured
+m441	bubble	16	3	65	56		163-163	64-64	measured
+m442	bubble	16	1	65	56	m441	120-120	144-144	measured
+m443	bubble	16	3	65	56		144-144	64-64	measured
+m444	bubble	16	3	65	56		140-140	64-64	measured
+m445	bubble	16	1	65	56	m444	120-120	144-144	measured
+m446	bubble	16	3	65	56		89-89	56-56	measured
+m447	bubble	16	1	65	56	m446	120-120	144-144	measured
+m448	bubble	16	3	65	56		112-112	32-32	measured
+m449	bubble	16	3	65	56		89-89	56-56	measured
+m450	bubble	16	1	65	56	m449	120-120	144-144	measured
+m451	bubble	16	3	65	56		110-110	40-40	measured
+m452	bubble	16	3	65	56		83-83	56-56	measured
+m453	bubble	16	2	65	56	m452	120-120	144-144	measured
+m454	bubble	16	3	65	56		112-112	32-32	measured
+m455	bubble	16	3	65	56		110-110	32-32	measured
+m456	bubble	16	3	65	56		108-108	48-48	measured
+m457	bubble	16	3	65	56		91-91	56-56	measured
+m458	bubble	16	1	65	56	m457	120-120	144-144	measured
+m459	bubble	16	3	65	56		108-108	40-40	measured
+m460	bubble	16	3	65	56		85-85	56-56	measured
+m461	bubble	16	1	65	56	m460	120-120	144-144	measured
+m462	bubble	16	3	65	56		104-104	48-48	measured
+m463	bubble	16	3	65	56		91-91	56-56	measured
+m464	bubble	16	1	65	56	m463	120-120	144-144	measured
+m465	bubble	16	3	65	56		112-112	64-64	measured
+m466	bubble	16	3	65	56		148-148	64-64	measured
+m467	bubble	16	1	65	56	m466	120-120	144-144	measured
+m468	bubble	16	3	65	56		88-88	64-64	measured
+m469	bubble	16	3	65	56		100-100	64-64	measured
+m470	bubble	16	1	65	56	m469	120-120	144-144	measured
+m471	bubble	16	3	65	56		88-88	56-56	measured
+m472	bubble	16	3	65	56		100-100	64-64	measured
+m473	bubble	16	1	65	56	m472	120-120	144-144	measured
+m474	bubble	16	3	65	56		90-90	56-56	measured
+m475	bubble	16	3	65	56		96-96	64-64	measured
+m476	bubble	16	3	65	56		122-122	64-64	measured
+m477	bubble	16	2	65	56	m476	120-120	144-144	measured
+m478	bubble	16	3	65	56		134-134	64-64	measured
+m479	bubble	16	3	65	56		116-116	64-64	measured
+m480	bubble	16	1	65	56	m479	120-120	144-144	measured
+m481	bubble	16	3	65	56		130-130	56-56	measured
+m482	bubble	16	3	65	56		118-118	64-64	measured
+m483	bubble	16	1	65	56	m482	120-120	144-144	measured
+m484	bubble	16	3	65	56		128-128	48-48	measured
+m485	bubble	16	3	65	56		116-116	64-64	measured
+m486	bubble	16	1	65	56	m485	120-120	144-144	measured
+m487	bubble	16	3	65	56		128-128	64-64	measured
+m488	bubble	16	3	65	56		126-126	64-64	measured
+m489	bubble	16	1	65	56	m488	120-120	144-144	measured
+m490	bubble	16	3	65	56		134-134	64-64	measured
+m491	bubble	16	3	65	56		146-146	64-64	measured
+m492	bubble	16	2	65	56	m491	120-120	144-144	measured
+m493	bubble	16	3	65	56		140-140	64-64	measured
+m494	bubble	16	3	65	56		140-140	64-64	measured
+m495	bubble	16	3	65	56		140-140	64-64	measured
+m496	bubble	16	1	65	56	m495	120-120	144-144	measured
+m497	bubble	16	3	65	56		90-90	64-64	measured
+m498	bubble	16	3	65	56		116-116	64-64	measured
+m499	bubble	16	1	65	56	m498	120-120	144-144	measured
+m500	bubble	16	3	65	56		88-88	64-64	measured
+m501	bubble	16	3	65	56		116-116	64-64	measured
+m502	bubble	16	1	65	56	m501	120-120	144-144	measured
+m503	bubble	16	3	65	56		94-94	64-64	measured
+m504	bubble	16	3	65	56		116-116	64-64	measured
+m505	bubble	16	1	65	56	m504	120-120	144-144	measured
+m506	bubble	14	3	65	56		67-67	82-82	measured
+m507	bubble	16	3	65	56		93-93	84-84	measured
+m508	bubble	16	3	65	56		91-91	84-84	measured
+m509	bubble	16	1	65	56		95-95	16-16	measured
+m510	bubble	16	3	65	56		91-91	84-84	measured
+m511	bubble	16	3	65	56		87-87	84-84	measured
+m512	bubble	14	3	65	56		172-172	40-40	measured
+m513	bubble	16	1	65	56	m512	120-120	144-144	measured
+m514	bubble	16	1	65	56		144-144	16-16	measured
+m515	bubble	16	3	65	56		135-135	74-74	measured
+m516	bubble	16	1	65	56	m515	120-120	144-144	measured
+m517	bubble	16	1	65	56		144-144	16-16	measured
+m518	bubble	16	3	65	56		152-152	84-84	measured
+m519	bubble	16	3	65	56		131-131	74-74	measured
+m520	bubble	16	2	65	56	m519	120-120	144-144	measured
+m521	bubble	16	3	65	56		152-152	84-84	measured
+m522	bubble	16	3	65	56		137-137	74-74	measured
+m523	bubble	16	2	65	56	m522	120-120	144-144	measured
+m524	bubble	16	3	65	56		150-150	84-84	measured
+m525	bubble	16	1	65	56		148-148	16-16	measured
+m526	bubble	16	3	65	56		152-152	92-92	measured
+m527	bubble	16	1	65	56		152-152	16-16	measured
+m528	bubble	16	3	65	56		150-150	84-84	measured
+m529	bubble	14	3	65	56		175-175	74-74	measured
+m530	bubble	16	2	65	56	m529	120-120	144-144	measured
+m531	bubble	16	1	65	56		168-168	16-16	measured
+m532	bubble	10	3	65	56		188-188	40-40	measured
+m533	bubble	16	3	65	56		167-167	74-74	measured
+m534	bubble	16	1	65	56	m533	120-120	144-144	measured
+m535	bubble	16	3	65	56		72-72	64-64	measured
+m536	bubble	14	3	65	56		70-70	64-64	measured
+m537	bubble	16	3	65	56		110-110	56-56	measured
+m538	bubble	16	3	65	56		108-108	56-56	measured
+m539	bubble	16	3	65	56		136-136	32-32	measured
+m540	bubble	16	1	65	56	m539	120-120	144-144	measured
+m541	bubble	16	3	65	56		110-110	56-56	measured
+m542	bubble	16	3	65	56		106-106	56-56	measured
+m543	bubble	16	3	65	56		136-136	32-32	measured
+m544	bubble	16	3	65	56		136-136	32-32	measured
+m545	bubble	16	1	65	56	m544	120-120	144-144	measured
+m546	bubble	16	3	65	56		112-112	64-64	measured
+m547	bubble	16	3	65	56		110-110	48-48	measured
+m548	bubble	16	3	65	56		112-112	56-56	measured
+m549	bubble	16	3	65	56		112-112	56-56	measured
+m550	bubble	16	3	65	56		130-130	32-32	measured
+m551	bubble	16	2	65	56	m550	120-120	144-144	measured
+m552	bubble	16	3	65	56		108-108	56-56	measured
+m553	bubble	16	3	65	56		110-110	56-56	measured
+m554	bubble	16	3	65	56		110-110	56-56	measured
+m555	bubble	16	3	65	56		136-136	32-32	measured
+m556	bubble	16	1	65	56	m555	120-120	144-144	measured
+m557	bubble	16	3	65	56		110-110	56-56	measured
+m558	bubble	16	3	65	56		110-110	64-64	measured
+m559	bubble	16	3	65	56		130-130	32-32	measured
+m560	bubble	16	2	65	56	m559	120-120	144-144	measured
+m561	bubble	16	1	65	56	m543	120-136	32-144	measured
+m562	bubble	16	3	65	56		136-136	32-32	measured
+m563	bubble	16	1	65	56	m562	120-120	144-144	measured
+m564	bubble	16	3	65	56		133-133	32-32	measured
+m565	bubble	16	3	65	56		138-138	40-40	measured
+m566	bubble	16	3	65	56		134-134	40-40	measured
+m567	bubble	16	3	65	56		131-131	48-48	measured
+m568	bubble	14	3	65	56		66-66	40-40	measured
+m569	bubble	16	3	65	56		140-140	40-40	measured
+m570	bubble	16	1	65	56	m569	120-120	144-144	measured
+m571	bubble	14	3	65	56		70-70	32-32	measured
+m572	bubble	12	3	65	56		60-60	48-48	measured
+m573	bubble	16	3	65	56		90-90	40-40	measured
+m574	bubble	16	3	65	56		72-72	32-32	measured
+m575	bubble	14	3	65	56		70-70	40-40	measured
+m576	bubble	12	3	65	56		62-62	32-32	measured
+m577	bubble	14	3	65	56		64-64	48-48	measured
+m578	bubble	16	3	65	56		72-72	32-32	measured
+m579	bubble	16	3	65	56		90-90	40-40	measured
+m580	bubble	16	3	65	56		72-72	40-40	measured
+m581	bubble	14	3	65	56		66-66	48-48	measured
+m582	bubble	10	3	65	56		48-48	48-48	measured
+m583	bubble	14	3	65	40		60-60	64-64	measured
+m584	bubble	14	3	65	40		64-64	56-56	measured
+m585	bubble	12	3	65	40		60-60	64-64	measured
+m586	bubble	14	3	65	40		64-64	56-56	measured
+m587	bubble	16	3	65	40		72-72	64-64	measured
+m588	bubble	12	1	65	40		180-180	16-16	measured
+m589	bubble	14	3	65	40		64-64	56-56	measured
+m590	bubble	12	3	65	40		56-56	64-64	measured
+m591	bubble	8	3	65	40		42-42	64-64	measured
+m592	bubble	12	3	65	40		56-56	48-48	measured
+m593	bubble	14	3	65	40		64-64	64-64	measured
+m594	bubble	12	3	65	40		180-180	88-88	measured
+m595	bubble	12	3	65	40		180-180	88-88	measured
+m596	bubble	10	3	65	40		52-52	48-48	measured
+m597	bubble	12	3	65	40		178-178	88-88	measured
+m598	bubble	10	3	65	40		48-48	64-64	measured
+m599	bubble	10	3	65	40		50-50	56-56	measured
+m600	bubble	12	3	65	40		180-180	88-88	measured
+m601	bubble	16	3	65	40		72-72	56-56	measured
+m602	bubble	12	3	65	40		180-180	88-88	measured
+m603	bubble	14	1	65	40		174-174	16-16	measured
+m604	bubble	16	3	65	56		106-106	64-64	measured
+m605	bubble	16	3	65	56		148-148	56-56	measured
+m606	bubble	16	3	65	56		112-112	64-64	measured
+m607	bubble	16	3	65	56		142-142	48-48	measured
+m608	bubble	16	3	65	56		110-110	56-56	measured
+m609	bubble	16	3	65	56		112-112	56-56	measured
+m610	bubble	16	3	65	56		148-148	56-56	measured
+m611	bubble	16	3	65	56		112-112	56-56	measured
+m612	bubble	16	3	65	56		142-142	56-56	measured
+m613	bubble	16	3	65	56		112-112	64-64	measured
+m614	bubble	16	3	65	56		144-144	56-56	measured
+m615	bubble	16	3	65	56		104-104	64-64	measured
+m616	bubble	16	3	65	56		106-106	64-64	measured
+m617	bubble	16	3	65	56		96-96	32-32	measured
+m618	bubble	16	3	65	56		112-112	56-56	measured
+m619	bubble	16	3	65	56		142-142	48-48	measured
+m620	bubble	16	3	65	56		72-72	40-40	measured
+m621	bubble	14	3	65	56		70-70	48-48	measured
+m622	bubble	16	3	65	56		126-126	40-40	measured
+m623	bubble	14	3	65	56		174-174	48-48	measured
+m624	bubble	16	3	65	56		126-126	40-40	measured
+m625	bubble	16	3	65	56		140-140	56-56	measured
+m626	bubble	16	3	65	56		128-128	40-40	measured
+m627	bubble	16	3	65	56		168-168	48-48	measured
+m628	bubble	16	3	65	56		128-128	48-48	measured
+m629	bubble	16	3	65	56		144-144	56-56	measured
+m630	bubble	16	3	65	56		120-120	48-48	measured
+m631	bubble	16	3	65	56		146-146	56-56	measured
+m632	bubble	16	3	65	56		120-120	48-48	measured
+m633	bubble	16	3	65	56		144-144	48-48	measured
+m634	bubble	16	3	65	56		122-122	48-48	measured
+m635	bubble	16	3	65	56		124-124	48-48	measured
+m636	bubble	16	3	65	56		128-128	48-48	measured
+m637	bubble	16	3	65	56		140-140	56-56	measured
+m638	bubble	16	3	65	56		124-124	40-40	measured
+m639	bubble	16	3	65	56		142-142	48-48	measured
+m640	bubble	16	3	65	56		124-124	40-40	measured
+m641	bubble	16	3	65	56		142-142	56-56	measured
+m642	bubble	14	3	65	56	m641	174-174	56-56	measured
+m643	bubble	16	3	65	56		142-142	56-56	measured
+m644	bubble	14	3	65	56	m643	174-174	56-56	measured
+m645	bubble	16	3	65	56		128-128	40-40	measured
+m646	bubble	16	3	65	56		146-146	56-56	measured
+m647	bubble	12	3	65	56	m646	178-178	56-56	measured
+m648	bubble	16	3	65	56		146-146	56-56	measured
+m649	bubble	12	3	65	56	m648	178-178	56-56	measured
+m650	bubble	16	3	65	56		126-126	48-48	measured
+m651	box	23	2	0	0				measured
+m652	box	23	2	0	0				measured
+m653	box	23	2	0	0				measured
+m654	box	23	2	0	0				measured
+m655	box	23	2	0	0				measured
+m656	box	23	2	0	0				measured
+m657	box	23	2	0	0				measured
+m658	box	23	2	0	0				measured
+m659	box	23	2	0	0				measured
+m660	bubble	12	3	65	32		62-62	64-64	measured
+m661	bubble	16	3	65	32		136-136	56-56	measured
+m662	bubble	16	3	65	32		135-135	56-56	measured
+m663	bubble	14	3	65	32		64-64	56-56	measured
+m664	bubble	16	3	65	32		131-131	56-56	measured
+m665	bubble	12	3	65	32		62-62	64-64	measured
+m666	bubble	12	3	65	32		62-62	56-56	measured
+m667	bubble	16	3	65	32		133-133	56-56	measured
+m668	bubble	16	3	65	32		95-95	56-56	measured
+m669	bubble	12	3	65	32		62-62	56-56	measured
+m670	bubble	12	3	65	32		62-62	56-56	measured
+m671	bubble	16	3	65	32		88-88	64-64	measured
+m672	bubble	16	3	65	32		96-96	56-56	measured
+m673	bubble	16	3	65	32		131-131	64-64	measured
+m674	bubble	16	3	65	32		96-96	56-56	measured
+m675	bubble	16	3	65	32		131-131	56-56	measured
+m676	bubble	16	3	65	32		88-88	64-64	measured
+m677	bubble	16	3	65	32		94-94	64-64	measured
+m678	bubble	16	3	65	32		90-90	64-64	measured
+m679	bubble	16	3	65	32		144-144	64-64	measured
+m680	bubble	16	3	65	32		154-154	56-56	measured
+m681	bubble	16	3	65	32		150-150	64-64	measured
+m682	bubble	16	3	65	32		144-144	64-64	measured
+m683	bubble	16	3	65	32		144-144	64-64	measured
+m684	bubble	16	3	65	32		144-144	64-64	measured
+m685	bubble	16	3	65	32		144-144	64-64	measured
+m686	bubble	16	3	65	32		148-148	64-64	measured
+m687	bubble	16	3	65	32		146-146	64-64	measured
+m688	bubble	16	3	65	32		150-150	64-64	measured
+m689	bubble	16	3	65	32		150-150	56-56	measured
+m690	bubble	16	3	65	32		150-150	64-64	measured
+m691	bubble	16	3	65	32		152-152	56-56	measured
+m692	bubble	16	3	65	32		148-148	56-56	measured
+m693	bubble	16	3	65	32		148-148	56-56	measured
+m694	bubble	16	3	65	32		160-160	80-80	measured
+m695	bubble	16	3	65	32		146-146	64-64	measured
+m696	bubble	14	3	65	32		175-175	32-32	measured
+m697	bubble	14	2	65	32		171-171	24-24	measured
+m698	bubble	16	3	65	32		152-152	64-64	measured
+m699	bubble	14	2	65	32		171-171	24-24	measured
+m700	bubble	16	3	65	32		148-148	64-64	measured
+m701	bubble	14	2	65	32		169-169	24-24	measured
+m702	bubble	12	3	65	32		177-177	64-64	measured
+m703	bubble	16	3	65	32		167-167	32-32	measured
+m704	bubble	12	3	65	32		181-181	56-56	measured
+m705	bubble	12	3	65	32		181-181	56-56	measured
+m706	bubble	16	2	65	32		165-165	24-24	measured
+m707	bubble	12	3	65	32		183-183	56-56	measured
+m708	bubble	14	2	65	32		169-169	24-24	measured
+m709	bubble	16	2	65	32		167-167	24-24	measured
+m710	bubble	16	3	65	32		153-153	56-56	measured
+m711	bubble	12	3	65	32		181-181	64-64	measured
+m712	bubble	12	3	65	32		179-179	56-56	measured
+m713	bubble	16	3	65	32		153-153	56-56	measured
+m714	bubble	14	3	65	32		169-169	32-32	measured
+m715	bubble	12	3	65	32		183-183	64-64	measured
+m716	bubble	14	3	65	32		173-173	32-32	measured
+m717	bubble	12	3	65	32		183-183	64-64	measured
+m718	bubble	16	3	65	32		151-151	64-64	measured
+m719	bubble	16	3	65	32		153-153	64-64	measured
+m720	bubble	16	2	65	32		167-167	24-24	measured
+m721	bubble	12	3	65	32		181-181	64-64	measured
+m722	bubble	16	3	65	32		153-153	64-64	measured
+m723	bubble	12	3	65	32		181-181	56-56	measured
+m724	bubble	16	2	65	32		167-167	24-24	measured
+m725	bubble	12	3	65	32		183-183	56-56	measured
+m726	bubble	14	2	65	32		173-173	24-24	measured
+m727	bubble	12	3	65	32		177-177	64-64	measured
+m728	bubble	14	2	65	32		169-169	24-24	measured
+m729	bubble	14	2	65	32		169-169	24-24	measured
+m730	bubble	12	3	65	32		177-177	64-64	measured
+m731	bubble	12	3	65	32		183-183	56-56	measured
+m732	bubble	12	3	65	32		179-179	56-56	measured
+m733	bubble	14	3	65	32		171-171	32-32	measured
+m734	bubble	14	2	65	32		169-169	24-24	measured
+m735	bubble	12	3	65	32		183-183	56-56	measured
+m736	bubble	12	3	65	32		63-63	64-64	measured
+m737	bubble	14	3	65	32		175-175	32-32	measured
+m738	bubble	14	3	65	32		169-169	32-32	measured
+m739	bubble	14	2	65	32		173-173	24-24	measured
+m740	none	14	2	28	28				guess
+m741	none	14	2	28	28				guess
+m742	bubble	16	3	65	24		78-78	72-72	measured
+m743	bubble	16	3	65	24		78-78	64-64	measured
+m744	bubble	16	3	65	24		104-104	40-40	measured
+m745	bubble	10	3	65	24		52-52	64-64	measured
+m746	bubble	10	3	65	24		54-54	72-72	measured
+m747	bubble	16	3	65	24		142-142	48-48	measured
+m748	bubble	16	3	65	24		78-78	72-72	measured
+m749	bubble	16	3	65	24		138-138	40-40	measured
+m750	bubble	16	3	65	24		80-80	72-72	measured
+m751	bubble	16	3	65	56		96-96	64-64	measured
+m752	bubble	16	3	65	56		136-136	40-40	measured
+m753	bubble	16	3	65	56		100-100	64-64	measured
+m754	bubble	16	3	65	56		90-90	72-72	measured
+m755	bubble	16	3	65	56		128-128	32-32	measured
+m756	bubble	16	3	65	56		158-158	32-32	measured
+m757	bubble	16	2	65	56		124-124	24-24	measured
+m758	bubble	16	3	65	56		166-166	32-32	measured
+m759	bubble	16	3	65	56		150-150	64-64	measured
+m760	bubble	16	2	65	56		160-160	24-24	measured
+m761	bubble	16	3	65	56		160-160	32-32	measured
+m762	bubble	16	3	65	56		150-150	64-64	measured
+m763	bubble	16	3	65	56		152-152	48-48	measured
+m764	bubble	16	3	65	56		86-86	56-56	measured
+m765	bubble	16	3	65	32		132-132	56-56	measured
+m766	bubble	12	3	65	32		182-182	40-40	measured
+m767	bubble	12	3	65	32		178-178	48-48	measured
+m768	bubble	16	3	65	32		76-76	48-48	measured
+m769	bubble	16	3	65	32		110-110	40-40	measured
+m770	bubble	16	3	65	32		112-112	40-40	measured
+m771	bubble	16	3	65	32		112-112	48-48	measured
+m772	bubble	14	3	65	32		66-66	40-40	measured
+m773	bubble	14	3	65	32		64-64	40-40	measured
+m774	bubble	14	3	65	32		68-68	40-40	measured
+m775	bubble	16	3	65	32		120-120	36-36	measured
+m776	bubble	14	3	65	32		64-64	48-48	measured
+m777	bubble	14	3	65	32		70-70	48-48	measured
+m778	bubble	14	3	65	32		64-64	104-104	measured
+m779	none	14	2	28	28				guess
+m780	none	14	2	28	28				guess
+m781	none	14	2	28	28				guess
+m782	bubble	12	3	65	24		180-180	48-48	measured
+m783	bubble	16	3	65	24		158-158	40-40	measured
+m784	bubble	16	3	65	24		156-156	48-48	measured
+m785	bubble	16	3	65	24		156-156	48-48	measured
+m786	bubble	16	3	65	40		144-144	64-64	measured
+m787	bubble	16	3	65	40		120-120	32-32	measured
+m788	bubble	16	3	65	40		152-152	64-64	measured
+m789	bubble	16	3	65	40		146-146	48-48	measured
+m790	bubble	16	3	65	40		120-120	32-32	measured
+m791	bubble	16	3	65	40		148-148	64-64	measured
+m792	bubble	16	3	65	40		120-120	32-32	measured
+m793	bubble	16	3	65	40		144-144	64-64	measured
+m794	box	23	2	0	0				measured
+m795	box	23	2	0	0				measured
+m796	box	23	2	0	0				measured
+m797	box	23	2	0	0				measured
+m798	box	23	2	0	0				measured
+m799	box	23	2	0	0				measured
+m800	box	23	2	0	0				measured
+m801	box	23	2	0	0				measured
+m802	bubble	16	3	65	40		150-150	64-64	measured
+m803	bubble	16	3	65	40		120-120	32-32	measured
+m804	bubble	16	3	65	24		72-72	64-64	measured
+m805	bubble	16	3	65	24		82-82	64-64	measured
+m806	bubble	16	3	65	24		78-78	56-56	measured
+m807	bubble	16	3	65	24		80-80	64-64	measured
+m808	bubble	14	3	65	24		176-176	60-60	measured
+m809	bubble	12	3	65	24		184-184	68-68	measured
+m810	bubble	16	3	65	24		120-120	32-32	measured
+m811	bubble	16	3	65	24		162-162	60-60	measured
+m812	bubble	16	3	65	24		139-139	58-58	measured
+m813	bubble	16	3	65	24		143-143	58-58	measured
+m814	bubble	16	3	65	24		160-160	60-60	measured
+m815	bubble	16	3	65	24		132-132	68-68	measured
+m816	bubble	16	3	65	24		135-135	58-58	measured
+m817	bubble	12	3	65	24		179-179	58-58	measured
+m818	bubble	14	3	65	24		175-175	50-50	measured
+m819	bubble	16	3	65	32		144-144	60-60	measured
+m820	bubble	16	3	65	32		103-103	58-58	measured
+m821	bubble	16	3	65	32		150-150	68-68	measured
+m822	bubble	16	3	65	32		148-148	68-68	measured
+m823	bubble	16	3	65	32		152-152	68-68	measured
+m824	bubble	16	3	65	32		150-150	68-68	measured
+m825	bubble	16	3	65	32		111-111	58-58	measured
+m826	bubble	16	3	65	32		109-109	66-66	measured
+m827	bubble	16	3	65	32		146-146	60-60	measured
+m828	bubble	16	3	65	32		152-152	68-68	measured
+m829	bubble	16	3	65	32		111-111	66-66	measured
+m830	bubble	16	3	65	32		152-152	60-60	measured
+m831	bubble	16	3	65	32		105-105	58-58	measured
+m832	bubble	16	3	65	32		105-105	58-58	measured
+m833	bubble	16	3	65	32		109-109	58-58	measured
+m834	bubble	16	3	65	22		148-148	64-64	measured
+m835	bubble	16	3	65	22		146-146	72-72	measured
+m836	bubble	16	3	65	22		126-126	72-72	measured
+m837	bubble	16	3	65	22		110-110	72-72	measured
+m838	bubble	16	3	65	32		150-150	56-56	measured
+m839	bubble	16	3	65	32		152-152	56-56	measured
+m840	bubble	16	3	65	32		152-152	56-56	measured
+m841	none	14	2	28	28				guess
+m842	none	14	2	28	28				guess
+m843	none	14	2	28	28				guess
+m844	none	14	2	28	28				guess
+m845	none	14	2	28	28				guess
+m846	none	14	2	28	28				guess
+m847	none	14	2	28	28				guess
+m848	none	14	2	28	28				guess
+m849	none	14	2	28	28				guess
+m850	none	14	2	28	28				guess
+m851	none	14	2	28	28				guess
+m852	none	14	2	28	28				guess
+m853	none	14	2	28	28				guess
+m854	none	14	2	28	28				guess
+m855	none	14	2	28	28				guess
+m856	none	14	2	28	28				guess
+m857	none	14	2	28	28				guess
+m858	none	14	2	28	28				guess
+m859	none	14	2	28	28				guess
+m860	none	14	2	28	28				guess
+m861	none	14	2	28	28				guess
+m862	none	14	2	28	28				guess
+m863	none	14	2	28	28				guess
+m864	none	14	2	28	28				guess
+m865	none	14	2	28	28				guess
+m866	none	14	2	28	28				guess
+m867	none	14	2	28	28				guess
+m868	none	14	2	28	28				guess
+m869	none	14	2	28	28				guess
+m870	none	14	2	28	28				guess
+m871	none	14	2	28	28				guess
+m872	none	14	2	28	28				guess

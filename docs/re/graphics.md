@@ -4,7 +4,7 @@ Static sweep of every LZ block and raw gap from 0x2B0000 to the end of data, rea
 
 Every row has a warp scene that unpacks its blocks: `tools/debug/gfxcover.py OUT` after a tour prints the row-to-scene map (`lz` lines of `tools/debug/lzlog.lua`). Phase 5's marker tour still has to look at each element on screen and add anything this list missed; "Confirmed" below means seen on a tour shot. Reading of the Japanese is from the sheets, so a few words may be approximate. All blocks are LZ77 4bpp unless noted.
 
-The game also holds 1336 blocks in its own Le codec (`le_decompress` in `tools/gbacomp.py`; pages from `tools/lesweep.py`), mostly bitmaps and palettes. Only rows 21 and 22 were read from them so far; the phase 5 tour must look at the rest.
+The game also holds 1336 blocks in its own Le codec (`le_decompress` in `tools/gbacomp.py`; pages from `tools/lesweep.py`), mostly bitmaps and palettes. Rows 21-27 came from them. The phase 5 marker tour read a sample of shots, not every Le page, so phase 8 still has to read `tools/lesweep.py` pages 0-4 for anything lettered that this list missed.
 
 | # | Screen / element | Source (ROM offset) | Tiles | Japanese seen | Notes |
 |---|---|---|---|---|---|
@@ -30,6 +30,13 @@ The game also holds 1336 blocks in its own Le codec (`le_decompress` in `tools/g
 | 20 | Cutscene picture with caption | 0x2D1EC4 (8bpp, palette 0x2D1CC4) | 0xA2 | Pink picture with a line of white kana, ...のなぞにきもちくだ... | Confirm on screen. |
 | 21 | VS banners (Le) | 0x2A8A9C, 0x2A901C, 0x2A94FC, 0x2A9990, 0x2A9F14, 0x2AA5C0, 0x2AAB40 | Le, to VRAM 0x6001400 | VS plus a name and ハチエモン: マッスル, ダウー?, はちのす, ピカルク, はちだいがったい, カツマン, ヤママノ (read off a small sheet) | Confirmed: `vs0`-`vs6`, in table order (0x81A3D10, index 0x3000D9E). Index 7 repeats 0x2AAB40. |
 | 22 | All-lips banner (Le) | 0x2A8454 | Le, to VRAM 0x6001400 | くちびるぜんぶげっと！ | Confirmed: `step96`. |
+| 23 | Stage HUD art (Le) | 0x2A5F78, 0x2A6234, 0x2A64A8, 0x2A70DC, 0x2A7408, 0x2A7668 | Le, to BG VRAM 0x6000020-0x6001C00 | Lettered sheets, not read word by word | Unpacked by `death`, `death_last`, `defeat*` and every stage: read each on screen before phase 8. |
+| 24 | Pause art (Le) | 0x2A7364, 0x2A7FB4 | Le, to 0x2030000 | Kana lines, read closer at phase 8 | `pause`, `pause_down`, `pause_exit`. |
+| 25 | Stage clear art (Le) | 0x2A7784 | Le, to VRAM 0x6001400 | Large lettering | `stage_clear`. |
+| 26 | Stage 26 art (Le) | 0x2A7B88 | Le, to 0x2030000 | Large lettering | `stage26`. |
+| 27 | Latin letter sheet (Le) | 0x2A5DC0 | Le | A-Z, 0-9 | Already Latin; no tour unpacked it. Probably no work. |
+
+**Seen in the marker tour, blocks not pinned yet:** the post-stage slot machine (scene `slot`; its blocks are among the `lz` lines of `work/qa/*/slot/log.txt`) and the wooden area-name banner. Give each a row once pinned: `tests/test_build.py` requires every row to have a real block.
 
 **Not text:** Namco and Kansai TV logos (0x2CEAB8 and the Kansai TV block) stay (D5). The other 8bpp pictures from 0x2DD320 on show scenery and characters only at this sweep's scale; a sign could still hide in one, so the tour must look.
 

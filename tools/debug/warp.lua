@@ -58,8 +58,51 @@ end
 
 local warped, reached = false, false
 local playing, settle, pressed
+-- A defeat scene runs the boss's defeat script in place of its intro: the stage VM 0x8056990 takes the script in r0.
+-- Nothing has won a fight, so this is how the defeat lines get on screen; actors may not stand where a real win leaves them.
+if scene.swap then
+  L.on_exec(0x08056990, 0x08056990, function()
+    local s = emu.getState()
+    if s["cpu.r0"] == scene.swap[1] then
+      s["cpu.r0"] = scene.swap[2]
+      emu.setState(s)
+      if not reached then
+        reached = true
+        L.log(string.format("reached sub=%d step=%d at f%d (script %08X)", r32(SUB), r32(STEP), L.frame, scene.swap[2]))
+      end
+    end
+  end)
+end
+
+-- A swapped-in defeat script can wait on a boss state a real win would have set up. When its pc holds still for STALL
+-- frames, step over that op so the rest of the script's text still shows. Lengths: STAGE in tools/vmscript.py.
+local STAGE_LEN = { [1] = 2, [2] = 1, [0x80] = 4, [0x81] = 4, [0x92] = 4, [0x93] = 4, [0x86] = 4, [0xB0] = 4, [0x87] = 2, [0x8E] = 8,
+  [0x8F] = 2, [0x91] = 2, [0x96] = 3, [0x97] = 2, [0x98] = 2, [0x9E] = 4, [0x9F] = 1, [0xA3] = 17, [0xA4] = 17, [0xA6] = 2, [0xA7] = 4,
+  [0xAA] = 3, [0xAF] = 7, [0xB3] = 1, [0xB4] = 4, [0x9A] = 3, [0x9B] = 6, [0xA1] = 5, [0xA2] = 4, [0xA5] = 2, [0xB1] = 1, [0xB2] = 2,
+  [0xB5] = 1, [0xB7] = 1 }
+for op = 0xC0, 0xDE do STAGE_LEN[op] = 9 end
+local PC, STALL = 0x03003E10, 400
+local last_pc, held = -1, 0
+local function unstick(f)
+  local pc = r32(PC)
+  if pc ~= last_pc then
+    last_pc, held = pc, 0
+    return
+  end
+  held = held + 1
+  if held < STALL then return end
+  held = 0
+  local op = r32(scene.swap[2] + pc * 4)
+  local len = STAGE_LEN[op]
+  if len and op ~= 4 then
+    w32(PC, pc + len)
+    L.log(string.format("unstick f%d pc %d op %02X", f, pc, op))
+  end
+end
+
 L.on_frame(function(f)
   local st, sub, step = r32(ST), r32(SUB), r32(STEP)
+  if scene.swap and reached then unstick(f) end
   if scene.boss and warped then fight(st, step) end
   -- The title's wait step is the first safe screen: the logos have run and the save has been read.
   if not warped and st == 1 and sub == 2 and step == 2 then

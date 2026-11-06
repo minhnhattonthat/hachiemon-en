@@ -32,6 +32,7 @@ def scene_names():
     first, last = re.search(r"for id = (\d+), (0x\w+)", text).groups()
     names += [f"talk{i:02d}" for i in range(int(first), int(last, 16) + 1)]
     names += [f"help{i}" for i in range(int(re.search(r'for n = 0, (\d+) do S\["help"', text).group(1)) + 1)]
+    names += [f"sign{i:02d}" for i in range(int(re.search(r"for n = 0, (\d+) do\s+S\[string.format\(\"sign", text).group(1)) + 1)]
     return names
 
 
@@ -40,7 +41,7 @@ def run(rom, out, name, a):
     if d.exists():
         shutil.rmtree(d)
     cmd = [sys.executable, "-X", "utf8", str(Path(SKILL) / "scripts" / "emu.py"), rom, "--out", str(d),
-           "--script", "tools/debug/warp.lua", "--script", "tools/debug/lzlog.lua", "--script", "tools/debug/textwatch.lua",
+           "--script", "tools/debug/warp.lua", "--script", "tools/debug/lzlog.lua", "--script", "tools/debug/textwatch.lua", "--script", "tools/debug/bublog.lua",
            "--var", f"SCENE='{name}'", "--frames", str(max(a.frames, FIGHT_FRAMES) if name.startswith("fight") else a.frames),
            "--timeout", str(max(280, a.frames // 20))]
     if name.startswith("fight"):

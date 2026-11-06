@@ -12,7 +12,8 @@ Addresses are for the dump in `rom.sha1` unless a note says otherwise.
 
 | File | Covers | State |
 |---|---|---|
-| `rom-map.md` | Header, region map, LZ77 and Le, free space, prior work | Both encoders verified; free space used by a stress build but not trap-tested; some regions guessed |
-| `text.md` | Encoding, control codes, draw paths, text banks, script VMs, pointer forms | Encoding and VMs verified; FD and the 39 pointerless strings still guesses |
-| `graphics.md` | Survey of Japanese drawn as tiles, block pointer slots | Every row unpacked by a warp scene; slots found for every row; elements to confirm on screen at phase 5; Le blocks not read yet |
-| `flow.md` | Game states, scene ids, loaders behind `tools/debug/` | Warps verified by the tour; boss fights verified; defeat lines and signboard texts not reached |
+| `rom-map.md` | Header, region map, LZ77 and Le, free space, prior work | Both encoders verified, Le safe to VRAM; English text past the original end; some regions guessed |
+| `text.md` | Encoding, control codes, draw paths, English text cells, text banks, script VMs, speakers, pointer forms | Encoding, VMs, FD and cells verified; speaker names and the 39 pointerless strings still guesses |
+| `windows.md` | Text limits per variant, the rules behind them, how they were measured | Width gate met; 96 limits guessed, listed there |
+| `graphics.md` | Survey of Japanese drawn as tiles, block pointer slots | Every row unpacked by a warp scene; slots found for every row; rows 23-27 and the slot machine and area banner blocks still to read closely or pin |
+| `flow.md` | Game states, scene ids, loaders behind `tools/debug/` | Warps verified by the tour; boss fights verified; defeat lines by swapped script, except boss 5's m206-m261 |

@@ -29,6 +29,14 @@ local S = {
   fight7    = { sub = 16, node = 33, boss = 7, room = 1, no_vs = true },
   fight8    = { sub = 16, node = 33, boss = 8, room = 2, no_vs = true },
   fight9    = { sub = 16, node = 33, boss = 9, room = 3 },
+  -- Each boss's defeat script, run in place of its intro (warp.lua, swap): the fight scene plus {intro, defeat}.
+  defeat0   = { sub = 16, node = 2,  boss = 0, swap = { 0x081C7100, 0x081C7738 } },
+  defeat1   = { sub = 16, node = 5,  boss = 1, room = 1, swap = { 0x081D36BC, 0x081D3CB4 } },
+  defeat2   = { sub = 16, node = 11, boss = 2, swap = { 0x081D1F28, 0x081D2640 } },
+  defeat3   = { sub = 16, node = 20, boss = 3, room = 2, swap = { 0x081E8B98, 0x081E8FB4 } },
+  defeat4   = { sub = 16, node = 26, boss = 4, swap = { 0x081E9258, 0x081E9664 } },
+  defeat5   = { sub = 16, node = 31, boss = 5, swap = { 0x081CF868, 0x081CFF94 } },
+  defeat9   = { sub = 16, node = 33, boss = 9, room = 3, swap = { 0x081E98AC, 0x081E9C68 } },
   -- Menu pages, reached with the game's own cursor.
   -- cursor: 0x3005256, the menu row; the default row depends on whether a save exists.
   menu_diff = { sub = 3, cursor = 0, keys = "a" },
@@ -66,6 +74,10 @@ local S = {
 local stage_nodes = { 1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 19, 20, 22, 23, 25, 26, 28, 29, 30, 31, 33, 34, 35, 36, 37, 38, 39 }
 for n, node in ipairs(stage_nodes) do
   S[string.format("stage%02d", n)] = { sub = 16, node = node, check = 16 }
+end
+-- Signboard text by table index (0x1C1280): play step 32 reads the index from byte 0x3000DED (0x8002D02). Entry 40 is empty.
+for n = 0, 39 do
+  S[string.format("sign%02d", n)] = { sub = 16, node = 7, check = 16, play_step = 32, at_step = { [0x03000DED] = n } }
 end
 -- Help strips by index (0x79010 table): byte 0x3005263 picks the strip the menu's idle cycle reloads.
 for n = 0, 8 do S["help" .. n] = { sub = 3, pin = { [0x03005263] = n } } end

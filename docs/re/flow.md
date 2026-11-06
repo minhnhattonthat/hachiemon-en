@@ -69,7 +69,7 @@ Limits of these scenes:
 - The warp teleports the player onto the door and fills the lips quota, so it skips the walk through the stage. Rooms 1-3 are entered by the room-change step, not through the previous room.
 - `fight6` is forced: boss state 2 waits on helper slots 32 and 38 (byte +0x2A), which never finish after a warp, so `warp.lua` clears them. Why they hold is not known, and this path may not match real play.
 - `fight6`-`fight8` showed no banner in 7000 frames. **guess:** the final boss only has one, in its last room. Their proof is the object type plus the shots.
-- The player takes damage and often dies soon after the banner: `GOD` pins lives only. No scene has won a fight, so **the defeat lines are not reached** (Text, below).
+- The player takes damage and often dies soon after the banner: `GOD` pins lives only. No scene has won a fight. The `defeat*` scenes swap each boss's defeat script into its intro slot, which shows the lines but not a real win (`windows.md`); boss 5's m206-m261 still need a real win.
 
 **Subs 11-14 can't be reached in play (verified statically, with `disasm.py xref`; a computed jump would not show).**
 - Events 0x15-0x18 set them, and all 27 callers of 0x8037B8C pass other constants.
@@ -80,4 +80,4 @@ So the black screens were never a player-visible bug. Shared code: sub 11 with t
 
 ## Text
 - `tools/debug/textwatch.lua` logs the first read of each byte of the two text banks; `tools/debug/textcover.py ROM OUT...` says which strings a tour read. Bubbles wait for a press, so reading a scene's text needs `--mash 20` and more frames.
-- Coverage (2026-11-06, default tour plus mashed runs of 7000 and 30000 frames): main bank 681/873, sign bank 2/40, 230 unread, in `text_unseen.tsv`. Not reached yet: stage signboards (only the `sign` box is proven, not each text), boss defeat lines (e.g. 0x1DA2B3), and the 40 pointerless strings (`text.md`).
+- Coverage (2026-11-07, marker tour of 160 scenes, `markercover.py`): box 27/27, bubble 751/807, sign 40/41 (s040 is empty). Not reached: boss 5's defeat lines m206-m261, and the 39 pointerless strings (`text.md`).

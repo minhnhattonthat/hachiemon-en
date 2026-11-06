@@ -7,11 +7,12 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from build import BANKS, STRAY, TEXT_BASE, build, load_script, real_slots, strings, text_slots  # noqa: E402
+from build import BANKS, ERROR_SLOT, ERROR_STRING, GLYPH_LOADS, SIZE_EN, STRAY, TEXT_BASE, build, load_script, real_slots, strings, text_slots  # noqa: E402
 from extract import entries  # noqa: E402
 from romdiff import check  # noqa: E402
 from tbl import Table  # noqa: E402
 from vmscript import BASE, TALK, scripts, script_words, stage_starts, u32, walk  # noqa: E402
+from vwf import MAX_CELLS, Stream, cells_of, encode_en, load_font  # noqa: E402
 
 ROM = next(iter((ROOT / "rom").glob("*.gba")), None) if (ROOT / "rom").is_dir() else None
 needs_rom = pytest.mark.skipif(ROM is None, reason="no ROM")
@@ -90,9 +91,49 @@ def test_english_moves_only_what_it_should():
     edited["en"] = "HELLO{end:02}"
     img = build(rom, script)
     assert check(rom, bytes(img.out), set(), img.writes)[0] == []
+    cells, data = encode_en(edited["en"], load_font(), rom)
     for r in edited["refs"]:
         new = u32(img.out, int(r["word"], 16)) - BASE
-        assert new >= TEXT_BASE and CODEC.decode(img.out, new)[0] == edited["en"]
+        assert new >= TEXT_BASE and img.out[new:new + len(data)] == data
+        assert img.out[new - len(cells):new] == cells
     other = next(e for e in script if e["refs"] and e is not edited)
     new = u32(img.out, int(other["refs"][0]["word"], 16)) - BASE
-    assert CODEC.decode(img.out, new)[0] == other["jp"]
+    raw = CODEC.encode(other["jp"])
+    drawn = [b for b in raw[:-2] if b not in (0xFD, 0xFE)]
+    shown = [b for b in img.out[new:new + len(raw) - 2] if b not in (0xFD, 0xFE)]
+    assert [img.out[new - (b + 1) * 64:new - b * 64] for b in shown] == [rom[0x2FFC50 + b * 64:0x2FFC50 + (b + 1) * 64] for b in drawn]
+
+
+@needs_rom
+def test_english_build_patches_exactly_the_two_glyph_loads():
+    rom = ROM.read_bytes()
+    script = copy.deepcopy(load_script())
+    script[0]["en"] = "HELLO{end:02}"
+    out = build(rom, script).out
+    assert len(out) == SIZE_EN
+    for off, _, now in GLYPH_LOADS:
+        assert out[off:off + len(now)] == now
+    assert rom.count((BASE + 0x2FFC50).to_bytes(4, "little"), 0, 0x80000) == 2  # no third reader of the font
+    new = u32(out, ERROR_SLOT) - BASE
+    assert new >= TEXT_BASE and out[new:new + 2] != rom[ERROR_STRING:ERROR_STRING + 2]
+
+
+def test_rendered_line_layout():
+    font = load_font()
+    rom = ROM.read_bytes() if ROM else bytes(0x300000 + 256 * 64)
+    cells, data = encode_en("Hi{nl}Hi{page}♥{end:01}", font, rom)
+    assert data[-2:] == b"\xff\x01" and data.count(0xFE) == 1 and data.count(0xFD) == 1
+    assert len(cells) % 64 == 0
+    assert cells_of(data)[1:] == (2, 2)
+    with pytest.raises(ValueError):
+        encode_en("no end code", font, rom)
+    with pytest.raises(ValueError):
+        encode_en("x{end:00}y", font, rom)
+
+
+def test_cell_limit_raises():
+    stream = Stream()
+    for n in range(MAX_CELLS + 1):
+        stream.cell(n.to_bytes(64, "little"))
+    with pytest.raises(ValueError):
+        stream.packed()
