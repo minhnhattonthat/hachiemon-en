@@ -17,11 +17,18 @@ local S = {
   -- Same flow names as the leftover debug page (strings at 0x78488): DME, DES, BOM, BOG, BOB, BOT.
   dme_ending = { sub = 5, step = 0x38 },
   des       = { sub = 15 },
-  -- OPEN: these run but stay black, so the tour fails them. See docs/re/flow.md, Open.
-  boss_m    = { sub = 11 },
-  boss_g    = { sub = 12 },
-  boss_b    = { sub = 13 },
-  boss_t    = { sub = 14 },
+  -- Real boss fights, by the room header's boss index (table 0x81C1878): docs/re/flow.md, Boss fights.
+  -- room = room inside the stage, reached through the room-change step.
+  fight0    = { sub = 16, node = 2,  boss = 0 },            -- stage 2
+  fight1    = { sub = 16, node = 5,  boss = 1, room = 1 },  -- stage 4
+  fight2    = { sub = 16, node = 11, boss = 2 },            -- stage 8
+  fight3    = { sub = 16, node = 20, boss = 3, room = 2 },  -- stage 13
+  fight4    = { sub = 16, node = 26, boss = 4 },            -- stage 17
+  fight5    = { sub = 16, node = 31, boss = 5 },            -- stage 21
+  fight6    = { sub = 16, node = 33, boss = 6, no_vs = true },            -- stage 22
+  fight7    = { sub = 16, node = 33, boss = 7, room = 1, no_vs = true },
+  fight8    = { sub = 16, node = 33, boss = 8, room = 2, no_vs = true },
+  fight9    = { sub = 16, node = 33, boss = 9, room = 3 },
   -- Menu pages, reached with the game's own cursor.
   -- cursor: 0x3005256, the menu row; the default row depends on whether a save exists.
   menu_diff = { sub = 3, cursor = 0, keys = "a" },

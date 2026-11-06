@@ -30,7 +30,7 @@ All **verified** by running the warp from a cold boot unless a line says otherwi
 | 8 | 0x8055C2D | Game over | `gameover` |
 | 9 | 0x80506A9 | Save slot | `slot` |
 | 10 | 0x803B349 | Talk scenes; the map enters them with events 0xE-0x10 and the id in 0x300527C | `talk01`-`talk29` |
-| 11-14 | 0x80568FD... | **Not proven on screen.** Script scenes named BOM, BOG, BOB, BOT on the debug page: see Open | `boss_m`, `boss_g`, `boss_b`, `boss_t` (tour fails them) |
+| 11-14 | 0x80568FD... | Debug-page test harnesses (BOM, BOG, BOB, BOT) around code real fights also use. Players can't reach them: see Boss fights | none; use `fight0`-`fight9` |
 | 15 | 0x8049585 | Save check at boot; step 2 is the failed-load screen | `des`, `save_error` |
 | 16 | 0x80655B5 | Stage load, then `st` 0 play | `stage01`-`stage28`, plus forced play steps |
 | 17 | 0x8065DAD | Credits | `credits` |
@@ -45,15 +45,39 @@ In a stage `st` is 0 and `step` indexes the table at 0x81A3A38. `warp.lua` force
 - Two switches take a resource id: 0x8048994 (31 cases, OBJ sets, jump table 0x80489A8) and 0x804A46C (17 cases, BG sets, jump table 0x804A490). Their entries read block tables 0x81D5F5C and 0x81D61DC, palettes 0x81D6060 and 0x81D6454.
 - Menu strips: 0x8046FF0 (help, table 0x807900C), 0x8047010 (headers, 0x807909C), 0x8047030 (0x80790DC).
 
-## Open: subs 11-14
-The four `boss_*` scenes pass their flags but every shot is black, from the title and from running play alike. Known so far:
-- The handlers run: `boss_t` keeps unpacking marquee frames (row 17) and `boss_g` its own blocks, and `boss_b` and `boss_t` read main-bank text.
-- BLDCNT 0x00FF and BLDY 0x10 hold (fade to black) with a filled palette. Forcing BLDY to 0 from Lua did not show a picture; whether those writes took effect was not checked.
-- `boss_m`'s script (0x81C7100, words read through 0x8056990) stays at index 21, op 2. The op's wait condition is not understood.
-- No static caller passes events 0x15-0x18, which are what set these subs in 0x8037B8C. The debug page (0x802EC5C) writes st, sub, step directly. **guess:** the subs are reached only from that page, and real boss fights run in stage play after the VS banner (play step 104).
-- Row 17's marquee has been seen unpacking only here. Whether players ever see it is open.
+## Boss fights
+Fights run in plain stage play (`st` 0), not in subs 11-14. **Verified** by `fight0`-`fight9`, cold boot, no forced play step except where noted.
+- **Room bytes:** 0x3000050+0x5D, +0x5E, +0x5F select the stage file, area and room. Stage to 0x5D/0x5E: table 0x81AC794, read by 0x800408C. Writing the room to +0x72 and setting step 0x1A changes room.
+- **Room header:** table 0x81C1878, index `5D*8 + 5E*4 + 5F`. 0x8008A14 copies 12 bytes to 0x3000D9C: flag, boss index (0x3000D9E, also the VS banner index), door x, door y, door height, walk-to x. Ten rooms have the flag set.
+- **Door:** 0x8011DD4 tests the player (object slot 12, 0x3001D20: +0x10 x, +0x14 y, +0x1F state) against the door's band. If lips +0x61 >= quota +0x62, the player enters states 24-28, then 48. Short of the quota it only sets a flag.
+- **Boss object:** door opening spawns the boss in object slot 30. Type byte +0x1E indexes table 0x81A3D60. Proof: `tools/debug/objlog.lua`.
 
-Next tries: drive the debug page (`sub` 18) to a boss and compare state; find which stages hold the fights and add a scene for one.
+| Scene | Stage, room | Boss index | Object type | VS banner seen (step 104) |
+|---|---|---|---|---|
+| `fight0` | 2, 0 | 0 | 32 | yes |
+| `fight1` | 4, 1 | 1 | 33 | yes |
+| `fight2` | 8, 0 | 2 | 34 | yes |
+| `fight3` | 13, 2 | 3 | 35 | yes |
+| `fight4` | 17, 0 | 4 | 36 | yes |
+| `fight5` | 21, 0 | 5 | 37 | yes |
+| `fight6` | 22, 0 | 6 | 38 | no |
+| `fight7` | 22, 1 | 7 | 38 | no |
+| `fight8` | 22, 2 | 8 | 38 | no |
+| `fight9` | 22, 3 | 9 | 38 | yes |
+
+Limits of these scenes:
+- The warp teleports the player onto the door and fills the lips quota, so it skips the walk through the stage. Rooms 1-3 are entered by the room-change step, not through the previous room.
+- `fight6` is forced: boss state 2 waits on helper slots 32 and 38 (byte +0x2A), which never finish after a warp, so `warp.lua` clears them. Why they hold is not known, and this path may not match real play.
+- `fight6`-`fight8` showed no banner in 7000 frames. **guess:** the final boss only has one, in its last room. Their proof is the object type plus the shots.
+- The player takes damage and often dies soon after the banner: `GOD` pins lives only. No scene has won a fight, so **the defeat lines are not reached** (Text, below).
+
+**Subs 11-14 can't be reached in play (verified statically, with `disasm.py xref`; a computed jump would not show).**
+- Events 0x15-0x18 set them, and all 27 callers of 0x8037B8C pass other constants.
+- The only other writes that take `sub` from a variable are 0x802E946 and 0x802EC62. Both hang from the nested step tables under 0x81A5AA8, whose dispatcher 0x802E800 has no references.
+- Sub 18, the debug menu that lists BOM to BOT, is set only by event 0x1E. Its one caller 0x8044024 (held L+R+Select+Start) has no references either.
+
+So the black screens were never a player-visible bug. Shared code: sub 11 with type 32 (0x8058B88, 0x8058C04), sub 12 with type 37 (0x805B1A8). **guess:** sub 13 with type 34 and sub 14 with type 33; the old `boss_t` scene and `fight1` unpack the same marquee, which supports the second.
 
 ## Text
-- `tools/debug/textwatch.lua` logs the first read of each byte of the two text banks; `tools/debug/textcover.py ROM OUT` says which strings a tour read.
+- `tools/debug/textwatch.lua` logs the first read of each byte of the two text banks; `tools/debug/textcover.py ROM OUT...` says which strings a tour read. Bubbles wait for a press, so reading a scene's text needs `--mash 20` and more frames.
+- Coverage (2026-11-06, default tour plus mashed runs of 7000 and 30000 frames): main bank 681/873, sign bank 2/40, 230 unread, in `text_unseen.tsv`. Not reached yet: stage signboards (only the `sign` box is proven, not each text), boss defeat lines (e.g. 0x1DA2B3), and the 40 pointerless strings (`text.md`).

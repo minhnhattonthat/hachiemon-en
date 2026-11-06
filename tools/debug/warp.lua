@@ -23,10 +23,44 @@ local function new_game()
   w32(PROG, 1)
 end
 
+-- A boss fight the way a player starts it: docs/re/flow.md, Boss fights. Teleports onto the room's boss door with the
+-- lips quota met, then presses A through the bubbles. Runs only in plain play (st 0, step 2).
+local G, PL = 0x03000050, 0x03001D20  -- PL: player object, slot 12 of the object array at 0x3001A20
+local fight_phase, fight_wait, fight_held = 0, 0, 0
+local function fight(st, step)
+  if st ~= 0 or step ~= 2 or fight_phase == 3 then return end
+  fight_wait = fight_wait + 1
+  if fight_wait < 60 then return end
+  fight_wait = 0
+  if fight_phase == 0 then
+    fight_phase = 1
+    if scene.room then
+      w8(G + 0x72, scene.room)  -- what the room-change step 0x1A reads
+      w32(STEP, 0x1A)
+      return
+    end
+  end
+  if fight_phase == 1 then
+    fight_phase = 2
+    local idx = r8(0x03000D9E) | r8(0x03000D9F) << 8
+    if idx ~= scene.boss then error(string.format("room holds boss %d, scene wants %d", idx, scene.boss)) end
+    local x = r8(0x03000DA0) | r8(0x03000DA1) << 8
+    local y = r8(0x03000DA2) | r8(0x03000DA3) << 8
+    local h = r8(0x03000DA4) | r8(0x03000DA5) << 8
+    w8(G + 0x61, r8(G + 0x62))
+    -- Inside the door's hit band (0x8011DD4): door x*8 - 8, less the player's box. Its height counts in 16-pixel units.
+    w32(PL + 0x10, x * 8 - 13)
+    w32(PL + 0x14, y * 8 + h * 16 - 1)
+    fight_phase = 3
+    for _ = 1, 400 do L.press("a", 6); L.press("-", 24) end
+  end
+end
+
 local warped, reached = false, false
 local playing, settle, pressed
 L.on_frame(function(f)
   local st, sub, step = r32(ST), r32(SUB), r32(STEP)
+  if scene.boss and warped then fight(st, step) end
   -- The title's wait step is the first safe screen: the logos have run and the save has been read.
   if not warped and st == 1 and sub == 2 and step == 2 then
     warped = true
@@ -39,6 +73,13 @@ L.on_frame(function(f)
     w32(SUB, scene.sub)
     w32(STEP, scene.step or 0)
     L.log(string.format("warp %s at f%d", SCENE, f))
+  elseif warped and not reached and scene.boss then
+    -- Step 104 is the VS banner: the game itself has started the fight. Rooms 0-2 of stage 22 have no banner, so the
+    -- proof there is the boss object in slot 30 (its type is 38 in all four rooms).
+    if st == 0 and (step == 104 or (scene.no_vs and fight_phase == 3 and r8(0x03001A20 + 30 * 0x40 + 0x1E) == 38)) then
+      reached = true
+      L.log(string.format("reached sub=%d step=%d at f%d", sub, step, f))
+    end
   elseif warped and not reached and sub == (scene.check or scene.sub) and st == (scene.st or 1) and step > 0 then
     reached = true
     L.log(string.format("reached sub=%d step=%d at f%d", sub, step, f))
@@ -63,5 +104,13 @@ L.on_frame(function(f)
     end
   end
   if reached then for a, v in pairs(scene.pin or {}) do w8(a, v) end end
+  -- shortcut: forces fight6 past boss state 2, whose helpers (slots 32, 38) never finish after a warp; find out why if its later states matter.
+  if scene.boss == 6 and r8(0x03001A20 + 30 * 0x40 + 0x1E) == 38 and r8(0x03001A20 + 30 * 0x40 + 0x1F) == 2 then
+    fight_held = fight_held + 1
+    if fight_held == 120 then
+      w8(0x03001A20 + 32 * 0x40 + 0x2A, 0)
+      w8(0x03001A20 + 38 * 0x40 + 0x2A, 0)
+    end
+  end
   if GOD and warped then w8(PLAYER + 0x1C, 5) end
 end)

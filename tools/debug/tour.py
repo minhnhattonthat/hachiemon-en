@@ -19,6 +19,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from skill import SKILL  # noqa: E402
 
 
+FIGHT_FRAMES = 7000  # stage 8 reaches its VS banner at f4024
+
+
 def scene_names():
     # shortcut: reads names by running the scene list's own rules in Python; keep the loops in scenes.lua simple.
     text = (Path(__file__).parent / "scenes.lua").read_text(encoding="utf8")
@@ -38,8 +41,11 @@ def run(rom, out, name, a):
         shutil.rmtree(d)
     cmd = [sys.executable, "-X", "utf8", str(Path(SKILL) / "scripts" / "emu.py"), rom, "--out", str(d),
            "--script", "tools/debug/warp.lua", "--script", "tools/debug/lzlog.lua", "--script", "tools/debug/textwatch.lua",
-           "--var", f"SCENE='{name}'", "--frames", str(a.frames), "--timeout", "280"]
-    if a.shots:
+           "--var", f"SCENE='{name}'", "--frames", str(max(a.frames, FIGHT_FRAMES) if name.startswith("fight") else a.frames),
+           "--timeout", str(max(280, a.frames // 20))]
+    if name.startswith("fight"):
+        cmd += ["--shot-every", "300"]  # the door, bubbles and VS banner come at different frames per boss
+    elif a.shots:
         cmd += ["--shots", a.shots]
     if a.mash:
         cmd += ["--mash", str(a.mash), "--mash-key", "a"]
