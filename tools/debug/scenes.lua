@@ -29,10 +29,6 @@ local S = {
   fight7    = { sub = 16, node = 33, boss = 7, room = 1, no_vs = true },
   fight8    = { sub = 16, node = 33, boss = 8, room = 2, no_vs = true },
   fight9    = { sub = 16, node = 33, boss = 9, room = 3 },
-  -- The door short of the quota; a stage's end stall, reached by teleport, and its first stall.
-  short0    = { sub = 16, node = 2,  boss = 0, short = true },
-  goal7     = { sub = 16, node = 7, check = 16, goal = true },
-  goal7s    = { sub = 16, node = 7, check = 16, goal = true, short = true },
   -- Each boss's defeat script, run in place of its intro (warp.lua, swap): the fight scene plus {intro, defeat}.
   defeat0   = { sub = 16, node = 2,  boss = 0, swap = { 0x081C7100, 0x081C7738 } },
   defeat1   = { sub = 16, node = 5,  boss = 1, room = 1, swap = { 0x081D36BC, 0x081D3CB4 } },

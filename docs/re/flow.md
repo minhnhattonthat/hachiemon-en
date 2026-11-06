@@ -81,4 +81,5 @@ So the black screens were never a player-visible bug. Shared code: sub 11 with t
 
 ## Text
 - `tools/debug/textwatch.lua` logs the first read of each byte of the two text banks; `tools/debug/textcover.py ROM OUT...` says which strings a tour read. Bubbles wait for a press, so reading a scene's text needs `--mash 20` and more frames.
+- Coverage on the original (2026-11-07, `tour_jpm`, mash 20, plus earlier tours): sign 40/41, main 833/873. Unread: the empty s040 and 40 pointerless strings, waived in `docs/text_unshown.tsv`. A scene `{ sub = 16, node = 2, boss = 0, short = true }` walks to the door short of the quota: it shows live s011, and the twin 0x1DCDFA isn't read. No read of the old banks on the English build in any tour since. `warp.lua` keeps `short`, `goal` and `to = {x, y}` for such probes; a non-boss room's header door did nothing, so a stage's real end is still unread (**not verified**: walking it in play).
 - Coverage (2026-11-07, marker tour of 160 scenes, `markercover.py`): box 27/27, bubble 751/807, sign 40/41 (s040 is empty). Not reached: boss 5's defeat lines m206-m261, and the 39 pointerless strings (`text.md`).
