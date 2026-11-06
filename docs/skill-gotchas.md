@@ -25,3 +25,5 @@ One line each: the reference it belongs in, then the fact.
 - `references/graphics.md` (Survey): stage tilesets can be deduplicated tile soups, unreadable as a sheet. Find the room-map table and render maps with tile words instead; shared objects then show up at once (here a board misread as バリアール from a sheet was ハチアイル).
 - `references/emulator-qa.md` (Debug tool): a credits scene that "still shows the end screen" may have already scrolled by; shoot from the warp on before hunting for what starts it.
 - `references/graphics.md` (Lettering): doc tables parsed by tests can swallow new tables with bare numbers in column 1 (gfxcover read a set number as row 2): label such columns.
+- references/emulator-qa.md: a tour scene can die on Mesen's Lua limit ("Maximum execution time (1 seconds) exceeded" in lua_error.txt) and leave a dir with no shots; a contact sheet just has one tile fewer, so check every scene dir has shots.
+- references/graphics.md: a font cell labelled as a symbol can be a glyph (Hachiemon F9 "♥" is a bold あ); render every non-letter cell once, and include them in the leftover-Japanese check.
