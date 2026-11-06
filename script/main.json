@@ -2507,7 +2507,7 @@
   "id": "m159",
   "offset": "1D9F62",
   "jp": "ハチエモンさん。{nl}いいなまえだ。{end:00}",
-  "en": "Hachiemon.{nl}Fine name.{end:00}",
+  "en": "Hachiemon-san.{nl}Fine name.{end:00}",
   "refs": [
    {
     "word": "1E93A8",
@@ -2731,7 +2731,7 @@
   "id": "m173",
   "offset": "1DA0C5",
   "jp": "ハチエモンさん。{end:00}",
-  "en": "Hachiemon,{end:00}",
+  "en": "Hachiemon-san,{end:00}",
   "refs": [
    {
     "word": "1E9684",

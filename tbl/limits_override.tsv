@@ -1,6 +1,6 @@
 # id	max_cols	why (read by tools/lint.py over tbl/limits.tsv, which limits.py regenerates; see docs/re/windows.md)
-# x=200: 10 cols keeps every letter of "Hachiemon" on screen; only the bubble's right frame runs off the edge.
-m034	10	name at x=200
-m159	10	name at x=200
-m173	10	name at x=200
-m183	10	name at x=194
+# KEEP_ON_SCREEN in tools/build.py pulls these in until the frame fits, so the tour's x (200, 194) no longer limits them.
+m034	12	pulled in by the build
+m159	14	pulled in by the build
+m173	14	pulled in by the build
+m183	12	pulled in by the build

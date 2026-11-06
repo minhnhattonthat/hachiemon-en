@@ -34,4 +34,4 @@ Voices with the JP markers and the English devices that carry them. Rulings are 
 - m140-m142 あんたと！おまえの！はんてぃんぐ－たいむっ！！: "You and!" / "Me!" / "Hunting--TIME!!"
 
 ## Corrected example
-- m159 ハチエモンさん。いいなまえだ。 Bubble only 10 cells wide at the screen edge, so "Hachiemon-san" can't fit: "Hachiemon. Fine name." Drop the honorific only where the name itself would not fit (m159, m173), and flag it.
+- m159 ハチエモンさん。いいなまえだ。 Bubble at the screen edge, too narrow for "Hachiemon-san": don't drop the honorific. The build pulls such a bubble in (`KEEP_ON_SCREEN`, D15), so "Hachiemon-san. Fine name." fits.

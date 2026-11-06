@@ -7,7 +7,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "tools" / "debug"))
-from build import Image, build, jp_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
+from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
 from romdiff import check  # noqa: E402
@@ -25,6 +25,60 @@ def test_identity_build():
     assert bytes(img.out) == orig
     assert check(orig, bytes(img.out), set(), img.writes)[0] == []
     assert sum(who.startswith("textptr") for *_, who in img.writes) == 886  # 810 script, 35 code, 41 sign
+
+
+def thumb_branch_target(rom, at):
+    """Where the Thumb B, Bcc or BL at `at` lands, else None."""
+    op = int.from_bytes(rom[at:at + 2], "little")
+    if op >> 8 in range(0xD0, 0xDE):
+        return at + 4 + (((op & 0xFF) ^ 0x80) - 0x80) * 2
+    if op >> 11 == 0x1C:
+        return at + 4 + (((op & 0x7FF) ^ 0x400) - 0x400) * 2
+    low = int.from_bytes(rom[at + 2:at + 4], "little")
+    if op >> 11 == 0x1E and low >> 11 == 0x1F:
+        return at + 4 + ((((op & 0x7FF) ^ 0x400) - 0x400) << 12) + (low & 0x7FF) * 2
+    return None
+
+
+@needs_rom
+def test_english_build_writes_only_where_it_should():
+    orig = ROM.read_bytes()
+    entries = load_script()
+    img = build(orig, entries)
+    assert check(orig, bytes(img.out), set(), img.writes)[0] == []
+    slots = {w for words in text_slots(orig).values() for w in words}
+    allowed = slots | {ERROR_SLOT} | {off for off, *_ in GLYPH_LOADS}
+    allowed |= {int(r["word"], 16) - 12 for e in entries if e["id"] in KEEP_ON_SCREEN for r in e["refs"]}
+    assert [off for off, *_ in img.writes if off < TEXT_BASE and off not in allowed] == []
+    # every string written, and every pointer aimed at its own string
+    assert len(img.where) == len(entries)
+    offsets = {int(e["offset"], 16): e["id"] for e in entries}
+    for old, words in text_slots(orig).items():
+        for w in words:
+            assert int.from_bytes(img.out[w:w + 4], "little") - 0x08000000 == img.where[offsets[old]][1]
+
+
+@needs_rom
+def test_keep_on_screen_args_were_clear():
+    orig = ROM.read_bytes()
+    img = build(orig, load_script())
+    assert sum(who.startswith("keep on screen") for *_, who in img.writes) == len(KEEP_ON_SCREEN)  # each line is set once
+
+
+@needs_rom
+def test_glyph_hooks_swallow_no_branch_target():
+    orig = ROM.read_bytes()
+    for off, was, _ in GLYPH_LOADS:
+        for at in range(off - 4096, off + 4096, 2):
+            target = thumb_branch_target(orig, at)
+            assert target is None or not off < target < off + len(was), f"{at:#x} lands inside the hook at {off:#x}"
+
+
+def test_thumb_branch_target():
+    assert thumb_branch_target(bytes.fromhex("fee7"), 0) == 0  # b .
+    assert thumb_branch_target(bytes.fromhex("00d0"), 0) == 4  # beq
+    assert thumb_branch_target(bytes.fromhex("00f0 01f8".replace(" ", "")), 0) == 6  # bl
+    assert thumb_branch_target(bytes.fromhex("0020"), 0) is None  # movs
 
 
 @needs_rom

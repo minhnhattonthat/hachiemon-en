@@ -76,7 +76,7 @@ def test_glossary_rows_are_binding():
 def test_a_name_may_wrap_and_overrides_sit_on_the_limits():
     rows = [("マッスルハチエモン", "Muscle Hachiemon", [])]
     assert errs("I am Muscle{nl}Hachiemon!{end:00}", jp="マッスルハチエモン{end:00}", glossary=rows) == []
-    assert load_limits()["m034"]["cols"] == 10  # 8 in the generated tbl/limits.tsv
+    assert load_limits()["m034"]["cols"] == 12  # 8 in the generated tbl/limits.tsv; the build pulls it in (D15)
 
 
 def test_size_helper_matches_engine_rule():

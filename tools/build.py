@@ -38,6 +38,8 @@ GLYPH_LOADS = (
 )
 ERROR_STRING, ERROR_SLOT = 0x1C2554, 0x038B18  # the bubble set-up shows this when a bubble is over its cell budget
 ERROR_TEXT = "ERROR{end:00}"
+# AF's third argument (0 in every Japanese script) makes the game pull a bubble in until its frame fits the screen edge (docs/re/windows.md).
+KEEP_ON_SCREEN = {"m034", "m159", "m173", "m183"} | {f"m{n}" for n in range(206, 262)}  # m206-m261 follow the player: D13
 
 
 class Image:
@@ -160,6 +162,13 @@ def build(orig, entries=None):
             raise ValueError(f"glyph load at {off:#x} holds {orig[off:off + len(was)].hex()}")
         img.write(off, now, f"glyph load {off:#x}")
     img.where = pack_text(img, text_slots(orig), codec, entries)
+    for e in entries:
+        if e["id"] in KEEP_ON_SCREEN:
+            for ref in e["refs"]:
+                arg = int(ref["word"], 16) - 12  # AF slot a b c anim text
+                if u32(orig, arg - 12) != 0xAF or u32(orig, arg) != 0:
+                    raise ValueError(f"{e['id']}: no AF with a clear argument at {arg:#x}")
+                img.write(arg, (1).to_bytes(4, "little"), f"keep on screen {e['id']}")
     return img
 
 
