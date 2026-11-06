@@ -43,17 +43,29 @@ local function fight(st, step)
   if fight_phase == 1 then
     fight_phase = 2
     local idx = r8(0x03000D9E) | r8(0x03000D9F) << 8
-    if idx ~= scene.boss then error(string.format("room holds boss %d, scene wants %d", idx, scene.boss)) end
+    if scene.boss and idx ~= scene.boss then error(string.format("room holds boss %d, scene wants %d", idx, scene.boss)) end
     local x = r8(0x03000DA0) | r8(0x03000DA1) << 8
     local y = r8(0x03000DA2) | r8(0x03000DA3) << 8
     local h = r8(0x03000DA4) | r8(0x03000DA5) << 8
-    w8(G + 0x61, r8(G + 0x62))
+    if not scene.short then w8(G + 0x61, r8(G + 0x62)) end
     -- Inside the door's hit band (0x8011DD4): door x*8 - 8, less the player's box. Its height counts in 16-pixel units.
     w32(PL + 0x10, x * 8 - 13)
     w32(PL + 0x14, y * 8 + h * 16 - 1)
     fight_phase = 3
     for _ = 1, 400 do L.press("a", 6); L.press("-", 24) end
   end
+end
+
+-- scene.to = {x, y}: once in plain play, puts the player at those pixels and presses Up and A, to try what stands there.
+local to_wait = 0
+local function teleport(st, step)
+  if st ~= 0 or step ~= 2 or to_wait < 0 then return end
+  to_wait = to_wait + 1
+  if to_wait < 60 then return end
+  to_wait = -1
+  w32(PL + 0x10, scene.to[1])
+  w32(PL + 0x14, scene.to[2])
+  for _ = 1, 60 do L.press("up", 6); L.press("-", 30); L.press("a", 6); L.press("-", 30) end
 end
 
 local warped, reached = false, false
@@ -103,7 +115,8 @@ end
 L.on_frame(function(f)
   local st, sub, step = r32(ST), r32(SUB), r32(STEP)
   if scene.swap and reached then unstick(f) end
-  if scene.boss and warped then fight(st, step) end
+  if (scene.boss or scene.goal) and warped then fight(st, step) end
+  if scene.to and warped then teleport(st, step) end
   -- The title's wait step is the first safe screen: the logos have run and the save has been read.
   if not warped and st == 1 and sub == 2 and step == 2 then
     warped = true

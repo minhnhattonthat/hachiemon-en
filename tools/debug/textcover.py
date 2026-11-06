@@ -34,7 +34,11 @@ def main():
                 print(f"  noptr {s:06X} {'READ ' + ' '.join(scenes[:4]) if scenes else 'unread'}  {text[:24]}")
     (outs[-1] / "text_unseen.tsv").write_text("".join(unseen), encoding="utf8")
     print(f"{len(unseen)} strings unread: {outs[-1] / 'text_unseen.tsv'}")
+    waived = {ln.split("\t")[0] for ln in Path("docs/text_unshown.tsv").read_text(encoding="utf8").splitlines() if ln and not ln.startswith("#")}
+    missing = [ln for ln in unseen if ln.split("\t")[0] not in waived]
+    print(f"{len(missing)} not waived in docs/text_unshown.tsv")
+    return 1 if missing else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

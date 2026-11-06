@@ -52,6 +52,10 @@ def run(rom, out, name, a):
         cmd += ["--shots", a.shots]
     if a.mash:
         cmd += ["--mash", str(a.mash), "--mash-key", "a"]
+    for s in a.script:
+        cmd += ["--script", s]
+    for v in a.var:
+        cmd += ["--var", v]
     state = Path(a.states) / f"{name}.mss" if a.states else None
     if state:
         cmd += ["--state-out", str(state)]
@@ -77,6 +81,8 @@ def main():
     p.add_argument("--shots", default="")
     p.add_argument("--mash", type=int, default=0)
     p.add_argument("--jobs", type=int, default=4)
+    p.add_argument("--script", action="append", default=[], help="extra Lua probe per scene")
+    p.add_argument("--var", action="append", default=[], help="extra --var for emu.py")
     p.add_argument("--states", default="", help="also save OUT state per scene into this folder, e.g. work/states")
     a = p.parse_args()
     names = [n for n in scene_names() if re.search(a.only, n)]

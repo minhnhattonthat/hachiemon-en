@@ -127,6 +127,8 @@ def letter(pic, text, clear=None, ink=None, outline=None, bold=False, scale=1, g
     if not text:
         return
     lines = [tiny_rows(ln, tiny == "wide") if tiny else text_rows(ln, bold, scale) for ln in text.split("\n")]
+    if tiny and scale > 1:
+        lines = [[[px for px in row for _ in range(scale)] for row in ln for _ in range(scale)] for ln in lines]
     height = sum(len(ln) for ln in lines) + gap * (len(lines) - 1)
     cx, y = center if center is not None else (x0 + x1) // 2, (y0 + y1 - height) // 2
     if height > y1 - y0 or y < 0:
@@ -151,16 +153,21 @@ def letter(pic, text, clear=None, ink=None, outline=None, bold=False, scale=1, g
 
 def pill(start, text, **kw):
     """A 96x16 menu pill, three 32x16 sprites; the digit sprites of a save slot sit over its right part."""
-    return (spr(start, 32, 16, 3), text, {"clear": (6, 1, 90, 15), "bold": True, **kw})
+    def prep(pic):  # kana start at x 4; the pill's edge is too near for the whole clear rectangle
+        for y in range(3, 13):
+            pic.set(4, y, 0xE)
+            pic.set(5, y, 0xE)
+    return (spr(start, 32, 16, 3), text, {"clear": (6, 1, 90, 15), "bold": True, "prep": prep, **kw})
 
 
 def disc(start, text):
-    return (spr(start, 32, 32), text, {"clear": (4, 8, 28, 24), "bold": True})
+    # The unselected disc is scaled to about 2/3, which drops pixel rows: the 8 px text font read "Utt", so double TINY capitals.
+    return (spr(start, 32, 32), text, {"clear": (4, 8, 28, 24), "tiny": "narrow", "scale": 2})
 
 
 def strip(text):
     """A menu help strip: 15 x 3 tiles."""
-    return (rows(0, 15, 3), text, {"clear": (1, 0, 119, 24), "gap": 0})
+    return (rows(0, 15, 3), text, {"clear": (0, 0, 120, 24), "gap": 0})
 
 
 def header(text):
@@ -169,8 +176,9 @@ def header(text):
 
 
 def shout(start, text, **kw):
-    """One 32x32 cell of the title's Kantele shout. They settle 22 px apart, the first (x -31) off screen, so it stays blank."""
-    return (spr(start, 32, 32), text, {"clear": (0, 0, 32, 32), "ink": 0xF, "outline": 1, "scale": 2, "bold": True, **kw})
+    """One 32x32 cell of the title's Kantele shout. They settle 22 px apart, the first (x -31) off screen, so it stays blank.
+    Two 9 px letters fill the 22 px pitch; the text font at double size overlapped its neighbours."""
+    return (spr(start, 32, 32), text, {"clear": (0, 0, 32, 32), "ink": 0xF, "outline": 1, "scale": 3, "tiny": "narrow", "center": 21, **kw})
 
 
 def blank_stamp(pic):
@@ -274,7 +282,7 @@ REEL = {0x303C70 + i * 0x400: t for i, t in enumerate([
     "Super", "Very", "Pretty", "Kinda", "Slightly",  # reel 1, how
     "Sweet", "Spicy", "Salty", "Bitter", "Sour", "Fresh", "Stinky", "Tasty", "Deadly",  # reel 2, what kind
     "Cream\nPuff", "Bean\nSoup", "Natto", "Curry\nRice", "Milk", "Ramen", "Veggie\nJuice", "Coffee", "Yogurt", "Kyoho\nGrapes",  # reel 3, what
-    "Mystery\nFood", "Raw Food", "Hachi\nSet Meal", "Rice",
+    "Mystery\nFood", "Raw Food", "Hachi\nSet Meal", "Rice", "Meat", "Hot Pot",
 ])}
 RAW = {off: (rows(0, 8, 4), text, {"ink": 1, "bold": True, "gap": 0}) for off, text in REEL.items()}
 
@@ -317,6 +325,8 @@ LABELS = {
         (spr(0x2BE, 32, 16, 4), "Lips", {"clear": (8, 0, 84, 16), "ink": 0xF, "center": 22}),
         (spr(0x2DE, 32, 16, 4), "Clear Time", {"clear": (8, 0, 84, 12), "ink": 0xF, "center": 42}),
     ],
+    # [前編], [後編]: two 32x32 sprites each. No sprite used them in 53 stage and fight scenes, so where they show is unknown; "Part" is taken by the cards.
+    0x2C4168: [(spr(0x86, 32, 32, 2), "[1st Half]", {}), (spr(0xA6, 32, 32, 2), "[2nd Half]", {})],
     0x2B98B0: [(spr(0, 32, 16, 4), "Hachi Slots", {"clear": (22, 2, 106, 14), "ink": 0xF, "outline": 1, "bold": True})],
     # After a stage card: N, then the two cells 発 and 目, then すた〜と. N comes from the digit blocks, first, so the words follow it.
     0x2A6EF0: [cell(0, "SH")],
@@ -324,7 +334,7 @@ LABELS = {
     0x2A70DC: [cell(0x00, "S", center=24), cell(0x10, "TA"), cell(0x20, "RT"), cell(0x30, "!", center=6)],  # four cells, so the word sits centred
     0x2B7618: [
         (rows(0, 16, 2), "Press Start", {"ink": 8, "outline": 1, "bold": True}),
-        shout(0x20, ""), shout(0x30, "K", center=22), shout(0x40, "AN"), shout(0x50, "TE"), shout(0x60, "LE"),
+        shout(0x20, ""), shout(0x30, "KA"), shout(0x40, "NT"), shout(0x50, "EL"), shout(0x60, "E", center=16),
     ],
     0x2A7408: [([[*range(8, 15)], [*range(0x17, 0x1E)]], "Kantele", {"ink": 0xD})],  # the HUD's shout gauge, bottom right: tiles 9-F, 18-1E of BG0, palette D
     # The pause menu's BG0 map repeats tiles 4 and F at columns 0 and 9 of its first item, so text keeps off column 9.
@@ -339,7 +349,9 @@ LABELS = {
         pill(0x108, "Stage", center=40), pill(0x120, "Lips", center=40),
         pill(0x279, "New Game"), pill(0x291, "Continue"), pill(0x2C1, "Lives", center=40),
         pill(0x2D9, "Delete Data"), pill(0x2F1, "You sure?"), pill(0x309, "Main Game"), pill(0x333, "Clear~"),
-        disc(0x040, "On"), disc(0x050, "Off"), disc(0x255, "Yes"), disc(0x265, "No"), disc(0x323, "Yes"),
+        disc(0x040, "ON"), disc(0x050, "OFF"), disc(0x255, "YES"), disc(0x265, "NO"), disc(0x323, "YES"),
+        # The save header's digit sprites carry the tail of its last kana る.
+        *[(spr(t, 16, 16), "", {"clear": (0, 2, 3, 14), "paper": 0xC}) for t in (0x201, 0x205, 0x209)],
     ],
     0x30E2E0: [strip("Pick something\nfrom the menu~")],
     0x30E61C: [strip("Let's go exploring\ntogether!")],
@@ -353,7 +365,7 @@ LABELS = {
     0x3100DC: [header("Menu")],
     0x31031C: [header("Options")],
     0x3105B8: [header("Difficulty")],
-    0x310810: [header("Save File!")],
+    0x310810: [header("Save File")],  # the game adds its own ! sprite at the header's right
 }
 
 
