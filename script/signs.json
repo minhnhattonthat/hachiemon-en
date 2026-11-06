@@ -3,7 +3,7 @@
   "id": "s000",
   "offset": "1C0984",
   "jp": "ハチアイルにようこそ！{page}まずは そうさほうほうを{nl}れんしゅうしよう！{page}Aボタンでジャンプ{page}Bボタンでくちびるを{nl}のばすぞ！{page}まずはてきとうに{nl}やってみよう！{page}あと－－{page}そこらへんにある{nl}くちびるも{page}わすれずに あつめよう！{end:00}",
-  "en": "",
+  "en": "Welcome to{nl}Hachi Isle!{page}First, let's try{nl}the controls!{page}A Button: jump{page}B Button: stretch{nl}your lips!{page}Just try it out{nl}for a bit!{page}Also--{page}Don't forget to{nl}collect the lips{page}lying around!{end:00}",
   "refs": [
    {
     "word": "1C1280",
@@ -16,7 +16,7 @@
   "id": "s001",
   "offset": "1C09F5",
   "jp": "した－Aボタンで{nl}かいてんアタック！{page}ブロックをこわせるぞ！{page}かいてんしながら{nl}ジャンプもできる！{page}Bボタンで{nl}かいてんをやめるぞ！{page}まわりすぎにちゅうい！{end:00}",
-  "en": "",
+  "en": "Down + A:{nl}Spin Attack!{page}Breaks blocks!{page}You can jump{nl}while spinning!{page}B Button stops{nl}the spin!{page}Don't spin{nl}too long!{end:00}",
   "refs": [
    {
     "word": "1C1284",
@@ -29,7 +29,7 @@
   "id": "s002",
   "offset": "1C0A45",
   "jp": "Bボタンを おしつづけると{nl}かべや ゆかにくっつくぞ！{page}そのままじゅうじボタンで{nl}くちびるが のびる！{page}くちびるが のびたときに{nl}Bボタンをはなして{page}くちびるジャンプだ！{end:00}",
-  "en": "",
+  "en": "Hold B to stick{nl}to wall or floor!{page}Then the D-Pad{nl}stretches lips!{page}When stretched,{nl}let go of B{page}for a Lip Jump!{end:00}",
   "refs": [
    {
     "word": "1C1288",
@@ -42,7 +42,7 @@
   "id": "s003",
   "offset": "1C0A9C",
   "jp": "こまったときは{nl}くちびるブーメラン！{page}はなれた アイテムも{nl}らくらくゲット！{page}Rボタンでなげてみよう！{end:00}",
-  "en": "",
+  "en": "In a pinch?{nl}Lip Boomerang!{page}Grabs far-off{nl}items with ease!{page}Throw it with{nl}the R Button!{end:00}",
   "refs": [
    {
     "word": "1C128C",
@@ -55,7 +55,7 @@
   "id": "s004",
   "offset": "1C0AD1",
   "jp": "てきにキスすると－－{page}ほおをあかくして{nl}はずかしがるぞ！{page}はずかしがっているあいだは{nl}こうげきしてこないので{page}とおりすぎてもいいし{nl}うえにのってもいい！{page}Bボタンの{nl}くちびるこうげきか {page}Rボタンの{nl}くちびるブーメランで{page}ぶちゅっといこう！{end:00}",
-  "en": "",
+  "en": "Kiss an enemy--{page}it'll blush and{nl}get all shy!{page}While shy, it{nl}won't attack,{page}so pass it by or{nl}stand on it!{page}Smooch with{page}B: Lip Attack or{nl}R: Lip Boomerang!{end:00}",
   "refs": [
    {
     "word": "1C1290",
@@ -68,7 +68,7 @@
   "id": "s005",
   "offset": "1C0B4B",
   "jp": "Lボタンをおして{nl}カンテーレとさけぼう！{page}かくれたアイテムが{nl}みつかるかもしれないぞ！{page}かくれたばしょを{nl}ぶちゅっとすれば{page}アイテムしゅつげん！{end:00}",
-  "en": "",
+  "en": "Press L and{nl}shout Kantele!{page}You may find{nl}hidden items!{page}Smooch the{nl}hidden spot{page}and an item{nl}appears!{end:00}",
   "refs": [
    {
     "word": "1C1294",
@@ -81,7 +81,7 @@
   "id": "s006",
   "offset": "1C0B95",
   "jp": "こまったときは{nl}カンテーレ！{page}みえないものが{nl}みえてくる！{end:00}",
-  "en": "",
+  "en": "In a pinch?{nl}Kantele!{page}The unseen{nl}will be seen!{end:00}",
   "refs": [
    {
     "word": "1C1298",
@@ -94,7 +94,7 @@
   "id": "s007",
   "offset": "1C0BB4",
   "jp": "かいてんすれば{nl}てきもたおせる！{page}てきは {nl}たくさんいるけれど{page}ゆうきをだして{nl}まわってみよう！{page}とちゅうで め を{nl}まわさないように！{end:00}",
-  "en": "",
+  "en": "Spinning beats{nl}enemies too!{page}There are{nl}a lot of them,{page}so be brave{nl}and spin!{page}Just don't get{nl}dizzy!{end:00}",
   "refs": [
    {
     "word": "1C129C",
@@ -107,7 +107,7 @@
   "id": "s008",
   "offset": "1C0BFA",
   "jp": "くちびるがとどかない！{page}そんなときは{nl}ロングくちびる！{page}しばらく なにも{nl}ボタンをおさずにいれば{page}シブいかおをする！{page}そこで すばやく{nl}Bボタン！{page}ここでは うえをおしたまま{nl}Bボタンをチョンと{page}おしてみよう！{page}ロングくちびるの{nl}ジャンプりょくはすごいぞ！{page}ちなみにシブいかおを{nl}しているじかんによって{page}くちびるの ながさが{nl}2だんかいに かわるぞ！{end:00}",
-  "en": "",
+  "en": "Lips won't reach?{nl}Use Long Lips!{page}Press no buttons{nl}for a while{page}for a Cool Face!{page}Then quickly{nl}press B!{page}Here, hold up and{nl}tap B!{page}Long Lips jump{nl}really high!{page}And how long you{nl}stay Cool{page}sets your lips to{nl}1 of 2 lengths!{end:00}",
   "refs": [
    {
     "word": "1C12A0",
@@ -120,7 +120,7 @@
   "id": "s009",
   "offset": "1C0CAB",
   "jp": "きけん！{nl}しょしんしゃ おことわり！{end:00}",
-  "en": "",
+  "en": "Danger!{nl}No beginners!{end:00}",
   "refs": [
    {
     "word": "1C12A4",
@@ -133,7 +133,7 @@
   "id": "s010",
   "offset": "1C0CBF",
   "jp": "オバチャンは{nl}ムテキでっせ〜{page}へたにさわると{nl}ケガしまっせ〜{page}でも－－－{page}ブチュっとやると{nl}てれまっせ〜{end:00}",
-  "en": "",
+  "en": "Auntie is{nl}invincible, hon~{page}Touch her and{nl}you'll get hurt~{page}But---{page}One big smooch{nl}and she blushes~{end:00}",
   "refs": [
    {
     "word": "1C12A8",
@@ -146,7 +146,7 @@
   "id": "s011",
   "offset": "1C0CF5",
   "jp": "くちびる たりまへんで〜{end:00}",
-  "en": "",
+  "en": "Not enough lips~{end:00}",
   "refs": [
    {
     "word": "1C12AC",
@@ -159,7 +159,7 @@
   "id": "s012",
   "offset": "1C0D03",
   "jp": "これはワープゾーン！{page}じゅうじボタンのうえで{nl}はいろう！{page}なんかいでも{nl}りようできるぞ！{end:00}",
-  "en": "",
+  "en": "A Warp Zone!{page}Press up on the{nl}D-Pad to enter!{page}Use it as often{nl}as you like!{end:00}",
   "refs": [
    {
     "word": "1C12B0",
@@ -172,7 +172,7 @@
   "id": "s013",
   "offset": "1C0D31",
   "jp": "つちブロックは{nl}モグラハチエモンで{page}こわそう！{end:00}",
-  "en": "",
+  "en": "Dirt blocks? Use{nl}Mole Hachiemon{page}to break them!{end:00}",
   "refs": [
    {
     "word": "1C12B4",
@@ -185,7 +185,7 @@
   "id": "s014",
   "offset": "1C0D4A",
   "jp": "かわぞこにおちると{nl}1ミス！{page}おちないように{nl}ちゅうい！{end:00}",
-  "en": "",
+  "en": "Hit the riverbed{nl}and it's 1 miss!{page}Watch your step!{end:00}",
   "refs": [
    {
     "word": "1C12B8",
@@ -198,7 +198,7 @@
   "id": "s015",
   "offset": "1C0D68",
   "jp": "いるかにのって{nl}すすもう！{page}はやくしないと{nl}おいてかれるぞ！{end:00}",
-  "en": "",
+  "en": "Ride the dolphin{nl}onward!{page}Hurry or it'll{nl}leave you behind!{end:00}",
   "refs": [
    {
     "word": "1C12BC",
@@ -211,7 +211,7 @@
   "id": "s016",
   "offset": "1C0D88",
   "jp": "やまをのぼろう！{page}かべをくわえて{nl}ジャンプ！{page}くちびるジャンプでも{nl}のぼれるぞ！{end:00}",
-  "en": "",
+  "en": "Climb the{nl}mountain!{page}Bite the wall{nl}and jump!{page}A Lip Jump{nl}works too!{end:00}",
   "refs": [
    {
     "word": "1C12C0",
@@ -224,7 +224,7 @@
   "id": "s017",
   "offset": "1C0DB2",
   "jp": "あしばがすくないので{nl}しんちょうに いこう！{page}てきを てれさせて{nl}あしばにしても いいぞ！{end:00}",
-  "en": "",
+  "en": "Few footholds, so{nl}go carefully!{page}Make foes blush{nl}and stand on 'em!{end:00}",
   "refs": [
    {
     "word": "1C12C4",
@@ -237,7 +237,7 @@
   "id": "s018",
   "offset": "1C0DE1",
   "jp": "ゴールはビルのいりぐちだ！{page}どんどん したに{nl}おりていこう！{end:00}",
-  "en": "",
+  "en": "The goal is the{nl}building door!{page}Keep heading{nl}down!{end:00}",
   "refs": [
    {
     "word": "1C12C8",
@@ -250,7 +250,7 @@
   "id": "s019",
   "offset": "1C0E01",
   "jp": "カラフルハチエモンのまち{end:00}",
-  "en": "",
+  "en": "Colorful{nl}Hachiemon Town{end:00}",
   "refs": [
    {
     "word": "1C12CC",
@@ -263,7 +263,7 @@
   "id": "s020",
   "offset": "1C0E0F",
   "jp": "きけんちたい{end:00}",
-  "en": "",
+  "en": "Danger Zone{end:00}",
   "refs": [
    {
     "word": "1C12D0",
@@ -276,7 +276,7 @@
   "id": "s021",
   "offset": "1C0E17",
   "jp": "このさき{nl}けっとうじょう{page}おくびょうものは{nl}このはし わたるべからず{end:00}",
-  "en": "",
+  "en": "Ahead:{nl}Dueling Ground{page}Cowards, stay{nl}off this bridge{end:00}",
   "refs": [
    {
     "word": "1C12D4",
@@ -289,7 +289,7 @@
   "id": "s022",
   "offset": "1C0E3B",
   "jp": "ここは とびおりても{nl}だいじょうぶ！{page}おもいきって{nl}おちてみよう！{end:00}",
-  "en": "",
+  "en": "It's safe to{nl}jump down here!{page}Go on,{nl}take the plunge!{end:00}",
   "refs": [
    {
     "word": "1C12D8",
@@ -302,7 +302,7 @@
   "id": "s023",
   "offset": "1C0E5E",
   "jp": "こおりは つるつるすべるけど{nl}ペンギンは だいじょうぶ！{page}タコヤキ たべて{nl}パワーアップ！{end:00}",
-  "en": "",
+  "en": "Ice is slippery.{nl}Penguins cope!{page}Eat takoyaki{nl}and power up!{end:00}",
   "refs": [
    {
     "word": "1C12DC",
@@ -315,7 +315,7 @@
   "id": "s024",
   "offset": "1C0E8D",
   "jp": "もりにはえているツタは{nl}くわえることができるぞ！{page}うまく りようして{nl}さきにすすもう！{page}あと－－{page}はちのすに ふれると{nl}ダメージをうける！{page}きをつけて{nl}すすもう！{end:00}",
-  "en": "",
+  "en": "You can bite{nl}forest vines!{page}Use them to{nl}move ahead!{page}Also--{page}Touch a beehive{nl}and it hurts!{page}Be careful{nl}out there!{end:00}",
   "refs": [
    {
     "word": "1C12E0",
@@ -328,7 +328,7 @@
   "id": "s025",
   "offset": "1C0EE0",
   "jp": "なにも かいていない－－{end:00}",
-  "en": "",
+  "en": "Nothing written--{end:00}",
   "refs": [
    {
     "word": "1C12E4",
@@ -341,7 +341,7 @@
   "id": "s026",
   "offset": "1C0EEE",
   "jp": "このちいさな てきは{nl}オレンジハチエモン！{page}こいつにふれると－－{page}ダメージはうけないけれど{nl}うごけなくなる！{page}もし{nl}くっつかれたら{page}じゅうじボタンをさゆうに{nl}れんだして ふりほどこう！{end:00}",
-  "en": "",
+  "en": "Orange Hachiemon{nl}is this tiny foe!{page}Touch it and--{page}no damage, but{nl}you can't move!{page}If one sticks{nl}to you,{page}mash the D-Pad{nl}left and right{page}to shake it off!{end:00}",
   "refs": [
    {
     "word": "1C12E8",
@@ -354,7 +354,7 @@
   "id": "s027",
   "offset": "1C0F4C",
   "jp": "ヤマタのしっぽに{nl}きをつけよう！{page}うまくかわして{nl}くちびるこうげきだ！{page}くちびるブーメランも{nl}こうかてき！{end:00}",
-  "en": "",
+  "en": "Watch out for{nl}Yamata's tails!{page}Dodge, then{nl}Lip Attack!{page}Lip Boomerang{nl}works well too!{end:00}",
   "refs": [
    {
     "word": "1C12EC",
@@ -367,7 +367,7 @@
   "id": "s028",
   "offset": "1C0F83",
   "jp": "ここは うみ！{page}うごきがにぶくなるので{nl}しんちょうに すすもう！{page}ウニにも きをつけて{nl}すすもう！{end:00}",
-  "en": "",
+  "en": "This is the sea!{page}You move slowly,{nl}so be careful!{page}Watch out for{nl}sea urchins too!{end:00}",
   "refs": [
    {
     "word": "1C12F0",
@@ -380,7 +380,7 @@
   "id": "s029",
   "offset": "1C0FB6",
   "jp": "くちびるを つかって{nl}かべを のぼろう！{page}Aボタンでジャンプして{nl}Bボタンでくっつく{page}くっついたまま－－{page}またAボタンでジャンプして{nl}Bボタンでくっつく{page}これをくりかえせば－－{page}どんなに たかいかべも{nl}こえられる！{page}ちょっとムズカシイけど{nl}おぼえよう！{page}ちなみに－－{page}Bボタンをはなす{nl}タイミングがポイント！{page}Aボタンを おすまえに{nl}はなすと おちてしまうぞ！{end:00}",
-  "en": "",
+  "en": "Use lips to{nl}climb walls!{page}Jump with A,{nl}stick with B{page}Still stuck--{page}A to jump again,{nl}B to stick{page}Repeat that--{page}and you can scale{nl}any wall!{page}It's a bit tough,{nl}but learn it!{page}By the way--{page}When to let go{nl}of B is the key!{page}Let go before A{nl}and you'll fall!{end:00}",
   "refs": [
    {
     "word": "1C12F4",
@@ -393,7 +393,7 @@
   "id": "s030",
   "offset": "1C106C",
   "jp": "さいしょの なんかん{page}このさきに{nl}ピンクハチエモンがいるので{page}どうにかして{nl}さきに すすもう！{page}さあ どうすれば いいか{nl}よ〜く かんがえよう！{end:00}",
-  "en": "",
+  "en": "First big hurdle{page}Pink Hachiemon{nl}is up ahead,{page}so find a way{nl}past!{page}Now, think hard{nl}about what to do!{end:00}",
   "refs": [
    {
     "word": "1C12F8",
@@ -406,7 +406,7 @@
   "id": "s031",
   "offset": "1C10B6",
   "jp": "おめでとう！{page}きみも いちにんまえの{nl}ハチエモンだ！{page}あとは やたいにつけば{nl}ゴールイン！{end:00}",
-  "en": "",
+  "en": "Congrats!{page}You're now a true{nl}Hachiemon!{page}Reach the food{nl}stall to finish!{end:00}",
   "refs": [
    {
     "word": "1C12FC",
@@ -419,7 +419,7 @@
   "id": "s032",
   "offset": "1C10E5",
   "jp": "おくじょうに{nl}やたいがあります！{end:00}",
-  "en": "",
+  "en": "A food stall is{nl}on the roof!{end:00}",
   "refs": [
    {
     "word": "1C1300",
@@ -432,7 +432,7 @@
   "id": "s033",
   "offset": "1C10F7",
   "jp": "ひかるリングは{nl}チェックポイント！{page}チェックポイントを{nl}くぐれば{page}やられたとき{nl}そこからスタートできる！{end:00}",
-  "en": "",
+  "en": "Glowing rings are{nl}Checkpoints!{page}Pass through a{nl}Checkpoint{page}and you restart{nl}there if you fall!{end:00}",
   "refs": [
    {
     "word": "1C1304",
@@ -445,7 +445,7 @@
   "id": "s034",
   "offset": "1C112D",
   "jp": "ビルからおちないように{nl}すすもう！{page}とちゅうのヘリコプターは{nl}くわえることができるぞ！{end:00}",
-  "en": "",
+  "en": "Don't fall off{nl}the buildings!{page}You can bite the{nl}helicopters too!{end:00}",
   "refs": [
    {
     "word": "1C1308",
@@ -458,7 +458,7 @@
   "id": "s035",
   "offset": "1C115A",
   "jp": "こどもには くちびるを！{page}ぶちゅっと すれば{nl}おとなたちも やさしくなる{page}とにかく{nl}ぶちゅっと！{end:00}",
-  "en": "",
+  "en": "Give kids lips!{page}A smooch makes{nl}grownups nicer{page}So anyway,{nl}smooch!{end:00}",
   "refs": [
    {
     "word": "1C130C",
@@ -471,7 +471,7 @@
   "id": "s036",
   "offset": "1C118C",
   "jp": "かみなりにあたると{nl}ダメージ！{page}あたらないように{nl}すすもう！{end:00}",
-  "en": "",
+  "en": "Lightning hurts!{page}Try not to{nl}get hit!{end:00}",
   "refs": [
    {
     "word": "1C1310",
@@ -484,7 +484,7 @@
   "id": "s037",
   "offset": "1C11AC",
   "jp": "てきがてごわいときは－－{page}いろいろためして{nl}たたかおう！{page}くちびるこうげき、{nl}くちびるブーメラン－－{page}かいてんアタックも{nl}やってみよう！{end:00}",
-  "en": "",
+  "en": "Tough enemy?--{page}Try everything{nl}you've got!{page}Lip Attack,{nl}Lip Boomerang--{page}try Spin Attack{nl}too!{end:00}",
   "refs": [
    {
     "word": "1C1314",
@@ -497,7 +497,7 @@
   "id": "s038",
   "offset": "1C11F2",
   "jp": "くちびるとうりつを{nl}やってみよう！{page}した－Bボタンで{nl}じめんをくわえて－{page}Bをおしたままじゅうじ{nl}ボタンのうえを おす！{page}そこから さらに{nl}ジャンプすれば－－{page}たかいところにある{nl}アイテムも とれるかも！{end:00}",
-  "en": "",
+  "en": "Try the{nl}Lip Handstand!{page}Down + B: bite{nl}the ground-{page}Hold B, then{nl}up on the D-Pad!{page}Then jump--{page}you might reach{nl}high items!{end:00}",
   "refs": [
    {
     "word": "1C1318",
@@ -510,7 +510,7 @@
   "id": "s039",
   "offset": "1C125A",
   "jp": "じゅうじボタンの うえ で{nl}カンバンをよめるぞ！{page}おぼえておこう！{end:00}",
-  "en": "",
+  "en": "Up on the D-Pad{nl}reads signs!{page}Remember that!{end:00}",
   "refs": [
    {
     "word": "1C131C",

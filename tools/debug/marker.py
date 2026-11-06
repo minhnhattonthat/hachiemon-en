@@ -6,7 +6,6 @@
 tools/debug/markercover.py reads to say which ids a tour reached.
 """
 import argparse
-import copy
 import hashlib
 import re
 import sys
@@ -14,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
-from build import ROM, build, load_script  # noqa: E402
+from build import ROM, build, jp_script  # noqa: E402
 from lint import load_limits  # noqa: E402
 from romdiff import check as romdiff_check  # noqa: E402
 from vwf import line_width, load_font  # noqa: E402
@@ -108,7 +107,7 @@ def main():
     a = p.parse_args()
     orig = ROM.read_bytes()
     font = load_font()
-    entries = copy.deepcopy(load_script())
+    entries = jp_script()
     only = set(a.only.split(",")) if a.only else None
     limits = load_limits() if a.limits else {}
     for e in entries:

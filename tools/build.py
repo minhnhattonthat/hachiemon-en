@@ -73,6 +73,11 @@ def load_script():
     return [e for path in SCRIPT for e in json.loads(path.read_text(encoding="utf8"))]
 
 
+def jp_script():
+    """The script as if nothing were translated, for the identity build and the debug builds."""
+    return [dict(e, en="") for e in load_script()]
+
+
 def text_slots(rom):
     """string start -> pointer words, from the structures that own them: scripts, the sign table, code literals."""
     slots = {}

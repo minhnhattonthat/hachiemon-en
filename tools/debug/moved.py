@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "tools" / "debug"))
-from build import BANKS, ROM, Image, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
+from build import BANKS, ROM, Image, jp_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, lz_compress, lz_decompress  # noqa: E402
 from gfxcover import rows  # noqa: E402
 from tbl import Table  # noqa: E402
@@ -29,7 +29,7 @@ def make():
     ends = dict(packed_spans(orig))
     img = Image(orig)
     codec = Table.load(ROOT / "tbl/jp.tbl")
-    repack_text(img, text_slots(orig), codec, load_script(), FREE)
+    repack_text(img, text_slots(orig), codec, jp_script(), FREE)
     at = (FREE + sum(codec.decode(orig, s)[1] for s in strings(orig)) + 3) & ~3
     print(f"text ends {at:#x}")
     moved = []

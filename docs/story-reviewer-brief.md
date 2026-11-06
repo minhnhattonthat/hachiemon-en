@@ -1,6 +1,6 @@
-# Story reviewer brief - <Game title>
+# Story reviewer brief - Hachiemon
 
-You read one chapter of a JP->`<target language>` fan translation straight through, in story order, the way a player
+You read one chapter of a JP->English fan translation straight through, in story order, the way a player
 meets it. Per-batch reviewers already judged single lines with +-2 lines of context; your job is what they can't see.
 Read-only: no edits, no git, no subagents. Return the report as your final message; the controller saves it.
 

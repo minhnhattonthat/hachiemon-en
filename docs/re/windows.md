@@ -28,6 +28,11 @@ All **verified** by disassembly of 0x8038660 and 0x80389C8, and each seen in a s
 2. `tools/debug/marker.py --limits`: every string filled to its limit. Tour `work/qa/mk_L` (2026-11-07): 160/160 scenes, no bubble fell back to "ERROR" (`markercover.py` found no pointer outside the id list), no clipped bubble in the shots read. Two at-limit strings did not appear at all: s008 and s029 came to 292 bytes (10 pages), over the 254-byte limit. So that limit is real, and `lint.py` enforces it: long signs must average about 25 bytes a page.
 3. Glyph torture line (`torture.gba`, `work/qa/torture_t2/zoom.png`): all printable ASCII plus a double space in the box, every glyph and width correct.
 
+## Overrides
+`tbl/limits_override.tsv` sits on top of the generated `limits.tsv` (`tools/lint.py`), with a reason per row:
+- m034, m159, m173, m183 go from 8 to 10 cols. They sit at x 194-200, and "Hachiemon" needs 10. Every letter stays on screen; only the right frame runs off the edge. Phase 8 must look.
+- m206-m261 (boss 5's defeat, guessed) go from 10 to 14 cols, 12 where a line has 3 rows, since the Japanese in that script already reaches 12-16 from both speakers. Still a guess until a real win shows them.
+
 ## Limits of the measurement
 - **Guessed rows** (`source` = guess in `tbl/limits.tsv`): s040 (empty), the 39 pointerless strings, and 56 bubbles, all of them boss 5's defeat script (m206-m261). That script's op 9B (pc 22, handler 0x8057438) writes a room change to 0x30061C0 and its VM caller then stops, so under the warp only the first line shows. Running the script in another boss's slot stops the same way, and stepping over the op from Lua didn't work either. They get 10 x 2 and 41 cells, enough for x from 48 to 192; phase 8 must look at them, which takes a real win over boss 5.
 - **An actor can cover a bubble.** In `fight4` an orange sprite sits over the top-right bubble's right end at about x 220, y 30. The original ROM shows it too, so it is not a build bug; a line may lose a letter under it, as the Japanese does.

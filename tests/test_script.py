@@ -1,5 +1,4 @@
 """Phase 4: script/ holds every string, byte-exact, and the VMs own every text pointer in the script regions."""
-import copy
 import sys
 from pathlib import Path
 
@@ -7,7 +6,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from build import BANKS, ERROR_SLOT, ERROR_STRING, GLYPH_LOADS, SIZE_EN, STRAY, TEXT_BASE, build, load_script, real_slots, strings, text_slots  # noqa: E402
+from build import BANKS, ERROR_SLOT, ERROR_STRING, GLYPH_LOADS, SIZE_EN, STRAY, TEXT_BASE, build, jp_script, load_script, real_slots, strings, text_slots  # noqa: E402
 from extract import entries  # noqa: E402
 from romdiff import check  # noqa: E402
 from tbl import Table  # noqa: E402
@@ -86,7 +85,7 @@ def test_owned_slots_equal_every_pointer_a_value_scan_finds():
 @needs_rom
 def test_english_moves_only_what_it_should():
     rom = ROM.read_bytes()
-    script = copy.deepcopy(load_script())
+    script = jp_script()
     edited = next(e for e in script if e["refs"] and e["jp"].endswith("{end:02}"))
     edited["en"] = "HELLO{end:02}"
     img = build(rom, script)
@@ -107,7 +106,7 @@ def test_english_moves_only_what_it_should():
 @needs_rom
 def test_english_build_patches_exactly_the_two_glyph_loads():
     rom = ROM.read_bytes()
-    script = copy.deepcopy(load_script())
+    script = jp_script()
     script[0]["en"] = "HELLO{end:02}"
     out = build(rom, script).out
     assert len(out) == SIZE_EN

@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from lint import check_entry, lint, load_glossary, size  # noqa: E402
+from lint import check_entry, lint, load_glossary, load_limits, size  # noqa: E402
 from vwf import cells_of, encode_en, load_font, tile_cells  # noqa: E402
 
 FONT = load_font()
@@ -71,6 +71,12 @@ def test_glossary_rows_are_binding():
     assert any("should be" in e for e in errs("Him!{end:00}", jp="ハチエモン{end:00}", glossary=rows))
     assert any("avoid" in e for e in errs("Hatiemon, Hachiemon{end:00}", jp="ハチエモン{end:00}", glossary=rows))
     assert ("ハチエモン", "Hachiemon", ["Hachi-emon", "Hatiemon"]) in load_glossary()
+
+
+def test_a_name_may_wrap_and_overrides_sit_on_the_limits():
+    rows = [("マッスルハチエモン", "Muscle Hachiemon", [])]
+    assert errs("I am Muscle{nl}Hachiemon!{end:00}", jp="マッスルハチエモン{end:00}", glossary=rows) == []
+    assert load_limits()["m034"]["cols"] == 10  # 8 in the generated tbl/limits.tsv
 
 
 def test_size_helper_matches_engine_rule():

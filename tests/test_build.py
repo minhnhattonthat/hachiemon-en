@@ -7,7 +7,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "tools" / "debug"))
-from build import Image, build, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
+from build import Image, build, jp_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
 from romdiff import check  # noqa: E402
@@ -21,7 +21,7 @@ FREE = 0x3A8600  # candidate free space, docs/re/rom-map.md
 @needs_rom
 def test_identity_build():
     orig = ROM.read_bytes()
-    img = build(orig)
+    img = build(orig, jp_script())
     assert bytes(img.out) == orig
     assert check(orig, bytes(img.out), set(), img.writes)[0] == []
     assert sum(who.startswith("textptr") for *_, who in img.writes) == 886  # 810 script, 35 code, 41 sign
@@ -33,7 +33,7 @@ def test_moved_text_reads_the_same_through_every_pointer():
     codec = Table.load(ROOT / "tbl/jp.tbl")
     slots = text_slots(orig)
     img = Image(orig)
-    repack_text(img, slots, codec, load_script(), FREE)
+    repack_text(img, slots, codec, jp_script(), FREE)
     assert check(orig, bytes(img.out), set(), img.writes)[0] == []
     for s in strings(orig):
         for w in slots.get(s, []):

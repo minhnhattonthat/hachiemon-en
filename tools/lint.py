@@ -16,6 +16,7 @@ from vwf import TOKEN, cells_of, encode_en, line_width, load_font, tile_cells  #
 
 SCRIPT = [ROOT / "script/signs.json", ROOT / "script/main.json"]
 LIMITS = ROOT / "tbl/limits.tsv"
+OVERRIDE = ROOT / "tbl/limits_override.tsv"
 GLOSSARY = ROOT / "glossary.md"
 KEEP = ROOT / "script/keep_jp.txt"
 JAPANESE = re.compile(r"[぀-ヿ一-鿿＀-￯]")
@@ -33,6 +34,11 @@ def load_limits(path=LIMITS):
         p = line.split("\t")
         limits[p[0]] = {"kind": p[1], "cols": int(p[2]), "rows": int(p[3]), "cells": int(p[4]), "room": int(p[5]),
                         "with": [w for w in p[6].split(",") if w], "source": p[9]}
+    if Path(path) == LIMITS and OVERRIDE.exists():
+        for line in OVERRIDE.read_text(encoding="utf8").splitlines():
+            if not line.startswith("#"):
+                id_, cols, _ = line.split("\t")
+                limits[id_]["cols"] = int(cols)
     return limits
 
 
@@ -75,10 +81,11 @@ def check_entry(e, limit, font, rom, glossary, sizes=None):
         _, data = encode_en(en, font, rom)
     except ValueError as err:
         return errs + [str(err)]
+    flat = TOKEN.sub(" ", en)  # a name may wrap between lines
     for jp_term, en_term, avoid in glossary:
-        if jp_term in jp and en_term and en_term.lower() not in en.lower():
+        if jp_term in jp and en_term and en_term.lower() not in flat.lower():
             errs.append(f"glossary: {jp_term} should be {en_term}")
-        errs += [f"glossary: avoid {a}" for a in avoid if re.search(rf"\b{re.escape(a)}\b", en)]
+        errs += [f"glossary: avoid {a}" for a in avoid if re.search(rf"\b{re.escape(a)}\b", flat)]
     if limit is None:
         return errs + ["no limit in tbl/limits.tsv"]
     cols, rows, _ = size(data, limit["kind"])
