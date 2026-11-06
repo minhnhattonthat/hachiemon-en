@@ -64,6 +64,8 @@ local S = {
   death       = { sub = 16, node = 7, check = 16, play_step = 4 },
   death_last  = { sub = 16, node = 7, check = 16, play_step = 4, w = { [0x0300198C] = 0 } },  -- lives 0: game over
   step96      = { sub = 16, node = 7, check = 16, play_step = 96 },
+  -- TIME OVER, row 26: 0x8010C08 runs when bit 4 of byte 0x3000D29 is set; play_step 2 is the step play already sits on.
+  time_over   = { sub = 16, node = 7, check = 16, play_step = 2, at_step = { [0x03000D29] = 4 } },
   step64      = { sub = 16, node = 7, check = 16, play_step = 64 },
   -- VS banners, steps 104-107: the table at 0x1A3D10, indexed by the 16-bit value at 0x3000D9E (set as the step is forced).
   vs0         = { sub = 16, node = 7, check = 16, play_step = 104, at_step = { [0x03000D9E] = 0 } },

@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "tools" / "debug"))
 from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
-from gfxtext import GFX_BASE, LABELS, MAPPED, RAW, MapPicture, owned_slots, unpack  # noqa: E402
+from gfxtext import GFX_BASE, LABELS, MAPPED, RAW, STAGE_SETS, STAGE_SIGNS, MapPicture, Picture, letter, marquee_frames, owned_slots, unpack  # noqa: E402
 from jp_cells import leftover  # noqa: E402
 from romdiff import check  # noqa: E402
 from strscan import BANKS  # noqa: E402
@@ -172,6 +172,30 @@ def test_labels_stay_in_their_blocks_and_every_slot_moves():
         before, _ = unpack(orig, off)
         after, _ = unpack(img.out, new)
         assert len(after) == len(before)
+
+
+@needs_rom
+def test_stage_signs_touch_only_their_tiles():
+    orig = ROM.read_bytes()
+    for row, labels in STAGE_SIGNS.items():
+        off = int.from_bytes(orig[STAGE_SETS + row * 8:STAGE_SETS + row * 8 + 4], "little") - 0x08000000
+        before, _ = unpack(orig, off)
+        data = bytearray(before)
+        allowed = set()
+        for grid, text, kw in labels:
+            letter(Picture(data, grid), text, **kw)
+            allowed |= {t for line in grid for t in line}
+        assert len(data) == len(before)
+        changed = {i // 32 for i in range(len(data)) if data[i] != before[i]}
+        assert changed and changed <= allowed, row
+
+
+@needs_rom
+def test_marquee_keeps_frame_count_and_size():
+    orig = ROM.read_bytes()
+    frames = marquee_frames(orig)
+    assert len(frames) == 75
+    assert all(len(lz_decompress(block, 0)[0]) == 0x180 for block in frames.values())
 
 
 @needs_rom

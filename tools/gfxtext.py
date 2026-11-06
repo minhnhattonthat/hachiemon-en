@@ -357,6 +357,61 @@ LABELS = {
 }
 
 
+WAIT_SCREEN = 0x2D1EC4
+MARQUEE = ["CRUSH", "BLAST", "SMASH", "GWAH!", "STANDBY", "ENERGY", "CHARGE", "READY", "PURGE"]  # フミツブス ブッパナス ブットバス グワッ! タイキチュウ エネルギー ジュウデン カンリョウ ハイジョ
+
+
+def marquee_frames(rom):
+    """Row 17, Tower Hachiemon's scrolling display: 75 frames of 48x16, one block each. Every word takes 9 frames, 8 px a frame: full at step 0, gone by 5, the next coming in.
+    The display is x 6-41, rows 7-14. Its shading comes back as each pixel's commonest colour across the frames. Returns {block: packed}."""
+    lo, hi = ROWS_16["row17"]
+    offs = [int.from_bytes(rom[w:w + 4], "little") - 0x08000000 for w in range(lo, hi + 1, 16)]
+    datas = [unpack(rom, off)[0] for off in offs]
+    grid = spr(0, 16, 16, 3)
+    pics = [Picture(d, grid) for d in datas]
+    shade = {}
+    for y in range(7, 15):
+        for x in range(6, 42):
+            colours = [p.get(x, y) for p in pics]
+            shade[x, y] = max(set(colours), key=colours.count)
+    words = [(tiny_rows(w, True), 24 - len(tiny_rows(w, True)[0]) // 2) for w in MARQUEE]
+    for i, pic in enumerate(pics):
+        for (x, y), c in shade.items():
+            pic.set(x, y, c)
+        step = i % 9
+        drawn = [(i // 9, -8 * step)] + ([(i // 9 + 1, 8 * (9 - step))] if i // 9 + 1 < len(words) else [])
+        for n, dx in drawn:
+            glyphs, x0 = words[n]
+            for ry, row in enumerate(glyphs):
+                for rx, on in enumerate(row):
+                    x = x0 + dx + rx
+                    if on and 6 <= x < 42:
+                        pic.set(x, 8 + ry, 4 if x < 9 or x >= 39 else 5 if x < 12 or x >= 36 else 0xF)  # dims toward the display's curved ends
+    return {off: unpack(rom, off)[1](bytes(d)) for off, d in zip(offs, datas)}
+
+
+class Picture8(Picture):
+    """A tile grid over an 8bpp sheet."""
+
+    def _at(self, x, y):
+        return self.grid[y // 8][x // 8] * 64 + (y & 7) * 8 + (x & 7)
+
+    def get(self, x, y):
+        return self.data[self._at(x, y)]
+
+    def set(self, x, y, v):
+        self.data[self._at(x, y)] = v
+
+
+def wait_screen(rom):
+    """Row 20, しばらくおまちください before a fight: 8bpp BG2. Tile 7 is the bare background; tiles 8-C are the kana's tips above the two text rows, D-36 those rows."""
+    data, pack = unpack(rom, WAIT_SCREEN)
+    for t in (8, 9, 0xA, 0xB, 0xC, *range(0xD, 0x37)):
+        data[t * 64:t * 64 + 64] = data[7 * 64:8 * 64]
+    letter(Picture8(data, [[*range(0xD, 0x22)], [*range(0x22, 0x37)]]), "Please wait a moment", keep=True, ink=0xEE, outline=0xEF, bold=True)
+    return pack(bytes(data))
+
+
 def recolor(old, new, y0=0, y1=99):
     """A `prep` that turns colours in `old` to `new` between two rows, to lift lettering off art that no rectangle separates from it."""
     def run(pic):
@@ -520,6 +575,9 @@ def write_labels(img, rom, base=GFX_BASE):
 
     for off in sorted(LABELS):
         place(off, relabel(rom, off), f"{off:#x}")
+    for off, block in marquee_frames(rom).items():
+        place(off, block, f"{off:#x}")
+    place(WAIT_SCREEN, wait_screen(rom), f"{WAIT_SCREEN:#x}")
     for row, labels in STAGE_SIGNS.items():
         off = int.from_bytes(rom[STAGE_SETS + row * 8:STAGE_SETS + row * 8 + 4], "little") - 0x08000000
         place(off, relabel(rom, off, labels), f"{off:#x}")

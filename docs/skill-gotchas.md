@@ -18,3 +18,6 @@ One line each: the reference it belongs in, then the fact.
 - `references/emulator-qa.md` (Debug tool): a position measured once can follow the player. Rerun the scene with the player moved and diff the logged x before trusting a width limit.
 - `references/pipeline.md` (Fitting): before ruling a bubble too narrow, try the script op's always-zero arguments. Here one turned on the game's own screen-edge clamp.
 - `references/pipeline.md` (Marker): a bubble or sign can have a byte cap on the whole string, across pages. Fill long multi-page strings to the limit in the at-limit build, or the cap only shows in a playtest.
+- `references/graphics.md` (Survey): stage tilesets can be deduplicated tile soups, unreadable as a sheet. Find the room-map table and render maps with tile words instead; shared objects then show up at once (here a board misread as バリアール from a sheet was ハチアイル).
+- `references/emulator-qa.md` (Debug tool): a credits scene that "still shows the end screen" may have already scrolled by; shoot from the warp on before hunting for what starts it.
+- `references/graphics.md` (Lettering): doc tables parsed by tests can swallow new tables with bare numbers in column 1 (gfxcover read a set number as row 2): label such columns.
