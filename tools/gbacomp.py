@@ -101,9 +101,79 @@ def scan(d, min_size=32, max_size=0x80000):
     return hits
 
 
+def le_decompress(d, off=0):
+    """The game's own "Le" codec (0x8000A34): 'Le', u24 size, one pad byte, then control bytes.
+
+    Each control byte holds four 2-bit ops, low bits first: 0 = long copy (u16: dist (w & 0xFFF) + 5, len (w >> 12) + 3),
+    1 = short copy (u8: dist (b & 3) + 1, len (b >> 2) + 2), 2 = one literal, 3 = three literals. Returns (data, end).
+    """
+    if d[off:off + 2] != b"Le":
+        raise ValueError("not Le")
+    size = int.from_bytes(d[off + 2:off + 5], "little")
+    if not size:
+        raise ValueError("bad size")
+    out = bytearray()
+    i = off + 6
+    n = len(d)
+    while len(out) < size:
+        if i >= n:
+            raise ValueError("ran off the end")
+        ctrl = d[i]
+        i += 1
+        for shift in (0, 2, 4, 6):
+            if len(out) >= size:
+                break
+            op = ctrl >> shift & 3
+            if op == 0 or op == 1:
+                if op == 0:
+                    w = d[i] | d[i + 1] << 8
+                    i += 2
+                    dist, ln = (w & 0xFFF) + 5, (w >> 12) + 3
+                else:
+                    b = d[i]
+                    i += 1
+                    dist, ln = (b & 3) + 1, (b >> 2) + 2
+                if dist > len(out):
+                    raise ValueError("back-reference before start")
+                for _ in range(ln):
+                    out.append(out[-dist])
+            else:
+                count = 1 if op == 2 else 3
+                out += d[i:i + count]
+                i += count
+    if len(out) != size:
+        raise ValueError("overrun")
+    return bytes(out), i
+
+
+def le_scan(d, max_size=0x100000):
+    """Every 4-aligned offset that decodes as a whole Le block."""
+    hits = []
+    off = 0
+    while True:
+        off = d.find(b"Le", off)
+        if off < 0:
+            return hits
+        if off % 4 == 0:
+            size = int.from_bytes(d[off + 2:off + 5], "little")
+            if 0 < size <= max_size:
+                try:
+                    _, end = le_decompress(d, off)
+                except (ValueError, IndexError):
+                    end = None
+                if end is not None and end - off <= size * 2:
+                    hits.append((off, end - off, size))
+                    off = (end + 3) & ~3
+                    continue
+        off += 2
+
+
 if __name__ == "__main__":
     rom = open(sys.argv[2], "rb").read()
-    if sys.argv[1] == "scan":
+    if sys.argv[1] == "le":
+        for off, packed, size in le_scan(rom):
+            print(f"{off:07x} {packed:6x} {size:6x}")
+    elif sys.argv[1] == "scan":
         for off, packed, size in scan(rom):
             print(f"{off:07x} {packed:6x} {size:6x}")
     elif sys.argv[1] == "x":
