@@ -157,12 +157,23 @@ def pill(start, text, **kw):
         for y in range(3, 13):
             pic.set(4, y, 0xE)
             pic.set(5, y, 0xE)
+        for y in range(3, 14):  # で〜たをさくじょ runs on to x 92
+            for x in range(90, 93):
+                pic.set(x, y, 0xE)
     return (spr(start, 32, 16, 3), text, {"clear": (6, 1, 90, 15), "bold": True, "prep": prep, **kw})
 
 
-def disc(start, text):
+def disc_clean(pic):
+    """はい and いいえ on the save prompt's discs run from x 2 to x 29, past the clear rectangle. Their ink is colours 1-A; the disc is B-F."""
+    for y in range(9, 24):
+        for x in range(32):
+            if 1 <= pic.get(x, y) <= 0xA or (x in (2, 3) and pic.get(x, y) == 0xD):
+                pic.set(x, y, 0xF)
+
+
+def disc(start, text, **kw):
     # The unselected disc is scaled to about 2/3, which drops pixel rows: the 8 px text font read "Utt", so double TINY capitals.
-    return (spr(start, 32, 32), text, {"clear": (4, 8, 28, 24), "tiny": "narrow", "scale": 2})
+    return (spr(start, 32, 32), text, {"clear": (4, 8, 28, 24), "tiny": "narrow", "scale": 2, **kw})
 
 
 def strip(text):
@@ -349,7 +360,7 @@ LABELS = {
         pill(0x108, "Stage", center=40), pill(0x120, "Lips", center=40),
         pill(0x279, "New Game"), pill(0x291, "Continue"), pill(0x2C1, "Lives", center=40),
         pill(0x2D9, "Delete Data"), pill(0x2F1, "You sure?"), pill(0x309, "Main Game"), pill(0x333, "Clear~"),
-        disc(0x040, "ON"), disc(0x050, "OFF"), disc(0x255, "YES"), disc(0x265, "NO"), disc(0x323, "YES"),
+        disc(0x040, "ON"), disc(0x050, "OFF"), disc(0x259, "YES", prep=disc_clean, ink=1), disc(0x269, "NO", prep=disc_clean, ink=1), disc(0x323, "YES"),
         # The save header's digit sprites carry the tail of its last kana る.
         *[(spr(t, 16, 16), "", {"clear": (0, 2, 3, 14), "paper": 0xC}) for t in (0x201, 0x205, 0x209)],
     ],

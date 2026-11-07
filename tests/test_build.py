@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "tools" / "debug"))
 from build import ERROR_SLOT, GLYPH_LOADS, KEEP_ON_SCREEN, TEXT_BASE, Image, build, jp_script, load_script, packed_spans, real_slots, repack_text, repoint, strings, text_slots  # noqa: E402
 from gbacomp import le_compress, le_decompress, le_scan, lz_compress, lz_decompress, scan  # noqa: E402
 from gfxcover import rows  # noqa: E402
-from gfxtext import ART, GFX_BASE, LABELS, MAPPED, RAW, STAGE_SETS, STAGE_SIGNS, MapPicture, Picture, Picture8, letter, marquee_frames, owned_slots, unpack  # noqa: E402
+from gfxtext import ART, GFX_BASE, LABELS, MAPPED, RAW, STAGE_SETS, STAGE_SIGNS, MapPicture, Picture, Picture8, letter, marquee_frames, owned_slots, spr, unpack  # noqa: E402
 from jp_cells import leftover  # noqa: E402
 from romdiff import check  # noqa: E402
 from strscan import BANKS  # noqa: E402
@@ -172,6 +172,17 @@ def test_labels_stay_in_their_blocks_and_every_slot_moves():
         before, _ = unpack(orig, off)
         after, _ = unpack(img.out, new)
         assert len(after) == len(before)
+
+
+@needs_rom
+def test_save_prompt_discs_lose_their_kana():
+    orig = ROM.read_bytes()
+    img = build(orig, load_script())
+    slot = owned_slots(orig)[0x2BCD3C][0]
+    tiles, _ = unpack(img.out, int.from_bytes(img.out[slot:slot + 4], "little") - 0x08000000)
+    for start in (0x259, 0x269):  # kana are antialiased in colours 2-A; the English is colour 1 alone
+        pic = Picture(tiles, spr(start, 32, 32))
+        assert not {pic.get(x, y) for y in range(32) for x in range(32)} & set(range(2, 0xB)), hex(start)
 
 
 @needs_rom

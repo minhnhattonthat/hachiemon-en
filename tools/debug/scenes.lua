@@ -45,6 +45,7 @@ local S = {
   -- cursor: 0x3005256, the menu row; the default row depends on whether a save exists.
   menu_diff = { sub = 3, cursor = 0, keys = "a" },
   menu_slot = { sub = 3, cursor = 0, keys = "a,a" },
+  menu_over = { sub = 3, cursor = 0, keys = "a,a,a" }, -- New Game on a used slot: help 8 and the YES/NO discs (run with --sav)
   menu_load = { sub = 3, cursor = 1, keys = "a" },
   menu_opts = { sub = 3, cursor = 2, keys = "a" },
   menu_bgm  = { sub = 3, cursor = 2, keys = "a,down" },
