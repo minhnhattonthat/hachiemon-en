@@ -1,6 +1,7 @@
 """Reviewer input: JP and English side by side with speakers, in script order.
 
     python -X utf8 tools/pairs.py [OUTDIR]     # default work/qa/pairs: one file per work/tl batch, +-2 context lines
+    python -X utf8 tools/pairs.py --chapters   # work/qa/story/chapters: one file per story chapter, for the story pass
 
 Speakers are the guesses in docs/re/text.md, Speakers by anim. Lines with no anim are captions or narration.
 """
@@ -32,7 +33,42 @@ def speaker(entry):
     return "caption" if entry.get("refs") else "unused"
 
 
+CHAPTERS = {  # story order, from docs/synopsis.md: first and last id of each run; every string belongs to exactly one
+    "ch1_opening": ["s000-s040", "m000-m042"],
+    "ch2_auntie": ["m690-m741"],
+    "ch3_osaka": ["m043-m088", "m337-m389", "m742-m791"],
+    "ch4_rescues_a": ["m089-m182"],
+    "ch4_rescues_b": ["m297-m336", "m390-m582"],
+    "ch4_rescues_c": ["m604-m650", "m660-m689"],
+    "ch5_gang": ["m792-m803", "m183-m261"],
+    "ch6_lipland": ["m583-m603", "m262-m296"],
+    "ch7_ending": ["m651-m659"],
+    "ch8_misc": ["m804-m872"],
+}
+
+
+def chapters(out):
+    script = load_script()
+    seen = []
+    for name, runs in CHAPTERS.items():
+        rows = []
+        for run in runs:
+            first, last = run.split("-")
+            for e in script:
+                if e["id"][0] == first[0] and first <= e["id"] <= last:
+                    rows.append(f">> {e['id']} | {speaker(e)} | {e['jp']}\n   {e['en']}")
+                    seen.append(e["id"])
+        (out / f"{name}.txt").write_text("\n".join(rows) + "\n", encoding="utf8", newline="\n")
+    missing = {e["id"] for e in script} ^ set(seen)
+    assert not missing and len(seen) == len(set(seen)), f"chapter table is off: {sorted(missing)}"
+    print(f"{out}: {len(CHAPTERS)} chapters, {len(seen)} strings")
+
+
 def main():
+    if sys.argv[1:2] == ["--chapters"]:
+        out = ROOT / "work/qa/story/chapters"
+        out.mkdir(parents=True, exist_ok=True)
+        return chapters(out)
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "work/qa/pairs"
     out.mkdir(parents=True, exist_ok=True)
     script = load_script()

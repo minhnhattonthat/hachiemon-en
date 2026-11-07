@@ -9,7 +9,7 @@ Skill: translate-retro-game; `python tools/skill.py` prints its folder. Read its
 - Smoke:    `python -X utf8 "$(python tools/skill.py)/scripts/emu.py" build/hachiemon_en.gba --out work/qa/smoke --route tools/routes/boot.txt --smoke`
 - Warp:     `python -X utf8 "$(python tools/skill.py)/scripts/emu.py" build/hachiemon_en.gba --out work/qa/warp --script tools/debug/warp.lua --var "SCENE='<name>'" --frames 900 --sheet` (phase 2 adds it; scenes: `tools/debug/scenes.*`; never ask the user to play to a scene)
 - Tour:     `python -X utf8 tools/debug/tour.py "rom/Hachiemon (Japan).gba" --out work/qa/warp --jobs 7 --shots 900,1800` (every scene from a cold boot; `--only REGEX`, `--states work/states`; `--frames 7000 --mash 20` to read bubble text), then `tools/debug/gfxcover.py OUT`, `tools/debug/textcover.py ROM OUT`
-- Release:  `python -X utf8 tools/release.py` (phase 9 adds it; patch + verify; never publish without the user)
+- Release:  `python -X utf8 tools/release.py [--version 1.0] [--force]` (every gate, patch + verify, zip in `release/`; never publish without the user)
 - Text:     `python -X utf8 tools/batches.py check|merge bNNN`, `tools/lint.py --fit "text{end:00}" ID`, `tools/pairs.py` (reviewer input), `tools/codex_review.py`
 - Clean:    `python -X utf8 tools/clean.py` (published projects: lists rebuildable/downloadable files; `--yes` deletes)
 - Recon:    `python -X utf8 tools/strscan.py rom/*.gba` (text banks), `tools/gfxsweep.py` + `tools/gfxsweep8.py` (graphics sheets), `tools/fontsheet.py` (font), `tools/gbacomp.py` (LZ77)

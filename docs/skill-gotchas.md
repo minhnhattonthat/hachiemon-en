@@ -2,6 +2,10 @@
 
 One line each: the reference it belongs in, then the fact.
 
+- `references/pipeline.md` (Release): the `release.py` spec says it runs the tour itself, but on GBA a full tour costs most sheets their verdicts for no text change. Here the script relies on `qa_gate.py check`, which fails on a build with no tour or waiver.
+- `references/translation.md` (Review): `tools/pairs.py --chapters` is named as if it came with the skill; `assets/` has no helper for it. Here it holds a chapter table and asserts every string is in exactly one chapter.
+- `references/emulator-qa.md` (Visual QA): shots every 45 frames with `--mash 45` miss many short lines. To check named lines after a text fix, map each id to its new address through its slot, take the frames from the bubble log, and shoot those frames with `emu.py --shots`.
+
 - `references/graphics.md` (Survey): a sweep of packed blocks and "raw gaps" can miss raw tiles that sit between packed blocks: 28 slot reel words at 0x303C70 were never listed. Search the ROM for tiles taken from a VRAM dump (`rom.find` on a run of 4 tiles) whenever a screen's lettering has no block.
 - `references/graphics.md` (Edit): tile-and-map banners dedupe tiles and use flips, so drawing on tiles corrupts repeats. Flatten block and map to one picture, draw, then dedupe again. Worth doing first: it removes every "keep text off that tile" rule.
 - `references/graphics.md` (Edit): "clear to the commonest colour" picks the ink on a heavy glyph (white boxes on big lettering). Pass the paper colour for big cells.

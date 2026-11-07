@@ -3,8 +3,8 @@
 Unofficial English fan translation of **Hachiemon** (Game Boy Advance, Namco, 2003): the source text and tools
 that build the patch.
 
-**Status: in progress, no patch yet.** This repository holds no game data you can play; you need your own dump of the
-Japanese game.
+**Status: translation complete.** Get the patch from [Releases](../../releases); if none is listed yet, build it yourself
+(below). This repository holds no game data you can play; you need your own dump of the Japanese game.
 
 **Found a bug?** [Report it](../../issues/new/choose): untranslated text, typos, overflow, crashes. Attaching a savestate
 helps most.
@@ -13,12 +13,17 @@ helps most.
 
 | Part | Status |
 |---|---|
-| Story and speech bubbles | Not started |
-| Tutorial signboards | Not started |
-| Menus, stage cards and other drawn text | Not started |
-| Title logo | Staying in Japanese (it already reads "hachiemon" beneath) |
+| Story and speech bubbles | English |
+| Tutorial signboards | English |
+| Menus, stage cards, banners, shop signs, opening and ending art, credits | English |
+| Title logo | Japanese (it already reads "hachiemon" beneath) |
+| Namco and Kansai TV logos | As in the original |
 
-Known issues: see [Issues](../../issues).
+Tested in MesenCE 2.2.1 from scripted runs: every scene reached by a debug warp and read from screenshots. Start from a
+cold boot; savestates from another build carry its old code and text.
+
+Known issues: nobody has played it from start to finish or run it on real hardware, and a save written by finishing a
+real stage hasn't been tried. See also [Issues](../../issues).
 
 ## What's here
 
@@ -36,11 +41,20 @@ Known issues: see [Issues](../../issues).
 
 ## Build your own patched ROM
 
-Not buildable yet. Needs Python 3.12+ and your own dump of the Japanese game, copied to `rom/Hachiemon (Japan).gba`
-(4,194,304 bytes, SHA-1 `10c16950388599846c2a61cacc315ba81a752deb`; the build refuses any other dump, see `rom.sha1`).
+Needs Python 3.12+ with Pillow and your own dump of the Japanese game, copied to `rom/Hachiemon (Japan).gba`. The build
+refuses any other dump (`rom.sha1`):
+
+| | |
+|---|---|
+| Name | Hachiemon (Japan) |
+| Size | 4,194,304 bytes |
+| CRC32 | `47C45B41` |
+| MD5 | `6c8460b00a7dcade834b0579116771db` |
+| SHA-1 | `10c16950388599846c2a61cacc315ba81a752deb` |
 
 ```sh
 git config core.hooksPath tools/hooks
+python -X utf8 tools/build.py                          # build/hachiemon_en.gba
 python -X utf8 tools/check.py                          # tests + text lint
 ```
 

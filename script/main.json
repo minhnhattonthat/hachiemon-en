@@ -187,7 +187,7 @@
   "id": "m014",
   "offset": "1D96CE",
   "jp": "ふ〜ん、さよか〜。{end:00}",
-  "en": "Uh-huh.{nl}Sure thing~.{end:00}",
+  "en": "Uh-huh.{nl}Sure thing~{end:00}",
   "refs": [
    {
     "word": "1C722C",
@@ -811,7 +811,7 @@
   "id": "m053",
   "offset": "1D9915",
   "jp": "あ〜、ハチアイル{nl}いうとこからきました〜。{end:00}",
-  "en": "Oh, a place called{nl}Hachi Isle~.{end:00}",
+  "en": "Oh, a place called{nl}Hachi Isle~{end:00}",
   "refs": [
    {
     "word": "1D396C",
@@ -1339,7 +1339,7 @@
   "id": "m086",
   "offset": "1D9B81",
   "jp": "へえ、わかりました！{end:00}",
-  "en": "Yes, sir!{end:00}",
+  "en": "You got it!{end:00}",
   "refs": [
    {
     "word": "1D43F8",
@@ -1403,7 +1403,7 @@
   "id": "m090",
   "offset": "1D9BB5",
   "jp": "ま、ええか。{nl}さきいそぐで〜。{end:00}",
-  "en": "Oh well.{nl}Gotta{nl}hurry~.{end:00}",
+  "en": "Oh well.{nl}Gotta{nl}hurry~{end:00}",
   "refs": [
    {
     "word": "1D1F70",
@@ -2043,7 +2043,7 @@
   "id": "m130",
   "offset": "1D9DF1",
   "jp": "さ〜て、きょうもいちにち、{nl}がんばりまひょ〜。{end:00}",
-  "en": "Okay, let's give{nl}today our all~.{end:00}",
+  "en": "Okay, let's give{nl}today our all~{end:00}",
   "refs": [
    {
     "word": "1D2B70",
@@ -3243,7 +3243,7 @@
   "id": "m205",
   "offset": "1DA2B3",
   "jp": "うう－－まけたぜ－－－。{end:00}",
-  "en": "Ugh--you got{nl}me, pal---{end:00}",
+  "en": "Ugh--you{nl}got me---{end:00}",
   "refs": [
    {
     "word": "1CFFDC",
@@ -3771,7 +3771,7 @@
   "id": "m238",
   "offset": "1DA4AF",
   "jp": "えらいはなし、{nl}きいてもたなあ。{end:00}",
-  "en": "What a sad{nl}story--{end:00}",
+  "en": "Man, what a{nl}story--{end:00}",
   "refs": [
    {
     "word": "1D135C",
@@ -4059,7 +4059,7 @@
   "id": "m256",
   "offset": "1DA61F",
   "jp": "－－ってなもんや。{end:00}",
-  "en": "--Or so{nl}they say.{end:00}",
+  "en": "--Or{nl}something.{end:00}",
   "refs": [
    {
     "word": "1D1788",
@@ -4155,7 +4155,7 @@
   "id": "m262",
   "offset": "1DA69F",
   "jp": "ヨクゾココマデコレタナ。{nl}ホメテヤロウ。{end:00}",
-  "en": "YOU MADE IT!{nl}I COMMEND YOU.{end:00}",
+  "en": "SO YOU MADE IT.{nl}I COMMEND YOU.{end:00}",
   "refs": [
    {
     "word": "1E991C",
@@ -4427,7 +4427,7 @@
   "id": "m279",
   "offset": "1DA7AC",
   "jp": "よっしゃ！{nl}めっさもってくでぇ〜。{end:00}",
-  "en": "All right!{nl}I'm taking a ton~.{end:00}",
+  "en": "All right!{nl}I'm taking a ton~{end:00}",
   "refs": [
    {
     "word": "1E9D78",
@@ -5043,7 +5043,7 @@
   "id": "m317",
   "offset": "1DAA24",
   "jp": "カンバンは じゅうじボタンの{nl}うえをおしたらよめるで〜。{end:01}",
-  "en": "Press up on D-Pad{nl}to read signs~.{end:01}",
+  "en": "Press up on D-Pad{nl}to read signs~{end:01}",
   "refs": [
    {
     "word": "1DD5A4",
@@ -5354,7 +5354,7 @@
   "id": "m337",
   "offset": "1DAB4E",
   "jp": "ここがオーサカか。{nl}にぎやかやな〜。{end:00}",
-  "en": "So this is Osaka.{nl}Lively place~.{end:00}",
+  "en": "So this is Osaka.{nl}Lively place~{end:00}",
   "refs": [
    {
     "word": "1DDD68",
@@ -5786,7 +5786,7 @@
   "id": "m364",
   "offset": "1DACC8",
   "jp": "こっちやね〜。{end:01}",
-  "en": "This way~.{end:01}",
+  "en": "This way~{end:01}",
   "refs": [
    {
     "word": "1DE668",
@@ -6170,7 +6170,7 @@
   "id": "m388",
   "offset": "1DADE6",
   "jp": "がんばれ〜。{end:01}",
-  "en": "Good luck~.{end:01}",
+  "en": "Good luck~{end:01}",
   "refs": [
    {
     "word": "1DEBC4",
@@ -6218,7 +6218,7 @@
   "id": "m391",
   "offset": "1DAE0C",
   "jp": "もふ〜。{end:01}",
-  "en": "Mfu~.{end:01}",
+  "en": "Mfu~{end:01}",
   "refs": [
    {
     "word": "1DECE8",
@@ -6234,7 +6234,7 @@
   "id": "m392",
   "offset": "1DAE12",
   "jp": "こまった〜。{end:01}",
-  "en": "What to do~.{end:01}",
+  "en": "What to do~{end:01}",
   "refs": [
    {
     "word": "1DED08",
@@ -7073,7 +7073,7 @@
   "id": "m445",
   "offset": "1DB112",
   "jp": "たのむでぇ〜。{end:01}",
-  "en": "Counting on ya~.{end:01}",
+  "en": "Counting on ya~{end:01}",
   "refs": [
    {
     "word": "1DFD60",
@@ -7185,7 +7185,7 @@
   "id": "m452",
   "offset": "1DB178",
   "jp": "シャ〜シャシャシャシャ〜。{end:01}",
-  "en": "Hiss-ss-ss-ss-ss~.{end:01}",
+  "en": "Hiss-ss-ss-ss-ss~{end:01}",
   "refs": [
    {
     "word": "1DFFC8",
@@ -7313,7 +7313,7 @@
   "id": "m460",
   "offset": "1DB20A",
   "jp": "シャ〜！？シャシャ〜。{end:01}",
-  "en": "Hiss?! Hiss hiss~.{end:01}",
+  "en": "Hiss?! Hiss hiss~{end:01}",
   "refs": [
    {
     "word": "1E0160",
@@ -8577,7 +8577,7 @@
   "id": "m539",
   "offset": "1DB64D",
   "jp": "がお〜。{end:01}",
-  "en": "Rawr~.{end:01}",
+  "en": "Rawr~{end:01}",
   "refs": [
    {
     "word": "1E1E1C",
@@ -8593,7 +8593,7 @@
   "id": "m540",
   "offset": "1DB653",
   "jp": "がお〜。{end:01}",
-  "en": "Rawr~.{end:01}",
+  "en": "Rawr~{end:01}",
   "refs": [
    {
     "word": "1E1E34",
@@ -8625,7 +8625,7 @@
   "id": "m542",
   "offset": "1DB66E",
   "jp": "ティラノさん、{nl}こんにちわ〜。{end:00}",
-  "en": "Tyranno-san,{nl}hello~.{end:00}",
+  "en": "Tyranno-san,{nl}hello~{end:00}",
   "refs": [
    {
     "word": "1E1E94",
@@ -8657,7 +8657,7 @@
   "id": "m544",
   "offset": "1DB687",
   "jp": "がお〜。{end:01}",
-  "en": "Rawr~.{end:01}",
+  "en": "Rawr~{end:01}",
   "refs": [
    {
     "word": "1E1F30",
@@ -8673,7 +8673,7 @@
   "id": "m545",
   "offset": "1DB68D",
   "jp": "こんにちは〜。{end:01}",
-  "en": "Hello~.{end:01}",
+  "en": "Hello~{end:01}",
   "refs": [
    {
     "word": "1E1F48",
@@ -8833,7 +8833,7 @@
   "id": "m555",
   "offset": "1DB762",
   "jp": "が〜お〜。{end:01}",
-  "en": "Ra~wr~.{end:01}",
+  "en": "Ra~wr~{end:01}",
   "refs": [
    {
     "word": "1E2110",
@@ -8849,7 +8849,7 @@
   "id": "m556",
   "offset": "1DB769",
   "jp": "お〜きに〜。{end:01}",
-  "en": "Tha~nks~.{end:01}",
+  "en": "Tha~nks~{end:01}",
   "refs": [
    {
     "word": "1E2128",
@@ -8897,7 +8897,7 @@
   "id": "m559",
   "offset": "1DB795",
   "jp": "がおがおがお。が〜お〜。{end:01}",
-  "en": "Rawr rawr. Ra~wr~.{end:01}",
+  "en": "Rawr rawr. Ra~wr~{end:01}",
   "refs": [
    {
     "word": "1E220C",
@@ -8913,7 +8913,7 @@
   "id": "m560",
   "offset": "1DB7A3",
   "jp": "きょ〜りょくしてくれるん{nl}でっか〜お〜きに〜。{end:01}",
-  "en": "You'll help me{nl}out? Tha~nks~.{end:01}",
+  "en": "You'll help me{nl}out? Tha~nks~{end:01}",
   "refs": [
    {
     "word": "1E2224",
@@ -9441,7 +9441,7 @@
   "id": "m592",
   "offset": "1DBA0F",
   "jp": "わ－－わしはどーしても{nl}くちびるをあつめな{nl}ならんのですぅ〜。{end:00}",
-  "en": "I-I just really{nl}gotta collect{nl}some lips~.{end:00}",
+  "en": "I-I just really{nl}gotta collect{nl}some lips~{end:00}",
   "refs": [
    {
     "word": "1E2EB4",
@@ -9457,7 +9457,7 @@
   "id": "m593",
   "offset": "1DBA30",
   "jp": "おすそわけしてくださ〜い。{end:00}",
-  "en": "Spare a few,{nl}please~.{end:00}",
+  "en": "Spare a few,{nl}please~{end:00}",
   "refs": [
    {
     "word": "1E2EDC",
@@ -11803,7 +11803,7 @@
   "id": "m743",
   "offset": "1DC4FC",
   "jp": "ま、ええか。{page}さ〜て、{nl}はやいとこかえるで〜。{end:00}",
-  "en": "Oh well.{page}Now, let's{nl}head home~.{end:00}",
+  "en": "Oh well.{page}Now, let's{nl}head home~{end:00}",
   "refs": [
    {
     "word": "1E5C08",
@@ -11963,7 +11963,7 @@
   "id": "m753",
   "offset": "1DC5B0",
   "jp": "はいはい！{nl}も〜つきまっせぇ〜。{end:00}",
-  "en": "Yes, yes!{nl}Almost there~.{end:00}",
+  "en": "Yes, yes!{nl}Almost there~{end:00}",
   "refs": [
    {
     "word": "1E5FD0",
@@ -12123,7 +12123,7 @@
   "id": "m763",
   "offset": "1DC64D",
   "jp": "さーて、タコヤキやも{nl}うまくいったし、{nl}またバリバリたすけるで〜。{end:00}",
-  "en": "The takoyaki stand{nl}went well, so back{nl}to saving folks~.{end:00}",
+  "en": "The takoyaki stand{nl}went well, so back{nl}to saving folks~{end:00}",
   "refs": [
    {
     "word": "1E69D4",
@@ -13184,7 +13184,7 @@
   "id": "m831",
   "offset": "1DCB02",
   "jp": "おたっしゃで〜。{end:00}",
-  "en": "Take care~.{end:00}",
+  "en": "Take care~{end:00}",
   "refs": [
    {
     "word": "1E8648",
@@ -13328,7 +13328,7 @@
   "id": "m840",
   "offset": "1DCB86",
   "jp": "よっしゃ。{nl}ほな、さきにすすむでぇ〜。{end:00}",
-  "en": "All right.{nl}On I go~.{end:00}",
+  "en": "All right.{nl}On I go~{end:00}",
   "refs": [
    {
     "word": "1E8B1C",
